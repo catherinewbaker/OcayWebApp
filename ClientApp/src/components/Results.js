@@ -1,0 +1,173 @@
+import React, { Component } from 'react';
+
+const Results = () => {
+    return (
+        <>
+            <table className="table table-striped" aria-labelledby="tableLabel">
+                <thead>
+                    <tr>
+                        <th>All Time</th>
+                        <th>Past Year</th>
+                        <th>Past Month</th>
+                        <th>Past Week</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>85</td>
+                        <td>86</td>
+                        <td>90</td>
+                        <td>75</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <p>Your scores over the last seven days</p>
+            <table className="table table-striped" aria-labelledby="tableLabel1" >
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Q1</th>
+                        <th>Q2</th>
+                        <th>Q3</th>
+                        <th>Q4</th>
+                        <th>Q5</th>
+                        <th>Q6</th>
+                        <th>Q7</th>
+                        <th>Q8</th>
+                        <th>Q9</th>
+                        <th>Q10</th>
+                        <th>Q11</th>
+                        <th>Q12</th>
+                        <th>Q13</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>06-09-2023</td>
+                        <td>9</td>
+                        <td>6</td>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>8</td>
+                        <td>7</td>
+                        <td>9</td>
+                        <td>9</td>
+                        <td>5</td>
+                        <td>8</td>
+                        <td>86</td>
+                    </tr>
+                    <tr>
+                        <td>06-08-2023</td>
+                        <td>9</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>82</td>
+                    </tr>
+                    <tr>
+                        <td>06-07-2023</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>8</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>8</td>
+                        <td>5</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>8</td>
+                        <td>7</td>
+                        <td>9</td>
+                        <td>72</td>
+                    </tr>
+                    <tr>
+                        <td>06-06-2023</td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>66</td>
+                    </tr>
+                    <tr>
+                        <td>06-05-2023</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>7</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>58</td>
+                    </tr>
+                    <tr>
+                        <td>06-04-2023</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>5</td>
+                        <td>7</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>51</td>
+                    </tr>
+                    <tr>
+                        <td>06-03-2023</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>35</td>
+                    </tr>
+                </tbody>
+            </table>
+        </>
+    )
+}
+
+export { Results };

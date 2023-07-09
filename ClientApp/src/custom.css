@@ -1,0 +1,258 @@
+﻿/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.arrow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(191, 191, 191, 0.5);
+}
+
+.btn.btn-primary[disabled] {
+    color: #F5F4F0;
+    background-color: #b4d9c9;
+    border-color: #79dbb1;
+}
+
+.btn-primary {
+    color: #000000;
+    background-color: #79D4AC;
+    border-color: #79D4AC;
+}
+
+.btn-disabled {
+    color: #000000;
+    background-color: #b4d9c9;
+    border-color: #79dbb1;
+}
+
+.bg-primary {
+    background-color: #502f75;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    background-color: rgba(121, 212, 172, 0.8);
+    border-color: #4c856c;
+}
+
+.btn-answer:hover {
+    background-color: rgba(0,0,0,0);
+    border: 3px solid gray;
+    color: black;
+}
+
+.btn-idonot:hover {
+    background-color: rgba(0,0,0,0);
+    border: 3px solid gray;
+    color: black;
+}
+
+code {
+    color: #E01A76;
+}
+
+div.scroller {
+    background-color: #e0dfda;
+    padding: 1rem;
+    overflow-y: auto;
+    width: 70%;
+    height: 70%;
+    margin: 0 auto;
+}
+
+div.scrollHold {
+    background-color: #F5F4F0;
+    height: 80%;
+}
+
+.progress-bar {
+    background-color: #79D4AC;
+}
+
+.survey-start-image {
+    margin-top: 180px;
+    height: 50vh;
+}
+
+
+
+span.indent {
+    padding: 1rem;
+}
+
+span.indent2 {
+    padding: 3rem;
+}
+
+@media (max-width: 250px) {
+    .card-title {
+        font-size: 14px;
+    }
+
+    .question {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 251px) and (max-width: 360px) {
+    .card-title {
+        font-size: 12px;
+    }
+
+    .question {
+        font-size: 14px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 130px;
+        width: 80px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 30px;
+        width: 400px;
+    }
+}
+
+@media (min-width: 361px) and (max-width: 789px) {
+    .card-title {
+        font-size: 12px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 210px;
+        width: 120px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 30px;
+        width: 560px;
+    }
+}
+
+@media (min-width: 790px) and (max-width: 990px) {
+    .card-title {
+        font-size: 13px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 220px;
+        width: 160px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 700px;
+    }
+}
+
+@media (min-width: 991px) and (max-width: 1199px) {
+    .card-title {
+        font-size: 16px;
+    }
+
+    .question {
+        font-size: 24px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 260px;
+        width: 200px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 950px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1449px) {
+    .card-title {
+        font-size: 20px;
+    }
+
+    .question {
+        font-size: 32px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 310px;
+        width: 240px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 1030px;
+    }
+}
+
+@media (min-width: 1450px) {
+    .card-title {
+        font-size: 24px;
+    }
+
+    .question {
+        font-size: 38px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 340px;
+        width: 260px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 80px;
+        width: 1110px;
+    }
+}
