@@ -251,8 +251,8 @@ const Question = () => {
 
             {questionIndex < 11 && (
                 <Container className=' d-flex justify-content-center'>
-                    <Button className='btn-idonot d-flex justify-content-center align-items-center' style={{ backgroundColor: 'rgba(155,155,155,1)' }}>
-                        <Card style={{ backgroundColor: 'rgba(155,155,155,1)', border: 'none' }}>
+                    <Button className='btn-idonot d-flex justify-content-center align-items-center' style={{ backgroundColor: 'rgba(218, 223, 225,1)' }}>
+                        <Card style={{ backgroundColor: 'rgba(218, 223, 225,1)', border: 'none' }}>
                             <Card.Title style={{ margin: 'auto' }}>I do not wish to answer.</Card.Title>
                         </Card>
                     </Button>

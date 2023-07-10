@@ -130,6 +130,95 @@ namespace OcayProject.Controllers
             return Ok(user);
         }
 
+        [HttpPost("postSurvey")]
+        public async Task<IActionResult> PostSurvey(SurveyDto request)
+        {
+            try
+            {
+                // score algorithm here
+                decimal score = 0;
+                string q1 = "";
+                string q2 = "";
+                
+                foreach (string answer in request.Q1)
+                {
+                    score += 7m;
+                    if (answer == "Happy")
+                    {
+                        score += 3m;
+                        q1 += "Happy ";
+
+                    }
+                    else if (answer == "Sad")
+                    {
+                        score -= 2.33m;
+                        q1 += "Sad ";
+                    }
+                    else if (answer == "Fear")
+                    {
+                        score -= 2.34m;
+                        q1 += "Fear ";
+                    }
+                    else if (answer == "Anger")
+                    {
+                        score -= 2.33m;
+                        q1 += "Anger ";
+                    }
+                    else if (answer == "I do not wish to answer.")
+                    {
+                        score -= 7m;
+                        q1 += "I do not wish to answer.";
+                    }
+                }
+
+                foreach (string answer in request.Q2)
+                {
+                    score += 10m;
+                    if (answer == "Nauseous")
+                    {
+                        score -= 2.25m;
+                        q2 += "Nauseous ";
+
+                    }
+                    else if (answer == "Fatigue")
+                    {
+                        score -= 2.25m;
+                        q2 += "Fatigue ";
+                    }
+                    else if (answer == "Shortness of breath")
+                    {
+                        score -= 2.25m;
+                        q2 += "Shortness of breath ";
+                    }
+                    else if (answer == "Fever")
+                    {
+                        score -= 2.25m;
+                        q2 += "Fever ";
+                    }
+                    else if (answer == "I do not wish to answer.")
+                    {
+                        score -= 10m;
+                        q2 += "I do not wish to answer.";
+                    }
+                }
+
+                await _userContext.Database.ExecuteSqlRawAsync(
+                    $"INSERT INTO [User_{request.UserNumber}] (Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score) " +
+                    "VALUES (GETDATE(), {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13});",
+                    q1, q2, request.Q3, request.Q4, request.Q5, request.Q6,
+                    request.Q7, request.Q8, request.Q9, request.Q10, request.Q11, request.Q12,
+                    request.Q13, score
+                );
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occured while submitting the survey.");
+            }
+        }
+
+
         //private string CreateToken(User user)
         //{
         //    List<Claim> claims = new List<Claim>
