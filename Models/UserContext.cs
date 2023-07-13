@@ -12,5 +12,12 @@ namespace OcayProject.Models
         }
 
         public DbSet<User> User { get; set; }
+
+        public DbSet<Survey> Survey { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Survey>().HasNoKey();
+        }
     }
 }

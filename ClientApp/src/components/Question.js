@@ -14,10 +14,36 @@ const Question = () => {
     const [answer, setAnswer] = useState('');
     const [questionIndex, setQuestionIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const [q1, setQ1] = useState([]);    
 
-    const onPressAnswer = ({ input }) => {
-        setAnswer({ input })
+    const onPressAnswer = (input) => {
+        let updatedArray;
+        let setUpdatedArray;
+
+        switch (questionIndex) {
+            case 0:
+                updatedArray = q1;
+                setUpdatedArray = setQ1;
+                break;
+            default:
+                return;
+        }
+
+        const stringIndex = updatedArray.indexOf(input);
+
+        if (stringIndex === -1) {
+            // Input doesn't exist in the array, so add it
+            setUpdatedArray((prevArray) => [...prevArray, input]);
+        } else {
+            // Input exists in the array, so remove it
+            setUpdatedArray((prevArray) => {
+                const updatedArray = [...prevArray];
+                updatedArray.splice(stringIndex, 1);
+                return updatedArray;
+            });
+        }
     }
+
 
     const now = Math.round((questionIndex + 1) / 13 * 100);
 
@@ -197,6 +223,7 @@ const Question = () => {
     const forwardButton = () => {
         if (questionIndex <= 11) {
             setQuestionIndex(questionIndex + 1)
+            console.log(eval(`q${questionIndex + 1}`));
         }
     }
 
@@ -235,7 +262,7 @@ const Question = () => {
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button className="btn-answer" style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
+                                <Button onClick={() => onPressAnswer(card.description)} className="btn-answer" style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
                                     <Card style={{ backgroundColor: card.color, border: 'none', width: '100%' }}>
                                         <Card.Img variant="top" src={card.imageSrc} />
                                         <Card.Body className="text-center">
