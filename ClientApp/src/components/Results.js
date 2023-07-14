@@ -1,173 +1,135 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../custom.css';
+import { Container } from 'react-bootstrap';
+import LineChart from "./LineChart";
 
 const Results = () => {
+    const [answers, setAnswers] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        // componentDidMount logic
+        // Fetch data and update state accordingly
+    }, []);
+
+    const renderTable = () => { // pass answers to this table
+        return (
+            <Container className="d-flex flex-column align-items-center">
+                <ol className="list-group list-group-numbered " style={{ height: '90%', width: '600px' }} >
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I feel ____ about the appointment today</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">fear</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I sometimes feel ____</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">nauseous</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">My treatments make me feel ____</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">anxious</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I eat ____ everday</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">3 times a day</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">At night, I wake up ___</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">Many times</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">In school, I feel ____ about what is being taught</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">Bored</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I feel safe during my daily activities</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">Maybe</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I have friends or classmates in school who I can spend time with</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">yes</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">I feel ____ throughout the day</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">joy</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">Taking home medicines make me feel ____</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">sad</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">During the week, I am active ____</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">2-3 days</span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                            <div className="fw-bold">On levels 1-10, I normally feel ____ levels of pain</div>
+                        </div>
+                        <span className="badge badge-primary rounded-pill">3</span>
+                    </li>
+                </ol>
+            </Container>
+        );
+    };
+
+    const labels = ["January", "February", "March", "April", "May", "June"];
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "My First dataset",
+                backgroundColor: "rgb(255, 99, 132)",
+                borderColor: "rgb(255, 99, 132)",
+                data: [0, 10, 5, 2, 20, 30, 45],
+            },
+        ],
+    };
+
+    let contents = loading ? (
+        <p>
+            <em>Loading...</em>
+        </p>
+    ) : (
+        renderTable()
+    );
+
     return (
-        <>
-            <table className="table table-striped" aria-labelledby="tableLabel">
-                <thead>
-                    <tr>
-                        <th>All Time</th>
-                        <th>Past Year</th>
-                        <th>Past Month</th>
-                        <th>Past Week</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr >
-                        <td>85</td>
-                        <td>86</td>
-                        <td>90</td>
-                        <td>75</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+            <h1 id="tableLabel" className="d-flex flex-column align-items-center">
+                Your Most Recent Survey
+            </h1>
+            <br />
+            {contents}
             <br />
             <br />
-            <p>Your scores over the last seven days</p>
-            <table className="table table-striped" aria-labelledby="tableLabel1" >
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Q1</th>
-                        <th>Q2</th>
-                        <th>Q3</th>
-                        <th>Q4</th>
-                        <th>Q5</th>
-                        <th>Q6</th>
-                        <th>Q7</th>
-                        <th>Q8</th>
-                        <th>Q9</th>
-                        <th>Q10</th>
-                        <th>Q11</th>
-                        <th>Q12</th>
-                        <th>Q13</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>06-09-2023</td>
-                        <td>9</td>
-                        <td>6</td>
-                        <td>5</td>
-                        <td>7</td>
-                        <td>8</td>
-                        <td>6</td>
-                        <td>8</td>
-                        <td>8</td>
-                        <td>7</td>
-                        <td>9</td>
-                        <td>9</td>
-                        <td>5</td>
-                        <td>8</td>
-                        <td>86</td>
-                    </tr>
-                    <tr>
-                        <td>06-08-2023</td>
-                        <td>9</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>7</td>
-                        <td>7</td>
-                        <td>6</td>
-                        <td>8</td>
-                        <td>4</td>
-                        <td>2</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>6</td>
-                        <td>82</td>
-                    </tr>
-                    <tr>
-                        <td>06-07-2023</td>
-                        <td>7</td>
-                        <td>6</td>
-                        <td>8</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>8</td>
-                        <td>5</td>
-                        <td>9</td>
-                        <td>2</td>
-                        <td>8</td>
-                        <td>7</td>
-                        <td>9</td>
-                        <td>72</td>
-                    </tr>
-                    <tr>
-                        <td>06-06-2023</td>
-                        <td>2</td>
-                        <td>6</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>6</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>6</td>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>66</td>
-                    </tr>
-                    <tr>
-                        <td>06-05-2023</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>7</td>
-                        <td>6</td>
-                        <td>3</td>
-                        <td>7</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>2</td>
-                        <td>58</td>
-                    </tr>
-                    <tr>
-                        <td>06-04-2023</td>
-                        <td>5</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>5</td>
-                        <td>7</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>51</td>
-                    </tr>
-                    <tr>
-                        <td>06-03-2023</td>
-                        <td>5</td>
-                        <td>4</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>2</td>
-                        <td>1</td>
-                        <td>5</td>
-                        <td>4</td>
-                        <td>1</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>35</td>
-                    </tr>
-                </tbody>
-            </table>
-        </>
-    )
+            <LineChart data={data} />
+            <br />
+            <br />
+        </div>
+    );
 }
 
-export { Results };
+export { Results }

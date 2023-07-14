@@ -9,7 +9,6 @@ const Survey = () => {
 
     const warning = " ";
     const onPressStart = () => {
-        // add logic to verify isChecked variable's state as true
         if (hasRead) {
             navigate('/survey/questions')
         }

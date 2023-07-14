@@ -33,6 +33,12 @@ a {
     border-color: #79dbb1;
 }
 
+.badge-primary {
+    color: #F5F4F0;
+    background-color: #502f75;
+    border-color: #442863;
+}
+
 .bg-primary {
     background-color: #502f75;
 }
