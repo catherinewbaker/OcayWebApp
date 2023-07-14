@@ -1,0 +1,99 @@
+﻿import React, { useState, useEffect } from 'react';
+import { Container, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../custom.css';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { MdOutlineStopCircle } from "react-icons/md";
+import { BsRecord2 } from "react-icons/bs";
+import { BiReset } from "react-icons/bi";
+
+const SpeechToText = () => {
+    const [q13, setQ13] = useState('');
+    const [isListening, setIsListening] = useState(false);
+
+    const {
+        transcript,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
+
+    useEffect(() => {
+        if (!isListening && transcript) {
+            setQ13(transcript);
+        }
+    }, [isListening, transcript]);
+
+    const startListening = () => {
+        setIsListening(true);
+        SpeechRecognition.startListening();
+    };
+
+    const stopListening = () => {
+        setIsListening(false);
+        SpeechRecognition.stopListening();
+    };
+
+    const onResetTranscript = () => {
+        setIsListening(false);
+        resetTranscript();
+        setQ13('')
+    }
+
+    const onChangeQ13 = (e) => {
+        setQ13(e.target.value);
+    };
+
+    if (!browserSupportsSpeechRecognition) {
+        return <span>Browser doesn't support speech recognition.</span>;
+    }
+
+    return (
+        <Container className='d-flex justify-content-center align-items-center' style={{ paddingBottom: '330px' }}>
+            <BsRecord2
+                style={{
+                    cursor: 'pointer',
+                    fontSize: "2.6em",
+                    color: 'grey',
+                }}
+                onClick={startListening}
+            />
+            <MdOutlineStopCircle
+                style={{
+                    cursor: 'pointer',
+                    fontSize: "2em",
+                    color: 'grey',
+                }}
+                onClick={stopListening}
+            />
+            <BiReset
+                style={{
+                    cursor: 'pointer',
+                    fontSize: "2em",
+                    color: 'gray',
+                }}
+                onClick={onResetTranscript}
+            />
+            {isListening ? (
+                <Form.Control
+                    className="w-50"
+                    type="text"
+                    placeholder="Listening...press stop button when finished recording"
+                    value={transcript}
+                    disabled
+                />
+            ) : (
+                <Form.Control
+                    className="w-50"
+                    type="text"
+                    placeholder="Enter text or press the record button"
+                    value={q13}
+                    onChange={onChangeQ13}
+                    disabled={isListening}
+                />
+            )}
+        </Container>
+    );
+};
+
+export { SpeechToText };
+
