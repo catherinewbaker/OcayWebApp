@@ -16,7 +16,7 @@ const Results = () => {
     const renderTable = () => { // pass answers to this table
         return (
             <Container className="d-flex flex-column align-items-center">
-                <ol className="list-group list-group-numbered " style={{ height: '90%', width: '600px' }} >
+                <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
                             <div className="fw-bold">I feel ____ about the appointment today</div>
@@ -100,10 +100,11 @@ const Results = () => {
         labels: labels,
         datasets: [
             {
-                label: "My First dataset",
-                backgroundColor: "rgb(255, 99, 132)",
-                borderColor: "rgb(255, 99, 132)",
-                data: [0, 10, 5, 2, 20, 30, 45],
+                label: "Score Average Per Month",
+                data: [70, 100, 85, 92, 20, 30, 45],
+                backgroundColor: "#79D4AC",
+                borderColor: "#79D4AC",
+                pointBorderColor: '#79D4AC',
             },
         ],
     };

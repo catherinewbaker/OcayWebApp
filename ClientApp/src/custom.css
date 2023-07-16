@@ -35,12 +35,12 @@ a {
 
 .badge-primary {
     color: #F5F4F0;
-    background-color: #502f75;
-    border-color: #442863;
+    background-color: #79D4AC;
+    border-color: #79D4AC;
 }
 
 .bg-primary {
-    background-color: #502f75;
+    background-color: #79D4AC;
 }
 
 .btn-primary:hover, .btn-primary:active {
