@@ -1,22 +1,20 @@
 ﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Button, Container, Form, Row, Modal } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 
 const Survey = () => {
     const navigate = useNavigate();
 
-    const warning = " ";
+    var warning = " ";
     const onPressStart = () => {
         if (hasRead) {
             navigate('/survey/questions')
         }
     }
 
-
     const [hasRead, setHasRead] = useState(false); // whether user has read the terms and conditions yet
-    const [classState, setClassState] = useState("btn btn-disabled"); // whether user has read the terms and conditions yet
     const toggleRead = () => { // switches bool values when checkbox pressed
         if (hasRead) {
             setHasRead(!hasRead);

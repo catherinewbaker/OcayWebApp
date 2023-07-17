@@ -3,15 +3,36 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import { Container } from 'react-bootstrap';
 import LineChart from "./LineChart";
+import axios from 'axios';
 
 const Results = () => {
     const [answers, setAnswers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [chart, setChart] = useState([]);
+
 
     useEffect(() => {
-        // componentDidMount logic
-        // Fetch data and update state accordingly
+        getData();
     }, []);
+
+    const scoreArray = (arr) => arr.map(x => x.averageScore);
+    const monthArray = (arr) => arr.map(x => x.month); // how to translate this to actual months - manually in LineChart.js?
+
+    const getData = () => {
+        const bodyParameters = {
+            UserNumber: "36587325", // change to pull actual UserNumber
+        };
+        axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
+            .then((res) => {
+                console.log(res);
+                setChart(res.data.averageMonthlyScores);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        console.log(monthArray(chart))
+    }, [chart]);
 
     const renderTable = () => { // pass answers to this table
         return (
@@ -94,19 +115,28 @@ const Results = () => {
         );
     };
 
-    const labels = ["January", "February", "March", "April", "May", "June"];
 
-    const data = {
+    var scoreData = []
+    var i = 0;
+    for (i = 0; i < chart.length; i++) {
+         scoreData[i] = chart[i].averageScore;
+    }
+
+    const labels = monthArray(chart);
+
+
+    const chartData = {
         labels: labels,
         datasets: [
             {
                 label: "Score Average Per Month",
-                data: [70, 100, 85, 92, 20, 30, 45],
+                data: scoreArray(chart),
                 backgroundColor: "#79D4AC",
                 borderColor: "#79D4AC",
                 pointBorderColor: '#79D4AC',
             },
         ],
+        
     };
 
     let contents = loading ? (
@@ -126,11 +156,14 @@ const Results = () => {
             {contents}
             <br />
             <br />
-            <LineChart data={data} />
+            <br />
+            <br />
+
+            <LineChart data={chartData} />
             <br />
             <br />
         </div>
     );
-}
+};
 
-export { Results }
+export { Results };

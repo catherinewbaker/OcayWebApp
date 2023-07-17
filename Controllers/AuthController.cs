@@ -372,7 +372,7 @@ namespace OcayProject.Controllers
             }
         }
 
-        [HttpGet("getAllResults")]
+        [HttpPost("getAllResults")]
         public async Task<IActionResult> GetAllResults(ResultDto request)
         {
             try
