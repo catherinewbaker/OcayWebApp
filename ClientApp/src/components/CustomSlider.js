@@ -9,9 +9,7 @@ import Level1 from "../image/happy.png"
 import Level5 from "../image/fear.png"
 import Level10 from "../image/anger.png"
 
-const CustomSlider = () => {
-
-    const [q12, setQ12] = useState(5);
+const CustomSlider = ({ q12, onQ12Change }) => {
 
     const marks = [
         {
@@ -56,8 +54,9 @@ const CustomSlider = () => {
         },
     ];
 
-    const handleSliderChange = (event, newValue) => {
-        setQ12(newValue);
+    const handleSliderChange = (event) => {
+        const value = event.target.value;
+        onQ12Change(value);
     };
 
     // Custom styles for the Slider

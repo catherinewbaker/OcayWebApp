@@ -8,42 +8,140 @@ import AWS from './authorization/aws';
 import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight } from "react-icons/md";
 import { SpeechToText } from './SpeechToText'
 import { CustomSlider } from './CustomSlider'
+import axios from 'axios'
 
 const Question = () => {
     const navigate = useNavigate();
     const [answer, setAnswer] = useState('');
     const [questionIndex, setQuestionIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [q1, setQ1] = useState([]);    
+    const [showQuestionModal, setShowQuestionModal] = useState(false);
+    const [showCompleteModal, setShowCompleteModal] = useState(false);
+    const [buttonActive, setButtonActive] = useState(false);
+    const [q1, setQ1] = useState([]);
+    const [q2, setQ2] = useState([]);
+    const [q3, setQ3] = useState([]);
+    const [q4, setQ4] = useState([]);
+    const [q5, setQ5] = useState([]);
+    const [q6, setQ6] = useState([]);
+    const [q7, setQ7] = useState([]);
+    const [q8, setQ8] = useState([]);
+    const [q9, setQ9] = useState([]);
+    const [q10, setQ10] = useState([]);
+    const [q11, setQ11] = useState([]);
+    const [q12, setQ12] = useState(5);
+    const [q13, setQ13] = useState("");   
 
-    const onPressAnswer = (input) => {
-        let updatedArray;
-        let setUpdatedArray;
+    const onPressAnswer = (questionIndex, description) => {
+        // Get the corresponding state setter function based on the question index
+        const setAnswer = getSetAnswerFunction(questionIndex);
 
+        if (description === "I do not wish to answer.") {
+            // If "I do not wish to answer" is selected, set the array with only that description
+            const isSelected = getSelectedAnswers(questionIndex).includes(description);
+            if (isSelected) {
+                setAnswer([])
+            } else {
+                setAnswer(["I do not wish to answer."]);
+            }
+        } else if (questionIndex == 3 || questionIndex == 4 || questionIndex == 6 || questionIndex == 7 || questionIndex == 10) {
+            const isSelected = getSelectedAnswers(questionIndex).includes(description);
+            if (isSelected) {
+                setAnswer([])
+            } else {
+                setAnswer([description]);
+            }
+        } else {
+            // Check if the selected answer choice is already in the array
+            const isSelected = getSelectedAnswers(questionIndex).includes(description);
+
+            if (isSelected) {
+                // If it is selected, remove it from the array
+                const updatedAnswers = getSelectedAnswers(questionIndex).filter((answer) => answer !== description);
+                setAnswer(updatedAnswers);
+            } else {
+                // If it is not selected, add it to the array
+                const updatedAnswers = [...getSelectedAnswers(questionIndex), description].filter(answer => answer !== "I do not wish to answer.");
+                setAnswer(updatedAnswers);
+            }
+        }
+    };
+
+    const getSetAnswerFunction = (questionIndex) => {
+        // Return the corresponding state setter function based on the question index
         switch (questionIndex) {
             case 0:
-                updatedArray = q1;
-                setUpdatedArray = setQ1;
-                break;
+                return setQ1;
+            case 1:
+                return setQ2;
+            case 2:
+                return setQ3;
+            case 3:
+                return setQ4;
+            case 4:
+                return setQ5;
+            case 5:
+                return setQ6;
+            case 6:
+                return setQ7;
+            case 7:
+                return setQ8;
+            case 8:
+                return setQ9;
+            case 9:
+                return setQ10;
+            case 10:
+                return setQ11
+            case 11:
+                return setQ12;
+            case 12:
+                return setQ13;
             default:
-                return;
+                return null;
         }
+    };
 
-        const stringIndex = updatedArray.indexOf(input);
-
-        if (stringIndex === -1) {
-            // Input doesn't exist in the array, so add it
-            setUpdatedArray((prevArray) => [...prevArray, input]);
-        } else {
-            // Input exists in the array, so remove it
-            setUpdatedArray((prevArray) => {
-                const updatedArray = [...prevArray];
-                updatedArray.splice(stringIndex, 1);
-                return updatedArray;
-            });
+    const getSelectedAnswers = (questionIndex) => {
+        // Return the corresponding selected answers array based on the question index
+        switch (questionIndex) {
+            case 0:
+                return q1;
+            case 1:
+                return q2;
+            case 2:
+                return q3;
+            case 3:
+                return q4;
+            case 4:
+                return q5;
+            case 5:
+                return q6;
+            case 6:
+                return q7;
+            case 7:
+                return q8;
+            case 8:
+                return q9;
+            case 9:
+                return q10;
+            case 10:
+                return q11
+            case 11:
+                return q12;
+            case 12:
+                return q13;
+            default:
+                return [];
         }
-    }
+    };
 
+    const handleQ12Change = (value) => {
+        setQ12(value);
+    };
+
+    const handleQ13Change = (value) => {
+        setQ13(value);
+    };
 
     const now = Math.round((questionIndex + 1) / 13 * 100);
 
@@ -172,27 +270,21 @@ const Question = () => {
 
     const polly = new AWS.Polly(); // creating polly from AWS
 
-    // specific parameters to call function synthesizeSpeech
-    const params = {
-        Text:
-            //'<speak>I feel <prosody rate="slow" duration="2s"/>about the appointment today.</speak>', // Controlling speech speed
-            '<speak>I feel <break time="1s"/>about the appointment today. <break time="0.5s"/> Happy <break time="0.5s"/> Sad <break time="0.5s"/> Fear <break time="0.5s"/> Anger <break time="0.5s"/> I do not wish to answer. </speak>',
-        OutputFormat: 'mp3',
-        VoiceId: 'Ruth',
-        TextType: 'ssml',
-    };
+    const synthesize = (input) => {
+        const params = {
+            Text: input,
+            OutputFormat: 'mp3',
+            VoiceId: 'Joanna',
+            TextType: 'ssml',
+        };
 
-    // function that converts text to speech
-    const synthesize = () => {
         polly.synthesizeSpeech(params, (err, data) => {
             if (err) {
                 console.error(err);
             } else {
-                // creating an audio Blob from the audio data received from AWS Polly, converting to URL
                 const audioBlob = new Blob([data.AudioStream], { type: 'audio/mpeg' });
                 const audioUrl = URL.createObjectURL(audioBlob);
 
-                // creating an HTML audio element and setting the audio source
                 audioElement.src = audioUrl;
                 audioElement.play();
                 setIsPlaying(true);
@@ -206,39 +298,130 @@ const Question = () => {
             audioElement.pause();
             setIsPlaying(false);
         } else {
-            console.log('hello')
-            synthesize();
+            console.log(createAWSinput(questionIndex, cardsData[questionIndex].question, cardsData[questionIndex].answers))
+
+
+            synthesize(createAWSinput(questionIndex, cardsData[questionIndex].question, cardsData[questionIndex].answers));
         }
+    };
+
+    const createAWSinput = (index, question, answers) => {
+        let result = "<speak> ";
+
+        if (index <= 10) {
+            if (question.includes("____")) {
+                let helper = question.replace("____", "<break time=\"1s\"/>");
+                result += helper
+            } else {
+                result += question
+            }
+
+            // Adding answers to the result
+            for (const answer of answers) {
+                const { imageSrc, description } = answer;
+                result += `<break time=\"0.5s\"/> ${description} `;
+            }
+
+            result += "<break time=\"0.5s\"/> I do not wish to answer. </speak>";
+        }
+
+        if (index == 11) {
+            let helper = question.replace("__", "<break time=\"1s\"/>");
+            result += helper
+            result += " Click on the scale to change your level. </speak>"
+
+        }
+
+        if (index == 12) {
+            result += question
+            result += " <break time=\"0.5s\"/> Press the record button to talk about something or type in your thoughts. </speak>"
+
+        }
+
+        
+
+        return result;
     };
 
     const backButton = () => {
         if (questionIndex > 0) {
             setQuestionIndex(questionIndex - 1)
+            // put logic to call synthesize button
         }
-        if (questionIndex == 0) {
+        if (questionIndex == 0) { 
             setShowModal(true)
         }
     }
 
     const forwardButton = () => {
-        if (questionIndex <= 11) {
-            setQuestionIndex(questionIndex + 1)
-            console.log(eval(`q${questionIndex + 1}`));
+        // put logic to call synthesize function
+
+        if (questionIndex !== 12 && getSelectedAnswers(questionIndex).length === 0) {
+            setShowQuestionModal(true)
+        } else {
+
+            if (questionIndex <= 10) {
+                setQuestionIndex(questionIndex + 1)
+                console.log(eval(`q${questionIndex + 1}`));
+            }
+            if (questionIndex == 11) {
+                setQuestionIndex(questionIndex + 1)
+                console.log(q12)
+            }
+            if (questionIndex == 12) {
+                // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
+                setShowCompleteModal(true)
+            }
         }
+
     }
 
     const closeModal = () => {
         setShowModal(false);
     };
 
+    const closeQuestionModal = () => {
+        setShowQuestionModal(false)
+        setShowCompleteModal(false)
+    }
+
     const onPressExit = () => {
         navigate('/survey')
     }
 
+    const onPressComplete = async () => {
+        const data = {
+            UserNumber: 36587325,
+            q1,
+            q2,
+            q3,
+            q4,
+            q5,
+            q6,
+            q7,
+            q8,
+            q9,
+            q10,
+            q11,
+            q12,
+            q13
+        };
+
+        try {
+            const response = await axios.post('https://localhost:44408/api/Auth/postSurvey', data);
+            console.log(response);
+            navigate('/results')
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <Container className='' style={{ margin: 'auto' }}>
-
-            <ProgressBar now={now} label={`${now}%`} style={{ width: '100%', height: '3vh', margin: 'auto' }} />
+            <Container className="d-flex justify-content-center" style={{ }}>
+                <ProgressBar now={now} label={`${now}%`} style={{ width: '90%', height: '3vh', margin: 'auto' }} />
+                <h2 className="ml-2">{questionIndex + 1} / 13</h2>
+            </Container>
 
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
                 <h1 className="mb-5 question">{cardsData[questionIndex].question}</h1>
@@ -262,7 +445,7 @@ const Question = () => {
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(card.description)} className="btn-answer" style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
+                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
                                     <Card style={{ backgroundColor: card.color, border: 'none', width: '100%' }}>
                                         <Card.Img variant="top" src={card.imageSrc} />
                                         <Card.Body className="text-center">
@@ -278,7 +461,11 @@ const Question = () => {
 
             {questionIndex < 11 && (
                 <Container className=' d-flex justify-content-center'>
-                    <Button className='btn-idonot d-flex justify-content-center align-items-center' style={{ backgroundColor: 'rgba(218, 223, 225,1)' }}>
+                    <Button
+                        onClick={() => onPressAnswer(questionIndex, "I do not wish to answer.")}
+                        className={`btn-idonot d-flex justify-content-center align-items-center ${getSelectedAnswers(questionIndex).includes("I do not wish to answer.") ? 'active' : ''}`}
+                        style={{ backgroundColor: 'rgba(218, 223, 225,1)' }}
+                    >
                         <Card style={{ backgroundColor: 'rgba(218, 223, 225,1)', border: 'none' }}>
                             <Card.Title style={{ margin: 'auto' }}>I do not wish to answer.</Card.Title>
                         </Card>
@@ -288,12 +475,12 @@ const Question = () => {
 
             {questionIndex === 11 && (
                 // put scale 1-10 here
-                <CustomSlider />
+                <CustomSlider q12={q12} onQ12Change={handleQ12Change} />
 
             )}
 
             {questionIndex == 12 && (
-                <SpeechToText />
+                <SpeechToText q13={q13} onQ13Change={setQ13} />
             )}
 
             <Container className="d-flex justify-content-center align-items-end">
@@ -328,6 +515,30 @@ const Question = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={onPressExit}>Exit</Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showQuestionModal} onHide={closeQuestionModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Warning</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Please make sure to answer the question before you move on!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={closeQuestionModal}>Okay</Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showCompleteModal} onHide={closeQuestionModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Complete</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Please make sure to double check your answers before you move on!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={onPressComplete}>See Result</Button>
                 </Modal.Footer>
             </Modal>
 
