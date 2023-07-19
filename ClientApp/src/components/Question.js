@@ -1,11 +1,12 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
 import Slider from '@mui/material/Slider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import AWS from './authorization/aws';
-import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight } from "react-icons/md";
+import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight, MdVolumeMute } from "react-icons/md";
+import { RiPlayFill, RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
 import { SpeechToText } from './SpeechToText'
 import { CustomSlider } from './CustomSlider'
 import axios from 'axios'
@@ -30,7 +31,8 @@ const Question = () => {
     const [q10, setQ10] = useState([]);
     const [q11, setQ11] = useState([]);
     const [q12, setQ12] = useState(5);
-    const [q13, setQ13] = useState("");   
+    const [q13, setQ13] = useState("");
+    const [mute, setMute] = useState(false);
 
     const onPressAnswer = (questionIndex, description) => {
         // Get the corresponding state setter function based on the question index
@@ -265,7 +267,15 @@ const Question = () => {
         }
     ];
 
-    const [isPlaying, setIsPlaying] = useState(false); // whether audio is playing or not
+    useEffect(() => {
+        if (!mute) {
+            let question = cardsData[questionIndex].question;
+            let answers = cardsData[questionIndex].answers;
+            let inputString = createAWSinput(questionIndex, question, answers);
+            synthesize(inputString);
+        }
+    }, [questionIndex, mute]);
+
     const [audioElement, setAudioElement] = useState(new Audio()); // audio element for playing the synthesized speech
 
     const polly = new AWS.Polly(); // creating polly from AWS
@@ -287,20 +297,13 @@ const Question = () => {
 
                 audioElement.src = audioUrl;
                 audioElement.play();
-                setIsPlaying(true);
             }
         });
     };
 
     // function called to toggle/untoggle play button
     const togglePlay = () => {
-        if (isPlaying) {
-            audioElement.pause();
-            setIsPlaying(false);
-        } else {
-            console.log(createAWSinput(questionIndex, cardsData[questionIndex].question, cardsData[questionIndex].answers))
-
-
+        if (!mute) {
             synthesize(createAWSinput(questionIndex, cardsData[questionIndex].question, cardsData[questionIndex].answers));
         }
     };
@@ -343,10 +346,15 @@ const Question = () => {
         return result;
     };
 
+    const onPressMute = () => {
+        if (mute == false) {
+            audioElement.pause();
+        }
+        setMute((prevMute) => !prevMute);
+    }
     const backButton = () => {
         if (questionIndex > 0) {
             setQuestionIndex(questionIndex - 1)
-            // put logic to call synthesize button
         }
         if (questionIndex == 0) { 
             setShowModal(true)
@@ -366,7 +374,6 @@ const Question = () => {
             }
             if (questionIndex == 11) {
                 setQuestionIndex(questionIndex + 1)
-                console.log(q12)
             }
             if (questionIndex == 12) {
                 // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
@@ -424,17 +431,40 @@ const Question = () => {
             </Container>
 
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
-                <h1 className="mb-5 question">{cardsData[questionIndex].question}</h1>
-                <MdPlayCircle
-                    onClick={togglePlay}
-                    style={{
-                        cursor: "pointer",
-                        fontSize: "3em",
-                        color: "grey",
-                        marginLeft: "10px",
-                    }}
-                />
+                <Container className= "d-flex justify-content-center">
+
+                    <h1 className="mb-5 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
+                    <MdPlayCircle
+                        onClick={togglePlay}
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "3em",
+                            color: "grey",
+                        }}
+                    />
+                </Container>
+
+                {!mute ? (
+                    <RiVolumeUpFill
+                        onClick={onPressMute}
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "3em",
+                            color: "grey",
+                        }}
+                    />
+                ) : (
+                    <RiVolumeMuteFill
+                        onClick={onPressMute}
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "3em",
+                            color: "grey",
+                        }}
+                    />
+                )}
             </Container>
+
 
             <Container className=" d-flex align-items-center justify-content-center" style={{ height: '15vh', marginBottom: '10px' }}>
                 <h1>Put animation here</h1>

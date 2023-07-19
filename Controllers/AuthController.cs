@@ -120,7 +120,7 @@ namespace OcayProject.Controllers
 
             if (user == null)
             {
-                return BadRequest("User not found.");
+                return BadRequest("The email does not exist.");
             }
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
@@ -128,7 +128,7 @@ namespace OcayProject.Controllers
                 return BadRequest("Wrong password.");
             }
 
-            return Ok(user);
+            return Ok(user.UserNumber);
         }
 
         [HttpPost("postSurvey")]
