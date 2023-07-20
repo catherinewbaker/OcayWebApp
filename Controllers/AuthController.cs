@@ -47,14 +47,6 @@ namespace OcayProject.Controllers
                 return BadRequest("Password must be at least 8 characters long and contain at least one uppercase letter.");
             }
 
-            if (request.IsPatient == true)
-            {
-                if(string.IsNullOrEmpty(request.PhysFName) || string.IsNullOrEmpty(request.PhysLName))
-                {
-                    return BadRequest("Please enter your physician's information");
-                }
-            }
-
             string passwordHash
                 = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
