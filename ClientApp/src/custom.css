@@ -39,6 +39,12 @@ a {
     border-color: #79D4AC;
 }
 
+.badge-alert {
+    color: #F5F4F0;
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+}
+
 .bg-primary {
     background-color: #79D4AC;
 }
