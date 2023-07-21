@@ -78,11 +78,32 @@ const Results = () => {
     const scoreArray = (arr) => arr.map(x => x.averageScore);
     const monthArray = (arr) => arr.map(x => x.month);
     const badgeSet = (arr, n) => arr.map(x => {
-        if (x !== null && x !== " ") {
-            if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week") {
-                return <span className="badge badge-alert rounded-pill">{x}</span>;
-            } else {
-                return <span className="badge badge-primary rounded-pill">{x}</span>;
+        if (arr.length > 1) {
+            if (x !== null && x !== " ") {
+                if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week") {
+                    return (
+                        <>
+                            <span className="badge badge-alert badge-pill mx-1">{x}</span>
+                            <p> </p>
+                        </>
+                        
+                    );
+                } else {
+                    return (
+                        <>
+                            <span className="badge badge-primary badge-pill mx-1">{x}</span>
+                            <p> </p>
+                        </>
+                    );
+                }
+            }
+        } else {
+            if (x !== null && x !== " ") {
+                if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week") {
+                    return <span className="badge badge-alert badge-pill mx-1">{x}</span>;
+                } else {
+                    return <span className="badge badge-primary badge-pill mx-1">{x}</span>;
+                }
             }
         }
     });
@@ -101,90 +122,90 @@ const Results = () => {
         setNineCon(badgeSet(nineCon, " "));
         setTenCon(badgeSet(tenCon, " "));
         setElevenCon(badgeSet(elevenCon, " "));
-        setTwelveCon(<span className="badge badge-primary rounded-pill">{ twelveCon }</span>);
+        setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{ twelveCon }</span>);
     }, [table, totalCon]);
 
     const renderTable = () => { // pass answers to this table
         return (
             <Container className="d-flex flex-column align-items-center">
-                <h1 style={{ color: '#79D4AC' } }> Most Recent Score: {totalCon}</h1>
+                <h1 style={{ color: '#a6a6a6', fontSize: '35px' } }> Most Recent Score: {totalCon} / 100</h1>
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
-                    <li className="list-group-item d-flex justify-content-between align-items-start">
+                    <li className="list-group-item d-flex justify-content-between align-items-start" >
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I feel ____ about the appointment today</div>
+                            <div className="fw-bold header">I feel ____ about the appointment today</div>
                         </div>
                         {oneCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I sometimes feel ____</div>
+                            <div className="fw-bold header">I sometimes feel ____</div>
                         </div>
                         {twoCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">My treatments make me feel ____</div>
+                            <div className="fw-bold header">My treatments make me feel ____</div>
                         </div>
                         {threeCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I eat ____ everday</div>
+                            <div className="fw-bold header">I eat ____ everday</div>
                         </div>
                         {fourCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">At night, I wake up ___</div>
+                            <div className="fw-bold header">At night, I wake up ___</div>
                         </div>
                         {fiveCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">In school, I feel ____ about what is being taught</div>
+                            <div className="fw-bold header">In school, I feel ____ about what is being taught</div>
                         </div>
                         {sixCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I feel safe during my daily activities</div>
+                            <div className="fw-bold header">I feel safe during my daily activities</div>
                         </div>
                         {sevenCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I have friends or classmates in school who I can spend time with</div>
+                            <div className="fw-bold header">I have friends or classmates in school who I can spend time with</div>
                         </div>
                         {eightCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">I feel ____ throughout the day</div>
+                            <div className="fw-bold header">I feel ____ throughout the day</div>
                         </div>
                         {nineCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">Taking home medicines make me feel ____</div>
+                            <div className="fw-bold header">Taking home medicines make me feel ____</div>
                         </div>
                         {tenCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">During the week, I am active ____</div>
+                            <div className="fw-bold header">During the week, I am active ____</div>
                         </div>
                         {elevenCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">On levels 1-10, I normally feel ____ levels of pain</div>
+                            <div className="fw-bold header">On levels 1-10, I normally feel ____ levels of pain</div>
                         </div>
                         {twelveCon}
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-start">
                         <div className="ms-2 me-auto">
-                            <div className="fw-bold">Is there anything else you want to tell us?</div>
+                            <div className="fw-bold header">Is there anything else you want to tell us?</div>
                         </div>
                         {thirteenCon}
                     </li>
