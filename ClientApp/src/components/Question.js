@@ -51,10 +51,10 @@ const Question = () => {
         {
             question: 'I feel ____ about the appointment today.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#56BF4F' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#088FDB' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#F4B000' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#AE0803' },
+                { imageSrc: require('../image/happy3.png'), description: 'Happy', color: '#56BF4F' },
+                { imageSrc: require('../image/sad3.png'), description: 'Sad', color: '#088FDB' },
+                { imageSrc: require('../image/fear3.png'), description: 'Fear', color: '#F4B000' },
+                { imageSrc: require('../image/anger3.png'), description: 'Anger', color: '#AE0803' },
             ],
         },
 
