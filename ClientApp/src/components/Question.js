@@ -161,10 +161,10 @@ const Question = () => {
         {
             question: 'I sometimes feel ____',
             answers: [
-                { imageSrc: require('../image/nauseous.png'), description: 'Nauseous', color: '#56BF4F' },
+                { imageSrc: require('../image/fever.png'), description: 'Fever', color: '#56BF4F' },
                 { imageSrc: require('../image/tired.png'), description: 'Fatigue', color: '#088FDB' },
                 { imageSrc: require('../image/shortnessofbreath.png'), description: 'Shortness of breath', color: '#F4B000' },
-                { imageSrc: require('../image/fever.png'), description: 'Fever', color: '#AE0803' },
+                { imageSrc: require('../image/nauseous .png'), description: 'Nauseous', color: '#AE0803' },
             ],
         },
 
