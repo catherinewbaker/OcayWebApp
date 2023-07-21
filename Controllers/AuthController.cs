@@ -47,14 +47,6 @@ namespace OcayProject.Controllers
                 return BadRequest("Password must be at least 8 characters long and contain at least one uppercase letter.");
             }
 
-            if (request.IsPatient == true)
-            {
-                if(string.IsNullOrEmpty(request.PhysFName) || string.IsNullOrEmpty(request.PhysLName))
-                {
-                    return BadRequest("Please enter your physician's information");
-                }
-            }
-
             string passwordHash
                 = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
@@ -120,7 +112,7 @@ namespace OcayProject.Controllers
 
             if (user == null)
             {
-                return BadRequest("User not found.");
+                return BadRequest("The email does not exist.");
             }
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
@@ -128,7 +120,7 @@ namespace OcayProject.Controllers
                 return BadRequest("Wrong password.");
             }
 
-            return Ok(user);
+            return Ok(user.UserNumber);
         }
 
         [HttpPost("postSurvey")]
@@ -141,11 +133,14 @@ namespace OcayProject.Controllers
                 string q1 = "";
                 string q2 = "";
                 string q3 = "";
+                string q4 = "";
+                string q5 = "";
                 string q6 = "";
                 string q7 = "";
                 string q8 = "";
                 string q9 = "";
                 string q10 = "";
+                string q11 = "";
 
 
                 Dictionary<string, decimal> q1map = new Dictionary<string, decimal>()
@@ -218,9 +213,13 @@ namespace OcayProject.Controllers
                 };
 
 
-                if (q4map.ContainsKey(request.Q4))
+                foreach (string answer in request.Q4)
                 {
-                    score += q4map[request.Q4];
+                    if (q4map.ContainsKey(answer))
+                    {
+                        score += q4map[answer];
+                        q4 += answer;
+                    }
                 }
 
                 Dictionary<string, decimal> q5map = new Dictionary<string, decimal>()
@@ -231,9 +230,13 @@ namespace OcayProject.Controllers
                     { "Yes", 0m }
                 };
 
-                if (q5map.ContainsKey(request.Q5))
+                foreach (string answer in request.Q5)
                 {
-                    score += q5map[request.Q5];
+                    if (q5map.ContainsKey(answer))
+                    {
+                        score += q5map[answer];
+                        q5 += answer;
+                    }
                 }
 
                 Dictionary<string, decimal> q6map = new Dictionary<string, decimal>()
@@ -261,41 +264,25 @@ namespace OcayProject.Controllers
                     { "Yes", 10m },
                     { "Maybe", 5m },
                     { "No", 0m },
-                    { "Don't know", -1m },
+                    { "I don't know", 3m },
                     { "I do not wish to answer.", 0m }
                 };
 
-                if (request.Q7.Length == 1 && request.Q7[0] == "Don't know")
+                foreach (string answer in request.Q7)
                 {
-                    score += 3m;
-                    q7 += "Don't know;";
-                }
-                else
-                {
-                    foreach (string answer in request.Q7)
+                    if (q7map.ContainsKey(answer))
                     {
-                        if (q7map.ContainsKey(answer))
-                        {
-                            score += q7map[answer];
-                            q7 += answer + ";";
-                        }
+                        score += q7map[answer];
+                        q7 += answer;
                     }
                 }
 
-                if (request.Q8.Length == 1 && request.Q8[0] == "Don't know")
+                foreach (string answer in request.Q8)
                 {
-                    score += 3m;
-                    q8 += "Don't know;";
-                }
-                else
-                {
-                    foreach (string answer in request.Q8)
+                    if (q7map.ContainsKey(answer))
                     {
-                        if (q7map.ContainsKey(answer))
-                        {
-                            score += q7map[answer];
-                            q8 += answer + ";";
-                        }
+                        score += q7map[answer];
+                        q8 += answer;
                     }
                 }
 
@@ -346,12 +333,16 @@ namespace OcayProject.Controllers
                     { "Less than half of the week", 3.33m }
                 };
 
-                if (q11map.ContainsKey(request.Q11))
+                foreach (string answer in request.Q11)
                 {
-                    score += q11map[request.Q11];
+                    if (q11map.ContainsKey(answer))
+                    {
+                        score += q11map[answer];
+                        q11 += answer;
+                    }
                 }
 
-                score += decimal.Parse(request.Q12);
+                score += (decimal)request.Q12;
 
                 int finalScore = (int)Math.Round(score);
 
@@ -359,8 +350,8 @@ namespace OcayProject.Controllers
                 await _userContext.Database.ExecuteSqlRawAsync(
                     $"INSERT INTO [User_{request.UserNumber}] (Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score) " +
                     "VALUES (GETDATE(), {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13});",
-                    q1, q2, q3, request.Q4, request.Q5, q6,
-                    q7, q8, q9, q10, request.Q11, request.Q12,
+                    q1, q2, q3, q4, q5, q6,
+                    q7, q8, q9, q10, q11, request.Q12,
                     request.Q13, finalScore
                 );
 

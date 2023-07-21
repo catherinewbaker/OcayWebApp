@@ -7,8 +7,7 @@ import { MdOutlineStopCircle } from "react-icons/md";
 import { BsRecord2 } from "react-icons/bs";
 import { BiReset } from "react-icons/bi";
 
-const SpeechToText = () => {
-    const [q13, setQ13] = useState('');
+const SpeechToText = ({ q13, onQ13Change }) => {
     const [isListening, setIsListening] = useState(false);
 
     const {
@@ -19,9 +18,9 @@ const SpeechToText = () => {
 
     useEffect(() => {
         if (!isListening && transcript) {
-            setQ13(transcript);
+            onQ13Change(transcript);
         }
-    }, [isListening, transcript]);
+    }, [isListening, transcript, onQ13Change]);
 
     const startListening = () => {
         setIsListening(true);
@@ -36,11 +35,11 @@ const SpeechToText = () => {
     const onResetTranscript = () => {
         setIsListening(false);
         resetTranscript();
-        setQ13('')
+        onQ13Change('');
     }
 
     const onChangeQ13 = (e) => {
-        setQ13(e.target.value);
+        onQ13Change(e.target.value);
     };
 
     if (!browserSupportsSpeechRecognition) {
@@ -88,12 +87,11 @@ const SpeechToText = () => {
                     placeholder="Enter text or press the record button"
                     value={q13}
                     onChange={onChangeQ13}
-                    disabled={isListening}
                 />
             )}
         </Container>
     );
-};
+
+}
 
 export { SpeechToText };
-
