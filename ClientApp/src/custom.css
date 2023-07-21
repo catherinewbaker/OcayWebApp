@@ -31,13 +31,13 @@ a {
 }
 
 .btn-primary {
-    color: #000000;
+    color: #FFFFFF;
     background-color: #79D4AC;
     border-color: #79D4AC;
 }
 
 .btn-disabled {
-    color: #000000;
+    color: #FFFFFF;
     background-color: #b4d9c9;
     border-color: #79D4AC;
 }
