@@ -101,7 +101,11 @@ namespace OcayProject.Controllers
             _userContext.User.Add(user);
             await _userContext.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(new
+            {
+                UserNumber = user.UserNumber,
+                IsPatient = user.IsPatient
+            });
         }
 
         [HttpPost("login")]
@@ -112,15 +116,21 @@ namespace OcayProject.Controllers
 
             if (user == null)
             {
-                return BadRequest("The email does not exist.");
+                return BadRequest("Please check your email or password.");
             }
 
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {
-                return BadRequest("Wrong password.");
+                return BadRequest("Please check your email or password.");
             }
 
-            return Ok(user.UserNumber);
+
+
+            return Ok(new
+            {
+                UserNumber = user.UserNumber,
+                IsPatient = user.IsPatient
+            });
         }
 
         [HttpPost("postSurvey")]
