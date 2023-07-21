@@ -77,35 +77,37 @@ const Results = () => {
 
     const scoreArray = (arr) => arr.map(x => x.averageScore);
     const monthArray = (arr) => arr.map(x => x.month);
-    const badgeSet = (arr) => arr.map(x => {
-        if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant") {
-            return <span className="badge badge-alert rounded-pill">{x}</span>;
-        } else {
-            return <span className="badge badge-primary rounded-pill">{x}</span>;
+    const badgeSet = (arr, n) => arr.map(x => {
+        if (x !== null && x !== " ") {
+            if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week") {
+                return <span className="badge badge-alert rounded-pill">{x}</span>;
+            } else {
+                return <span className="badge badge-primary rounded-pill">{x}</span>;
+            }
         }
     });
 
     useEffect(() => {
         console.log(table)
         console.log(twelveCon)
-        setOneCon(badgeSet(oneCon));
-        setTwoCon(badgeSet(twoCon));
-        setThreeCon(badgeSet(threeCon));
-        setFourCon(badgeSet(fourCon));
-        setFiveCon(badgeSet(fiveCon));
-        setSixCon(badgeSet(sixCon));
-        setSevenCon(badgeSet(sevenCon));
-        setEightCon(badgeSet(eightCon));
-        setNineCon(badgeSet(nineCon));
-        setTenCon(badgeSet(tenCon));
-        setElevenCon(badgeSet(elevenCon));
-        setTwelveCon(<span className="badge badge-primary rounded-pill">8</span>);
+        setOneCon(badgeSet(oneCon, " "));
+        setTwoCon(badgeSet(twoCon, " "));
+        setThreeCon(badgeSet(threeCon, " "));
+        setFourCon(badgeSet(fourCon, " "));
+        setFiveCon(badgeSet(fiveCon, "Yes"));
+        setSixCon(badgeSet(sixCon, " "));
+        setSevenCon(badgeSet(sevenCon, "No"));
+        setEightCon(badgeSet(eightCon, "No"));
+        setNineCon(badgeSet(nineCon, " "));
+        setTenCon(badgeSet(tenCon, " "));
+        setElevenCon(badgeSet(elevenCon, " "));
+        setTwelveCon(<span className="badge badge-primary rounded-pill">{ twelveCon }</span>);
     }, [table, totalCon]);
 
     const renderTable = () => { // pass answers to this table
         return (
             <Container className="d-flex flex-column align-items-center">
-                <h1>{totalCon}</h1>
+                <h1 style={{ color: '#79D4AC' } }> Most Recent Score: {totalCon}</h1>
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start">
@@ -260,9 +262,6 @@ const Results = () => {
 
     return (
         <div classname="d-flex flex-column align-items-center vh-100" >
-            <h1 id="tableLabel" className="d-flex flex-column align-items-center">
-                Your Most Recent Survey
-            </h1>
             <br />
             {contentsTable}
             <br />
