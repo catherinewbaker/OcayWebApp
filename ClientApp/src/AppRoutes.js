@@ -2,7 +2,6 @@ import { Survey } from "./components/Survey";
 import { Results } from "./components/Results";
 import { Home } from "./components/Home";
 import { Question } from "./components/Question"
-import { Login } from "./components/Login"
 import { Signup } from "./components/Signup"
 
 const AppRoutes = [
@@ -27,18 +26,6 @@ const AppRoutes = [
         path: '/results',
         requireAuth: true,
         element: <Results />
-    },
-
-    {
-        path: '/login',
-        requireAuth: true,
-        element: <Login />
-    },
-
-    {
-        path: '/signup',
-        requireAuth: true,
-        element: <Signup />
     },
 ];
 

@@ -47,7 +47,6 @@ const Results = () => {
     }, [chart]);
 
 
-   
     const getData = () => {
         const bodyParameters = {
             UserNumber: "36587325", // change to pull actual UserNumber
@@ -86,7 +85,6 @@ const Results = () => {
                             <span className="badge badge-alert badge-pill mx-1">{x}</span>
                             <p> </p>
                         </>
-                        
                     );
                 } else {
                     return (
@@ -128,7 +126,7 @@ const Results = () => {
     const renderTable = () => { // pass answers to this table
         return (
             <Container className="d-flex flex-column align-items-center">
-                <h1 style={{ color: '#a6a6a6', fontSize: '35px' } }> Most Recent Score: {totalCon} / 100</h1>
+                <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}> Most Recent Score: {totalCon} / 100</h1>
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >

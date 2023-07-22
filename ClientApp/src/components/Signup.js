@@ -59,13 +59,21 @@ const Signup = () => {
                 Password: password
             };
 
-            console.log(data)
-
             try {
                 const response = await axios.post('https://localhost:44408/api/Auth/register', data);
                 console.log(response.data);
                 setError('')
-                navigate('/results')
+
+                await localStorage.setItem('login', "success")
+                await localStorage.setItem('userNumber', response.data.userNumber)
+
+                if (response.data.isPatient === true) {
+                    await localStorage.setItem('patient', "true")
+                } else {
+                    await localStorage.setItem('patient', "false")
+                }
+
+                window.location.reload()
             } catch (error) {
                 setError(error.response.data)
                 console.error(error.response.data);
@@ -75,8 +83,8 @@ const Signup = () => {
 
     return (
         <div>
-            <Container style={{ marginTop: '10vh' }}>
-                <Row className="d-flex justify-content-center align-items-center">
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
                         <Card className="shadow">
                             <Card.Body>
@@ -92,35 +100,33 @@ const Signup = () => {
 
                                         <Form onSubmit={handleRegisterFormSubmit}>
 
-                                            <Form.Check
-                                                inline
-                                                label="Patient"
-                                                name="group1"
-                                                type='radio'
-                                                value="Patient"
-                                                checked={isPatient === true}
-                                                onChange={handleCheckChange}
-                                            />
-                                            <Form.Check
-                                                inline
-                                                label="Physician"
-                                                name="group1"
-                                                type='radio'
-                                                value="Physician"
-                                                checked={isPatient === false}
-                                                onChange={handleCheckChange}
-                                                className="mb-3"
-                                            />
+                                            <div className="custom-check">
+                                                <Form.Check
+                                                    inline
+                                                    label="Patient"
+                                                    name="group1"
+                                                    type="radio"
+                                                    value="Patient"
+                                                    checked={isPatient === true}
+                                                    onChange={handleCheckChange}
+                                                />
+                                                <Form.Check
+                                                    inline
+                                                    label="Physician"
+                                                    name="group1"
+                                                    type="radio"
+                                                    value="Physician"
+                                                    checked={isPatient === false}
+                                                    onChange={handleCheckChange}
+                                                    className="mb-3"
+                                                />
+                                            </div>
+
 
                                             <Form.Group className="mb-3" controlId="formBasicName">
                                                 <Form.Label className="text-center">
                                                     First Name
                                                 </Form.Label>
-                                                {error === "The email does not exist." && (
-                                                    <Form.Label className="text-center" style={{ color: 'red' }}>
-                                                        * {error}
-                                                    </Form.Label>
-                                                )}
                                                 <Form.Control
                                                     type="text"
                                                     placeholder="Enter first name"
@@ -133,11 +139,6 @@ const Signup = () => {
                                                 <Form.Label className="text-center">
                                                     Last Name
                                                 </Form.Label>
-                                                {error === "The email does not exist." && (
-                                                    <Form.Label className="text-center" style={{ color: 'red' }}>
-                                                        * {error}
-                                                    </Form.Label>
-                                                )}
                                                 <Form.Control
                                                     type="text"
                                                     placeholder="Enter last name"
@@ -157,7 +158,7 @@ const Signup = () => {
                                                 )}
                                                 <Form.Control
                                                     type="email"
-                                                    placeholder="Enter email"
+                                                    placeholder="example@domain.com"
                                                     value={email}
                                                     onChange={handleEmailChange}
                                                 />
@@ -188,7 +189,7 @@ const Signup = () => {
 
                                                 <Form.Control
                                                     type="password"
-                                                    placeholder="Re-enter Password"
+                                                    placeholder="Confirm Password"
                                                     value={rePassword}
                                                     onChange={handlerePasswordChange}
                                                     
@@ -205,7 +206,7 @@ const Signup = () => {
                                             <p className="mb-0 text-center">
                                                 Already have an account?{" "}
                                                 <a
-                                                    onClick={() => navigate('/login')}
+                                                    onClick={() => navigate('/')}
                                                     style={{ color: "#69b895", cursor: "pointer", textDecoration: "underline" }}
                                                 >
                                                     Login

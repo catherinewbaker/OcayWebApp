@@ -33,7 +33,17 @@ const Login = () => {
                 const response = await axios.post('https://localhost:44408/api/Auth/login', data);
                 console.log(response.data);
                 setError('')
-                navigate('/survey')
+                await localStorage.setItem('login', "success")
+                await localStorage.setItem('userNumber', response.data.userNumber)
+
+                if (response.data.isPatient === true) {
+                    await localStorage.setItem('patient', "true")
+                } else {
+                    await localStorage.setItem('patient', "false")
+                }
+
+                window.location.reload()
+
             } catch (error) {
                 setError(error.response.data)
                 console.error(error.response.data);
@@ -43,8 +53,10 @@ const Login = () => {
 
     return (
         <div>
-            <Container style={{ marginTop: '10vh' }}>
-                <Row className="d-flex justify-content-center align-items-center">
+            <Container>
+                <Row className="vh-100 d-flex justify-content-center align-items-center">
+                    
+
                     <Col md={8} lg={6} xs={12}>
                         <Card className="shadow">
                             <Card.Body>
@@ -56,6 +68,13 @@ const Login = () => {
                                             {error}
                                         </Form.Label>
                                     )}
+
+                                    {error === "Please check your email or password." && (
+                                        <Form.Label className="text-center" style={{ color: 'red' }}>
+                                            {error}
+                                        </Form.Label>
+                                    )}
+
                                     <div className="mb-3">
 
                                         <Form onSubmit={handleLoginFormSubmit}>
@@ -63,14 +82,9 @@ const Login = () => {
                                                 <Form.Label className="text-center">
                                                     Email address
                                                 </Form.Label>
-                                                {error === "The email does not exist." && (
-                                                    <Form.Label className="text-center" style={{ color: 'red' }}>
-                                                        * {error}
-                                                    </Form.Label>
-                                                )}
                                                 <Form.Control
                                                     type="email"
-                                                    placeholder="Enter email"
+                                                    placeholder="example@domain.com"
                                                     value={email}
                                                     onChange={handleEmailChange}
                                                 />
@@ -78,11 +92,6 @@ const Login = () => {
 
                                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                                 <Form.Label>Password</Form.Label>
-                                                {error === "Wrong password." && (
-                                                    <Form.Label className="text-center" style={{ color: 'red' }}>
-                                                        * {error}
-                                                    </Form.Label>
-                                                )}
                                                 <Form.Control
                                                     type="password"
                                                     placeholder="Password"
@@ -101,7 +110,11 @@ const Login = () => {
                                                 </p>
                                             </Form.Group>
                                             <div className="d-grid">
-                                                <Button type="submit" style={{ color: "black", outline: "none" }}>
+                                                <Button
+                                                    type="submit"
+                                                    style={{ color: "black", outline: "none" }}
+                                                    
+                                                >
                                                     Login
                                                 </Button>
                                             </div>
