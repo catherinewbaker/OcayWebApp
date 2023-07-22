@@ -103,9 +103,11 @@ namespace OcayProject.Controllers
 
             return Ok(new
             {
-                UserNumber = user.UserNumber,
-                IsPatient = user.IsPatient
-            });
+                userNumber = user.UserNumber,
+                email = user.Email,
+                isPatient = user.IsPatient,
+                fName = user.FName
+            }); ;
         }
 
         [HttpPost("login")]
@@ -128,8 +130,10 @@ namespace OcayProject.Controllers
 
             return Ok(new
             {
-                UserNumber = user.UserNumber,
-                IsPatient = user.IsPatient
+                userNumber = user.UserNumber,
+                email = user.Email,
+                isPatient = user.IsPatient,
+                fName = user.FName
             });
         }
 
