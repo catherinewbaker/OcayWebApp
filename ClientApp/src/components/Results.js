@@ -47,13 +47,13 @@ const Results = () => {
     }, [chart]);
 
 
-
     const getData = () => {
         const bodyParameters = {
             UserNumber: "36587325", // change to pull actual UserNumber
         };
         axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
+                console.log(res);
                 setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
                 setTable(res.data.userSurveys[res.data.userSurveys.length - 1]); // set table = most recent survey
                 setOneCon(res.data.userSurveys[res.data.userSurveys.length - 1].q1);
@@ -85,7 +85,6 @@ const Results = () => {
                             <span className="badge badge-alert badge-pill mx-1">{x}</span>
                             <p> </p>
                         </>
-
                     );
                 } else {
                     return (
@@ -121,7 +120,7 @@ const Results = () => {
         setNineCon(badgeSet(nineCon, " "));
         setTenCon(badgeSet(tenCon, " "));
         setElevenCon(badgeSet(elevenCon, " "));
-        setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{twelveCon}</span>);
+        setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{ twelveCon }</span>);
     }, [table, totalCon]);
 
     const renderTable = () => { // pass answers to this table

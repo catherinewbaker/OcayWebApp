@@ -30,25 +30,41 @@ a {
 }
 
 .btn.btn-primary[disabled] {
-    color: #F5F4F0;
+    color: #FFFFFF;
     background-color: #b4d9c9;
     border-color: #79dbb1;
 }
 
 .btn-primary {
-    color: #000000;
+    color: #FFFFFF;
     background-color: #79D4AC;
     border-color: #79D4AC;
 }
 
 .btn-disabled {
-    color: #000000;
+    color: #FFFFFF;
     background-color: #b4d9c9;
-    border-color: #79dbb1;
+    border-color: #79D4AC;
+}
+
+.badge-primary {
+    color: #FFFFFF;
+    background-color: #79D4AC;
+    border-color: #79D4AC;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.badge-alert {
+    color: #FFFFFF;
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+    padding: 8px;
+    font-size: 14px;
 }
 
 .bg-primary {
-    background-color: #502f75;
+    background-color: #79D4AC;
 }
 
 .btn-primary:hover, .btn-primary:active {
@@ -132,7 +148,7 @@ code {
 }
 
 div.scroller {
-    background-color: #e0dfda;
+    background-color: #f2f2f2;
     padding: 1rem;
     overflow-y: auto;
     width: 70%;
@@ -141,8 +157,16 @@ div.scroller {
 }
 
 div.scrollHold {
-    background-color: #F5F4F0;
+    background-color: #FFFFFF;
     height: 80%;
+}
+
+.header {
+    font-size: 19px;
+}
+
+.list-group-item {
+    background-color: #F8F8F8;
 }
 
 .progress-bar {

@@ -5,9 +5,9 @@ import Slider from '@mui/material/Slider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import { styled } from '@mui/material/styles';
-import Level1 from "../image/happy.png"
-import Level5 from "../image/fear.png"
-import Level10 from "../image/anger.png"
+import Level1 from "../image/happyPain.png"
+import Level5 from "../image/middlePain.png"
+import Level10 from "../image/sadPain.png"
 
 const CustomSlider = ({ q12, onQ12Change }) => {
 
