@@ -3,6 +3,7 @@ import { Results } from "./components/Results";
 import { Home } from "./components/Home";
 import { Question } from "./components/Question"
 import { Signup } from "./components/Signup"
+import { PatientResults } from "./components/PatientResults";
 
 const AppRoutes = [
     {
@@ -26,6 +27,12 @@ const AppRoutes = [
         path: '/results',
         requireAuth: true,
         element: <Results />
+    },
+
+    {
+        path: '/PatientResults',
+        requireAuth: true,
+        element: <PatientResults />
     },
 ];
 
