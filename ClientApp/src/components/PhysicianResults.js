@@ -5,8 +5,12 @@ import { Container } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import axios from 'axios';
 
-const PatientResults = () => {
+const Results = () => {
     const [table, setTable] = useState();
+    const [chart, setChart] = useState([]);
+
+    const [months, setMonths] = useState([]);
+    const [scores, setScores] = useState([]);
 
     const [oneCon, setOneCon] = useState(["loading..."]);
     const [twoCon, setTwoCon] = useState(["loading..."]);
@@ -23,14 +27,25 @@ const PatientResults = () => {
     const [thirteenCon, setThirteenCon] = useState("loading...");
     const [totalCon, setTotalCon] = useState(["Survey score loading..."]);
 
+    const [loadingChart, setLoadingChart] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
 
 
     useEffect(() => {
+        setLoadingChart(true);
         setLoadingTable(true);
         getData();
+        setLoadingChart(false);
         setLoadingTable(false);
     }, []);
+
+    useEffect(() => {
+        setLoadingChart(true);
+        setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+        setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
+        setLoadingChart(false);
+    }, [chart]);
+
 
     const getData = () => {
         const bodyParameters = {
@@ -39,6 +54,7 @@ const PatientResults = () => {
         axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
                 console.log(res);
+                setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
                 setTable(res.data.userSurveys[res.data.userSurveys.length - 1]); // set table = most recent survey
                 setOneCon(res.data.userSurveys[res.data.userSurveys.length - 1].q1);
                 setTwoCon(res.data.userSurveys[res.data.userSurveys.length - 1].q2);
@@ -59,10 +75,16 @@ const PatientResults = () => {
     };
 
     var debugIndex = 0;
+    const scoreArray = (arr) => arr.map(x => x.averageScore);
+    const monthArray = (arr) => arr.map(x => x.month);
     const badgeSet = (arr, n) => arr.map((x, index) => {
         debugIndex += 1;
         if (x !== null && x !== " ") {
-            return <span key={debugIndex} className="badge badge-primary badge-pill mx-1">{x}</span>;
+            if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week" || x === "Fever") {
+                return <span key={debugIndex} className="badge badge-alert badge-pill mx-1">{x}</span>;
+            } else {
+                return <span key={debugIndex} className="badge badge-primary badge-pill mx-1">{x}</span>;
+            }
         } else {
             return <span key={debugIndex} className="badge badge-primary badge-pill mx-1">I do not wish to answer.</span>;
         }
@@ -83,7 +105,11 @@ const PatientResults = () => {
         setNineCon(badgeSet(nineCon, " "));
         setTenCon(badgeSet(tenCon, " "));
         setElevenCon(badgeSet(elevenCon, " "));
-        setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{twelveCon}</span>);
+        if (twelveCon >= 5) {
+            setTwelveCon(<span className="badge badge-alert badge-pill mx-1">{twelveCon}</span>);
+        } else {
+            setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{twelveCon}</span>);
+        }
     }, [table, totalCon]);
 
     const renderTable = () => { // pass answers to this table
@@ -175,6 +201,56 @@ const PatientResults = () => {
         );
     };
 
+
+    for (var i = 0; i < 12; i++) {
+        if (months[i] === 1) {
+            months[i] = 'January';
+        } else if (months[i] === 2) {
+            months[i] = 'February';
+        } else if (months[i] === 3) {
+            months[i] = 'March';
+        } else if (months[i] === 4) {
+            months[i] = 'April';
+        } else if (months[i] === 5) {
+            months[i] = 'May';
+        } else if (months[i] === 6) {
+            months[i] = 'June';
+        } else if (months[i] === 7) {
+            months[i] = 'July';
+        } else if (months[i] === 8) {
+            months[i] = 'August';
+        } else if (months[i] === 9) {
+            months[i] = 'September';
+        } else if (months[i] === 10) {
+            months[i] = 'October';
+        } else if (months[i] === 11) {
+            months[i] = 'November';
+        } else if (months[i] === 12) {
+            months[i] = 'December';
+        }
+    }
+
+    const chartData = {
+        labels: months,
+        datasets: [
+            {
+                label: "Score Average Per Month",
+                data: scores,
+                backgroundColor: "#79D4AC",
+                borderColor: "#79D4AC",
+                pointBorderColor: '#79D4AC',
+                width: '100%',
+            },
+        ],
+    };
+
+    const renderChart = () => {
+        return (
+            <LineChart data={chartData} />
+        );
+    }
+
+
     let contentsTable = loadingTable ? (
         <p>
             <em>Your recent survey results are loading...</em>
@@ -183,6 +259,15 @@ const PatientResults = () => {
         renderTable()
     );
 
+    let contentsChart = loadingChart ? (
+        <p>
+            <em>Your line chart is loading...</em>
+        </p>
+    ) : (
+        renderChart()
+    );
+
+
     return (
         <div className="d-flex flex-column align-items-center vh-100" >
             <br />
@@ -190,8 +275,12 @@ const PatientResults = () => {
             <br />
             <br />
             <br />
+            <br />
+            {contentsChart}
+            <br />
+            <br />
         </div>
     );
 };
 
-export { PatientResults };
+export { Results };

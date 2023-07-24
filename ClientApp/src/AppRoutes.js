@@ -24,7 +24,7 @@ const AppRoutes = [
     },
 
     {
-        path: '/results',
+        path: '/PhysicianResults',
         requireAuth: true,
         element: <Results />
     },

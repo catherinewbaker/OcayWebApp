@@ -338,7 +338,7 @@ namespace OcayProject.Controllers
 
                 Dictionary<string, decimal> q11map = new Dictionary<string, decimal>()
                 {
-                    { "Every day", 10m },
+                    { "Yes", 10m },
                     { "Most of the week", 6.67m },
                     { "Less than half of the week", 3.33m }
                 };
