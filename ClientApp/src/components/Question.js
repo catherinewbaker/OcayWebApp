@@ -181,20 +181,20 @@ const Question = () => {
         {
             question: 'I eat ____ everyday.', // this section is not done
             answers: [
-                { imageSrc: require('../image/nauseous.png'), description: 'Once a day', color: '#56BF4F' },
-                { imageSrc: require('../image/twice.png'), description: 'Twice a day', color: '#088FDB' },
-                { imageSrc: require('../image/three.png'), description: 'Three times a day', color: '#F4B000' },
-                { imageSrc: require('../image/four.png'), description: 'More than three times a day', color: '#AE0803' },
+                { imageSrc: require('../image/oneFood.png'), description: 'Once a day', color: '#56BF4F' },
+                { imageSrc: require('../image/twoFood.png'), description: 'Twice a day', color: '#088FDB' },
+                { imageSrc: require('../image/threeFood.png'), description: 'Three times a day', color: '#F4B000' },
+                { imageSrc: require('../image/fourFood.png'), description: 'More than three times a day', color: '#AE0803' },
             ],
         },
 
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/fatigue3.png'), description: 'Never', color: '#56BF4F' },
+                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#56BF4F' },
                 { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#088FDB' },
                 { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#F4B000' },
-                { imageSrc: require('../image/allNight.png'), description: 'All night', color: '#AE0803' },
+                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#AE0803' },
             ],
         },
 
@@ -251,7 +251,7 @@ const Question = () => {
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Everyday', color: '#56BF4F' },
+                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#56BF4F' },
                 { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#088FDB' },
                 { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#F4B000' },
                 { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#AE0803' },
@@ -417,7 +417,7 @@ const Question = () => {
         try {
             const response = await axios.post('https://localhost:44408/api/Auth/postSurvey', data);
             console.log(response);
-            navigate('/results')
+            navigate('/PatientResults')
         } catch (error) {
             console.error(error);
         }
