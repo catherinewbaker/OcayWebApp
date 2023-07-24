@@ -1,5 +1,5 @@
 ﻿import { Survey } from "./components/Survey";
-import { Results } from "./components/Results";
+import { PhysicianResults } from "./components/PhysicianResults";
 import { HomePhysician } from "./components/HomePhysician";
 import { Question } from "./components/Question"
 
@@ -22,9 +22,9 @@ const PhysicianRoutes = [
     },
 
     {
-        path: '/results',
+        path: '/PhysicianResults',
         requireAuth: true,
-        element: <Results />
+        element: <PhysicianResults />
     },
 ];
 
