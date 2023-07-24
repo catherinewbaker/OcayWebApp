@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import axios from 'axios';
 
-const Results = () => {
+const PhysicianResults = () => {
     const [table, setTable] = useState();
     const [chart, setChart] = useState([]);
 
@@ -283,4 +283,4 @@ const Results = () => {
     );
 };
 
-export { Results };
+export { PhysicianResults };

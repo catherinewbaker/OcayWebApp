@@ -223,7 +223,7 @@ namespace OcayProject.Controllers
                     { "Once a day", 3.33m },
                     { "Twice a day", 6.67m },
                     { "Three times a day", 10m },
-                    { "More than three times a day", 6.67m }
+                    { "More than three times a day", 6.67m },
                     { "I do not wish to answer.", 0m }
                 };
 
@@ -242,7 +242,7 @@ namespace OcayProject.Controllers
                     { "No", 10m },
                     { "Sometimes", 6.67m },
                     { "Many times", 3.33m },
-                    { "Yes", 0m }
+                    { "Yes", 0m },
                     { "I do not wish to answer.", 0m }
                 };
 
@@ -346,7 +346,7 @@ namespace OcayProject.Controllers
                 {
                     { "Yes", 10m },
                     { "Most of the week", 6.67m },
-                    { "Less than half of the week", 3.33m }
+                    { "Less than half of the week", 3.33m },
                     { "I do not wish to answer.", 0m }
                 };
 
