@@ -1,14 +1,14 @@
 import { Survey } from "./components/Survey";
+import { HomePatient } from "./components/HomePatient";
 import { PhysicianResults } from "./components/PhysicianResults";
-import { Home } from "./components/Home";
 import { Question } from "./components/Question"
 import { Signup } from "./components/Signup"
 import { PatientResults } from "./components/PatientResults";
 
-const AppRoutes = [
+const PatientRoutes = [
     {
         index: true,
-        element: <Home />
+        element: <HomePatient />
     },
 
     {
@@ -24,16 +24,11 @@ const AppRoutes = [
     },
 
     {
-        path: '/PhysicianResults',
-        requireAuth: true,
-        element: <PhysicianResults />
-    },
-
-    {
         path: '/PatientResults',
         requireAuth: true,
         element: <PatientResults />
     },
 ];
 
-export default AppRoutes;
+export default PatientRoutes;
+>>>>>>> ad296448f85f5be38b2ad106c3fca054889958f0

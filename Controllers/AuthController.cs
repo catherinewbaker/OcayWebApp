@@ -106,7 +106,8 @@ namespace OcayProject.Controllers
                 userNumber = user.UserNumber,
                 email = user.Email,
                 isPatient = user.IsPatient,
-                fName = user.FName
+                fName = user.FName,
+                lName = user.LName
             }); ;
         }
 
@@ -133,7 +134,8 @@ namespace OcayProject.Controllers
                 userNumber = user.UserNumber,
                 email = user.Email,
                 isPatient = user.IsPatient,
-                fName = user.FName
+                fName = user.FName,
+                lName = user.LName
             });
         }
 
@@ -360,7 +362,7 @@ namespace OcayProject.Controllers
                     }
                 }
 
-                score += (decimal)request.Q12;
+                score += (decimal)(11 - request.Q12);
 
                 int finalScore = (int)Math.Round(score);
 
