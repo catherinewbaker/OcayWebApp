@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Home = () => {
+const HomePatient = () => {
     const [name, setName] = useState("");
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const Home = () => {
 
         try {
             const storedDataObject = JSON.parse(storedDataString);
-
+            console.log(storedDataObject)
             if (storedDataObject && storedDataObject.fName) {
                 setName(storedDataObject.fName);
             } else {
@@ -33,4 +33,4 @@ const Home = () => {
     )
 
 }
-export { Home };
+export { HomePatient };

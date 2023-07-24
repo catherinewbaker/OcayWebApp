@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import logo from '../image/OCAY_logo.png';
+import puzzleBackground from '../image/puzzleBackground.png';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -76,15 +78,21 @@ const Signup = () => {
     };
 
     return (
-        <div>
+        <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
                         <Card className="shadow">
                             <Card.Body>
-                                <div className="mb-3 mt-md-4">
-                                    <h2 className="fw-bold mb-2 text-uppercase ">OCAY Register</h2>
-                                    <p className=" mb-5">Please enter all the information fields to register!</p>
+                                <div className="mb-3">
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <h2 className="fw-bold mb-2 mt-md-4 text-uppercase">OCAY Register</h2>
+                                            <p className="mb-5">Please enter all information fields to register!</p>
+                                        </div>
+                                        <div style={{ flexGrow: 1 }}></div>
+                                        <img src={logo} alt="Responsive image" style={{ height: '20%', width: '20%' }} />
+                                    </div>
                                     {error === "Please fill in all fields." && (
                                         <Form.Label className="text-center" style={{ color: 'red' }}>
                                             {error}

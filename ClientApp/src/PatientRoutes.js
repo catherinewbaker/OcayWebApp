@@ -1,13 +1,13 @@
 import { Survey } from "./components/Survey";
 import { Results } from "./components/Results";
-import { Home } from "./components/Home";
+import { HomePatient } from "./components/HomePatient";
 import { Question } from "./components/Question"
 import { Signup } from "./components/Signup"
 
-const AppRoutes = [
+const PatientRoutes = [
     {
         index: true,
-        element: <Home />
+        element: <HomePatient />
     },
 
     {
@@ -29,4 +29,4 @@ const AppRoutes = [
     },
 ];
 
-export default AppRoutes;
+export default PatientRoutes;
