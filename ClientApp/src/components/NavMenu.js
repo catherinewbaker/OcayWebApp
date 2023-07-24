@@ -25,9 +25,8 @@ export class NavMenu extends Component {
 
     handleLogout() {
         localStorage.removeItem('login');
-        localStorage.removeItem('userNumber')
-        localStorage.removeItem('patient')
-        // i want to refresh the page here
+        localStorage.removeItem('userInfo')
+
         window.location.reload()
     }
 

@@ -34,13 +34,7 @@ const Login = () => {
                 console.log(response.data);
                 setError('')
                 await localStorage.setItem('login', "success")
-                await localStorage.setItem('userNumber', response.data.userNumber)
-
-                if (response.data.isPatient === true) {
-                    await localStorage.setItem('patient', "true")
-                } else {
-                    await localStorage.setItem('patient', "false")
-                }
+                localStorage.setItem('userInfo', JSON.stringify(response.data));
 
                 window.location.reload()
 

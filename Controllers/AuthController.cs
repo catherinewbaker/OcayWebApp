@@ -103,9 +103,11 @@ namespace OcayProject.Controllers
 
             return Ok(new
             {
-                UserNumber = user.UserNumber,
-                IsPatient = user.IsPatient
-            });
+                userNumber = user.UserNumber,
+                email = user.Email,
+                isPatient = user.IsPatient,
+                fName = user.FName
+            }); ;
         }
 
         [HttpPost("login")]
@@ -128,8 +130,10 @@ namespace OcayProject.Controllers
 
             return Ok(new
             {
-                UserNumber = user.UserNumber,
-                IsPatient = user.IsPatient
+                userNumber = user.UserNumber,
+                email = user.Email,
+                isPatient = user.IsPatient,
+                fName = user.FName
             });
         }
 
@@ -220,6 +224,7 @@ namespace OcayProject.Controllers
                     { "Twice a day", 6.67m },
                     { "Three times a day", 10m },
                     { "More than three times a day", 6.67m }
+                    { "I do not wish to answer.", 0m }
                 };
 
 
@@ -238,6 +243,7 @@ namespace OcayProject.Controllers
                     { "Sometimes", 6.67m },
                     { "Many times", 3.33m },
                     { "Yes", 0m }
+                    { "I do not wish to answer.", 0m }
                 };
 
                 foreach (string answer in request.Q5)
@@ -341,6 +347,7 @@ namespace OcayProject.Controllers
                     { "Yes", 10m },
                     { "Most of the week", 6.67m },
                     { "Less than half of the week", 3.33m }
+                    { "I do not wish to answer.", 0m }
                 };
 
                 foreach (string answer in request.Q11)
