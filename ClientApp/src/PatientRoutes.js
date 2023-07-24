@@ -31,4 +31,3 @@ const PatientRoutes = [
 ];
 
 export default PatientRoutes;
->>>>>>> ad296448f85f5be38b2ad106c3fca054889958f0
