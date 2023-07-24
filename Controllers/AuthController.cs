@@ -347,6 +347,7 @@ namespace OcayProject.Controllers
                     { "Yes", 10m },
                     { "Most of the week", 6.67m },
                     { "Less than half of the week", 3.33m },
+                    { "Never", 0m },
                     { "I do not wish to answer.", 0m }
                 };
 
