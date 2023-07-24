@@ -181,10 +181,10 @@ const Question = () => {
         {
             question: 'I eat ____ everyday.', // this section is not done
             answers: [
-                { imageSrc: require('../image/nauseous.png'), description: 'Once a day', color: '#56BF4F' },
-                { imageSrc: require('../image/twice.png'), description: 'Twice a day', color: '#088FDB' },
-                { imageSrc: require('../image/three.png'), description: 'Three times a day', color: '#F4B000' },
-                { imageSrc: require('../image/four.png'), description: 'More than three times a day', color: '#AE0803' },
+                { imageSrc: require('../image/oneFood.png'), description: 'Once a day', color: '#56BF4F' },
+                { imageSrc: require('../image/twoFood.png'), description: 'Twice a day', color: '#088FDB' },
+                { imageSrc: require('../image/threeFood.png'), description: 'Three times a day', color: '#F4B000' },
+                { imageSrc: require('../image/fourFood.png'), description: 'More than three times a day', color: '#AE0803' },
             ],
         },
 
