@@ -3,13 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import { Container } from 'react-bootstrap';
 import LineChart from "./LineChart";
+import RadarChart from "./RadarChart";
 import axios from 'axios';
 
 const PhysicianResults = () => {
     const [table, setTable] = useState();
     const [chart, setChart] = useState([]);
 
-    const [months, setMonths] = useState([]);
+    const [months, setMonths] = useState([""]);
     const [scores, setScores] = useState([]);
 
     const [oneCon, setOneCon] = useState(["loading..."]);
@@ -40,10 +41,12 @@ const PhysicianResults = () => {
     }, []);
 
     useEffect(() => {
-        setLoadingChart(true);
-        setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
-        setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
-        setLoadingChart(false);
+        if (chart.length !== 0) {
+            setLoadingChart(true);
+            setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+            setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
+            setLoadingChart(false);
+        }
     }, [chart]);
 
 
@@ -230,7 +233,7 @@ const PhysicianResults = () => {
         }
     }
 
-    const chartData = {
+    const lineData = {
         labels: months,
         datasets: [
             {
@@ -244,9 +247,82 @@ const PhysicianResults = () => {
         ],
     };
 
-    const renderChart = () => {
+    var feelings = {
+        "Sad": 0,
+        "Fear": 0,
+        "Anger": 0,
+        "Nauseous": 0,
+        "Fatigue": 0,
+        "Shortness of breath": 0,
+        "Anxious": 0,
+        "Scared": 0,
+        "Confused": 0,
+        "Bored": 0,
+        "Reluctant": 0,
+        "Fever": 0
+    };
+    for (var x in feelings) {
+        if (oneCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (twoCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (threeCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (fourCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (fiveCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (sixCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (sevenCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (eightCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (nineCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (tenCon.includes(x)) {
+            feelings[x] += 1;
+        } else if (elevenCon.includes(x)) {
+            feelings[x] += 1;
+        }
+    }
+    
+    const radarData = {
+        labels: Object.keys(feelings),
+        datasets: [
+            {
+                label: "Score Average Per Month",
+                data: [
+                    feelings["Sad"],
+                    feelings["Fear"],
+                    feelings["Anger"],
+                    feelings["Nauseous"],
+                    feelings["Fatigue"],
+                    feelings["Shortness of breath"], // Correct the key to 'Shortness of breath'
+                    feelings["Anxious"],
+                    feelings["Scared"],
+                    feelings["Confused"],
+                    feelings["Bored"],
+                    feelings["Reluctant"],
+                    feelings["Fever"],
+                ],                backgroundColor: "#79D4AC",
+                borderColor: "#79D4AC",
+                pointBorderColor: '#79D4AC',
+                width: '100%',
+            },
+        ],
+    };
+
+    const renderLine = () => {
         return (
-            <LineChart data={chartData} />
+            <LineChart data={lineData} />
+        );
+    }
+
+
+    const renderRadar = () => {
+        return (
+            <RadarChart data={radarData} />
         );
     }
 
@@ -259,24 +335,39 @@ const PhysicianResults = () => {
         renderTable()
     );
 
-    let contentsChart = loadingChart ? (
+    let contentsLine = loadingChart ? (
         <p>
             <em>Your line chart is loading...</em>
         </p>
     ) : (
-        renderChart()
+            renderLine()
+    );
+
+    let contentsRadar = loadingChart ? (
+        <p>
+            <em>Your line chart is loading...</em>
+        </p>
+    ) : (
+        renderRadar()
     );
 
 
     return (
-        <div className="d-flex flex-column align-items-center vh-100" >
+        <div  >
             <br />
             {contentsTable}
             <br />
             <br />
             <br />
             <br />
-            {contentsChart}
+            <Container style={{ width: '80%', height: '40%'} }>
+                {contentsLine}
+            </Container>
+            <br />
+            <br />
+            <Container className=" d-flex flex-column align-items-center vh-100">
+                {contentsRadar}
+            </Container>
             <br />
             <br />
         </div>
