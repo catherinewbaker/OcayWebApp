@@ -5,10 +5,11 @@ import { Line } from "react-chartjs-2";
 
 const LineChart = ({ data }) => {
     return (
-        <div>
+        <div style={{ height: '450px' }}>
             <Line data={data} options={{
-                maintainAspectRatio: true,
-                aspectRatio: 2,
+                maintainAspectRatio: false,
+                responsive: true,
+                //aspectRatio: 2,
                 scales: {
                     y: {
                         min: 0,

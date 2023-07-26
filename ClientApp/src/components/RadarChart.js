@@ -5,10 +5,11 @@ import { Radar } from "react-chartjs-2";
 
 const RadarChart = ({ data }) => {
     return (
-        <div>
+        <div style={{ height: '600px' }}>
             <Radar data={data} options={{
-                maintainAspectRatio: true,
-                aspectRatio: 1.3,
+                maintainAspectRatio: false,
+                responsive: true,
+                //aspectRatio: 1.3,
                 scale: {
                     beginAtZero: true,
                     max: 10 // change to dynamic value (max 3 times clicked per survey)
