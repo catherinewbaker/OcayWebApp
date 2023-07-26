@@ -364,7 +364,7 @@ namespace OcayProject.Controllers
 
                 score += (decimal)(11 - request.Q12);
 
-                int finalScore = (int)Math.Round(score);
+                int finalScore = (int)Math.Round(score) - 9;
 
 
                 await _userContext.Database.ExecuteSqlRawAsync(
