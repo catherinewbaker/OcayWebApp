@@ -10,8 +10,23 @@ const PhysicianResults = () => {
     const [table, setTable] = useState();
     const [chart, setChart] = useState([]);
 
-    const [months, setMonths] = useState([""]);
+    const [months, setMonths] = useState([]);
     const [scores, setScores] = useState([]);
+    const [monthNames, setMonthNames] = useState([""]);
+    const [feelings, setFeelings] = useState({
+        "Sad": 0,
+        "Fear": 0,
+        "Anger": 0,
+        "Nauseous": 0,
+        "Fatigue": 0,
+        "Shortness of breath": 0,
+        "Anxious": 0,
+        "Scared": 0,
+        "Confused": 0,
+        "Bored": 0,
+        "Reluctant": 0,
+        "Fever": 0
+    });
 
     const [oneCon, setOneCon] = useState(["loading..."]);
     const [twoCon, setTwoCon] = useState(["loading..."]);
@@ -31,20 +46,6 @@ const PhysicianResults = () => {
     const [loadingChart, setLoadingChart] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
 
-    var feelings = {
-        "Sad": 0,
-        "Fear": 0,
-        "Anger": 0,
-        "Nauseous": 0,
-        "Fatigue": 0,
-        "Shortness of breath": 0,
-        "Anxious": 0,
-        "Scared": 0,
-        "Confused": 0,
-        "Bored": 0,
-        "Reluctant": 0,
-        "Fever": 0
-    };
     const feelingsRef = useRef(feelings);
 
     useEffect(() => {
@@ -98,6 +99,7 @@ const PhysicianResults = () => {
         }
     });
 
+
     useEffect(() => {
         setOneCon(o => badgeSet(o, " "));
         setTwoCon(o => badgeSet(o, " "));
@@ -115,35 +117,6 @@ const PhysicianResults = () => {
         } else {
             setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
         }
-
-        for (var x in feelings) {
-            if (oneCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (twoCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (threeCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (fourCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (fiveCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (sixCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (sevenCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (eightCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (nineCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (tenCon.includes(x)) {
-                feelings[x] += 1;
-            } else if (elevenCon.includes(x)) {
-                feelings[x] += 1;
-            }
-        }
-
-        feelingsRef.current = feelings
-
     }, [table]);
 
     const renderTable = () => { // pass answers to this table
@@ -238,44 +211,49 @@ const PhysicianResults = () => {
     useEffect(() => {
         if (chart.length !== 0) {
             setLoadingChart(true);
-            setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
-            setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
+            setMonths((monthArray(chart)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+            setScores((scoreArray(chart)).reverse()); // set scores = [{average score per month for all months in the state: months}]
             setLoadingChart(false);
         }
     }, [chart]);
 
-    useEffect(() => {
-        for (var i = 0; i < 12; i++) {
-            if (months[i] === 1) {
-                months[i] = 'January';
-            } else if (months[i] === 2) {
-                months[i] = 'February';
-            } else if (months[i] === 3) {
-                months[i] = 'March';
-            } else if (months[i] === 4) {
-                months[i] = 'April';
-            } else if (months[i] === 5) {
-                months[i] = 'May';
-            } else if (months[i] === 6) {
-                months[i] = 'June';
-            } else if (months[i] === 7) {
-                months[i] = 'July';
-            } else if (months[i] === 8) {
-                months[i] = 'August';
-            } else if (months[i] === 9) {
-                months[i] = 'September';
-            } else if (months[i] === 10) {
-                months[i] = 'October';
-            } else if (months[i] === 11) {
-                months[i] = 'November';
-            } else if (months[i] === 12) {
-                months[i] = 'December';
-            }
+    const names = (arr) => arr.map((month) => {
+        if (month === 1) {
+            return 'January';
+        } else if (month === 2) {
+            return 'February';
+        } else if (month === 3) {
+            return 'March';
+        } else if (month === 4) {
+            return 'April';
+        } else if (month === 5) {
+            return 'May';
+        } else if (month === 6) {
+            return 'June';
+        } else if (month === 7) {
+            return 'July';
+        } else if (month === 8) {
+            return 'August';
+        } else if (month === 9) {
+            return 'September';
+        } else if (month === 10) {
+            return 'October';
+        } else if (month === 11) {
+            return 'November';
+        } else if (month === 12) {
+            return 'December';
+        } else {
+            return ''; // Handle invalid month values gracefully, or you can return the month number itself.
         }
-    }, [months, scores]);
+    });
+
+    useEffect(() => {
+        setMonthNames(names(months));
+
+    }, [months]);
 
     const lineData = {
-        labels: months,
+        labels: monthNames,
         datasets: [
             {
                 label: "Score Average Per Month",
@@ -294,6 +272,77 @@ const PhysicianResults = () => {
         );
     }
 
+    const updateFeelings = () => {
+        const updatedFeelings = {
+            "Sad": 0,
+            "Fear": 0,
+            "Anger": 0,
+            "Nauseous": 0,
+            "Fatigue": 0,
+            "Shortness of breath": 0,
+            "Anxious": 0,
+            "Scared": 0,
+            "Confused": 0,
+            "Bored": 0,
+            "Reluctant": 0,
+            "Fever": 0,
+        };
+        for (let x of Object.keys(updatedFeelings)) {
+            if (oneCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (twoCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (threeCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (fourCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (fiveCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (sixCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (sevenCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (eightCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (nineCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (tenCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+            if (elevenCon.includes(x)) {
+                updatedFeelings[x] += 1;
+            }
+        }
+
+        console.log("update: " + updatedFeelings)
+        return updatedFeelings;
+    };
+
+    useEffect(() => {
+        // Function to update the feelings dictionary
+        setFeelings(updateFeelings(feelings));
+
+        // Use the feelingsRef to keep the feelings up to date without triggering this useEffect again
+        feelingsRef.current = feelings;
+
+    }, [oneCon, twoCon, threeCon, fourCon, fiveCon, sixCon, sevenCon, eightCon, nineCon, tenCon, elevenCon]);
+
+    
+
+    /*useEffect(() => {
+        
+        feelingsRef.current = feelings
+    }, [oneCon, twoCon, threeCon, fourCon, fiveCon, sixCon, sevenCon, eightCon, nineCon, tenCon, elevenCon]); */
+
     const radarData = {
         labels: Object.keys(feelingsRef.current),
         datasets: [
@@ -309,7 +358,7 @@ const PhysicianResults = () => {
     };
 
     const renderRadar = () => {
-        console.log(Object.values(feelingsRef.current))
+       // console.log(Object.values(feelingsRef.current))
 
         return (
             <RadarChart data={radarData} />
@@ -353,10 +402,11 @@ const PhysicianResults = () => {
             <br />
             <Container style={{ width: '80%', height: '40%'} }>
                 {contentsLine}
-                {contentsRadar}
             </Container>
+            <br />
+            <br />
             <Container >
-                
+                {contentsRadar}
             </Container>
             <br />
             <br />
