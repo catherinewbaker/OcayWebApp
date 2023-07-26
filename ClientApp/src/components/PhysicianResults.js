@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import { Container } from 'react-bootstrap';
@@ -31,6 +31,21 @@ const PhysicianResults = () => {
     const [loadingChart, setLoadingChart] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
 
+    var feelings = {
+        "Sad": 0,
+        "Fear": 0,
+        "Anger": 0,
+        "Nauseous": 0,
+        "Fatigue": 0,
+        "Shortness of breath": 0,
+        "Anxious": 0,
+        "Scared": 0,
+        "Confused": 0,
+        "Bored": 0,
+        "Reluctant": 0,
+        "Fever": 0
+    };
+    const feelingsRef = useRef(feelings);
 
     useEffect(() => {
         setLoadingChart(true);
@@ -40,16 +55,6 @@ const PhysicianResults = () => {
         setLoadingTable(false);
     }, []);
 
-    useEffect(() => {
-        if (chart.length !== 0) {
-            setLoadingChart(true);
-            setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
-            setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
-            setLoadingChart(false);
-        }
-    }, [chart]);
-
-
     const getData = () => {
         const bodyParameters = {
             UserNumber: "36587325", // change to pull actual UserNumber
@@ -58,21 +63,21 @@ const PhysicianResults = () => {
             .then((res) => {
                 console.log(res);
                 setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
-                setTable(res.data.userSurveys[res.data.userSurveys.length - 1]); // set table = most recent survey
-                setOneCon(res.data.userSurveys[res.data.userSurveys.length - 1].q1);
-                setTwoCon(res.data.userSurveys[res.data.userSurveys.length - 1].q2);
-                setThreeCon(res.data.userSurveys[res.data.userSurveys.length - 1].q3);
-                setFourCon(res.data.userSurveys[res.data.userSurveys.length - 1].q4);
-                setFiveCon(res.data.userSurveys[res.data.userSurveys.length - 1].q5);
-                setSixCon(res.data.userSurveys[res.data.userSurveys.length - 1].q6);
-                setSevenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q7);
-                setEightCon(res.data.userSurveys[res.data.userSurveys.length - 1].q8);
-                setNineCon(res.data.userSurveys[res.data.userSurveys.length - 1].q9);
-                setTenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q10);
-                setElevenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q11);
-                setTwelveCon(res.data.userSurveys[res.data.userSurveys.length - 1].q12);
-                setThirteenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q13);
-                setTotalCon(res.data.userSurveys[res.data.userSurveys.length - 1].score)
+                setTable(res.data.userSurveys[0]); // set table = most recent survey
+                setOneCon(res.data.userSurveys[0].q1);
+                setTwoCon(res.data.userSurveys[0].q2);
+                setThreeCon(res.data.userSurveys[0].q3);
+                setFourCon(res.data.userSurveys[0].q4);
+                setFiveCon(res.data.userSurveys[0].q5);
+                setSixCon(res.data.userSurveys[0].q6);
+                setSevenCon(res.data.userSurveys[0].q7);
+                setEightCon(res.data.userSurveys[0].q8);
+                setNineCon(res.data.userSurveys[0].q9);
+                setTenCon(res.data.userSurveys[0].q10);
+                setElevenCon(res.data.userSurveys[0].q11);
+                setTwelveCon(res.data.userSurveys[0].q12);
+                setThirteenCon(res.data.userSurveys[0].q13);
+                setTotalCon(res.data.userSurveys[0].score)
             })
             .catch((err) => console.log(err));
     };
@@ -94,26 +99,52 @@ const PhysicianResults = () => {
     });
 
     useEffect(() => {
-        console.log(sixCon)
-        console.log(nineCon)
-        console.log(tenCon)
-        setOneCon(badgeSet(oneCon, " "));
-        setTwoCon(badgeSet(twoCon, " "));
-        setThreeCon(badgeSet(threeCon, " "));
-        setFourCon(badgeSet(fourCon, " "));
-        setFiveCon(badgeSet(fiveCon, "Yes"));
-        setSixCon(badgeSet(sixCon, " "));
-        setSevenCon(badgeSet(sevenCon, "No"));
-        setEightCon(badgeSet(eightCon, "No"));
-        setNineCon(badgeSet(nineCon, " "));
-        setTenCon(badgeSet(tenCon, " "));
-        setElevenCon(badgeSet(elevenCon, " "));
+        setOneCon(o => badgeSet(o, " "));
+        setTwoCon(o => badgeSet(o, " "));
+        setThreeCon(o => badgeSet(o, " "));
+        setFourCon(o => badgeSet(o, " "));
+        setFiveCon(o => badgeSet(o, "Yes"));
+        setSixCon(o => badgeSet(o, " "));
+        setSevenCon(o => badgeSet(o, "No"));
+        setEightCon(o => badgeSet(o, "No"));
+        setNineCon(o => badgeSet(o, " "));
+        setTenCon(o => badgeSet(o, " "));
+        setElevenCon(o => badgeSet(o, " "));
         if (twelveCon >= 5) {
-            setTwelveCon(<span className="badge badge-alert badge-pill mx-1">{twelveCon}</span>);
+            setTwelveCon(o => <span className="badge badge-alert badge-pill mx-1">{o}</span>);
         } else {
-            setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{twelveCon}</span>);
+            setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
         }
-    }, [table, totalCon]);
+
+        for (var x in feelings) {
+            if (oneCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (twoCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (threeCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (fourCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (fiveCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (sixCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (sevenCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (eightCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (nineCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (tenCon.includes(x)) {
+                feelings[x] += 1;
+            } else if (elevenCon.includes(x)) {
+                feelings[x] += 1;
+            }
+        }
+
+        feelingsRef.current = feelings
+
+    }, [table]);
 
     const renderTable = () => { // pass answers to this table
         return (
@@ -204,34 +235,44 @@ const PhysicianResults = () => {
         );
     };
 
-
-    for (var i = 0; i < 12; i++) {
-        if (months[i] === 1) {
-            months[i] = 'January';
-        } else if (months[i] === 2) {
-            months[i] = 'February';
-        } else if (months[i] === 3) {
-            months[i] = 'March';
-        } else if (months[i] === 4) {
-            months[i] = 'April';
-        } else if (months[i] === 5) {
-            months[i] = 'May';
-        } else if (months[i] === 6) {
-            months[i] = 'June';
-        } else if (months[i] === 7) {
-            months[i] = 'July';
-        } else if (months[i] === 8) {
-            months[i] = 'August';
-        } else if (months[i] === 9) {
-            months[i] = 'September';
-        } else if (months[i] === 10) {
-            months[i] = 'October';
-        } else if (months[i] === 11) {
-            months[i] = 'November';
-        } else if (months[i] === 12) {
-            months[i] = 'December';
+    useEffect(() => {
+        if (chart.length !== 0) {
+            setLoadingChart(true);
+            setMonths(monthArray(chart)); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+            setScores(scoreArray(chart)); // set scores = [{average score per month for all months in the state: months}]
+            setLoadingChart(false);
         }
-    }
+    }, [chart]);
+
+    useEffect(() => {
+        for (var i = 0; i < 12; i++) {
+            if (months[i] === 1) {
+                months[i] = 'January';
+            } else if (months[i] === 2) {
+                months[i] = 'February';
+            } else if (months[i] === 3) {
+                months[i] = 'March';
+            } else if (months[i] === 4) {
+                months[i] = 'April';
+            } else if (months[i] === 5) {
+                months[i] = 'May';
+            } else if (months[i] === 6) {
+                months[i] = 'June';
+            } else if (months[i] === 7) {
+                months[i] = 'July';
+            } else if (months[i] === 8) {
+                months[i] = 'August';
+            } else if (months[i] === 9) {
+                months[i] = 'September';
+            } else if (months[i] === 10) {
+                months[i] = 'October';
+            } else if (months[i] === 11) {
+                months[i] = 'November';
+            } else if (months[i] === 12) {
+                months[i] = 'December';
+            }
+        }
+    }, [months, scores]);
 
     const lineData = {
         labels: months,
@@ -247,65 +288,19 @@ const PhysicianResults = () => {
         ],
     };
 
-    var feelings = {
-        "Sad": 0,
-        "Fear": 0,
-        "Anger": 0,
-        "Nauseous": 0,
-        "Fatigue": 0,
-        "Shortness of breath": 0,
-        "Anxious": 0,
-        "Scared": 0,
-        "Confused": 0,
-        "Bored": 0,
-        "Reluctant": 0,
-        "Fever": 0
-    };
-    for (var x in feelings) {
-        if (oneCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (twoCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (threeCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (fourCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (fiveCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (sixCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (sevenCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (eightCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (nineCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (tenCon.includes(x)) {
-            feelings[x] += 1;
-        } else if (elevenCon.includes(x)) {
-            feelings[x] += 1;
-        }
+    const renderLine = () => {
+        return (
+            <LineChart data={lineData} />
+        );
     }
-    
+
     const radarData = {
-        labels: Object.keys(feelings),
+        labels: Object.keys(feelingsRef.current),
         datasets: [
             {
-                label: "Score Average Per Month",
-                data: [
-                    feelings["Sad"],
-                    feelings["Fear"],
-                    feelings["Anger"],
-                    feelings["Nauseous"],
-                    feelings["Fatigue"],
-                    feelings["Shortness of breath"], // Correct the key to 'Shortness of breath'
-                    feelings["Anxious"],
-                    feelings["Scared"],
-                    feelings["Confused"],
-                    feelings["Bored"],
-                    feelings["Reluctant"],
-                    feelings["Fever"],
-                ],                backgroundColor: "#79D4AC",
+                label: "Amount Word was Selected in Past Survey",
+                data: Object.values(feelingsRef.current),
+                backgroundColor: "#79D4AC",
                 borderColor: "#79D4AC",
                 pointBorderColor: '#79D4AC',
                 width: '100%',
@@ -313,14 +308,9 @@ const PhysicianResults = () => {
         ],
     };
 
-    const renderLine = () => {
-        return (
-            <LineChart data={lineData} />
-        );
-    }
-
-
     const renderRadar = () => {
+        console.log(Object.values(feelingsRef.current))
+
         return (
             <RadarChart data={radarData} />
         );
@@ -353,6 +343,7 @@ const PhysicianResults = () => {
 
 
     return (
+
         <div  >
             <br />
             {contentsTable}
@@ -362,11 +353,10 @@ const PhysicianResults = () => {
             <br />
             <Container style={{ width: '80%', height: '40%'} }>
                 {contentsLine}
-            </Container>
-            <br />
-            <br />
-            <Container className=" d-flex flex-column align-items-center vh-100">
                 {contentsRadar}
+            </Container>
+            <Container >
+                
             </Container>
             <br />
             <br />
