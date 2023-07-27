@@ -10,8 +10,6 @@ namespace OcayProject.Models
         public required string LName { get; set; }
         public required bool IsPatient { get; set; }
         public required int SurveyStatus { get; set; }
-        public required string PhysFName { get; set; }
-        public required string PhysLName { get; set; }
 
     }
 }

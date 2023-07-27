@@ -6,7 +6,16 @@ import { Line } from "react-chartjs-2";
 const LineChart = ({ data }) => {
     return (
         <div>
-            <Line data={data} options={{ scales: { y: { min: 0, max: 100 } } }} />
+            <Line data={data} options={{
+                maintainAspectRatio: true,
+                aspectRatio: 2,
+                scales: {
+                    y: {
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }} />
         </div>
     );
 };

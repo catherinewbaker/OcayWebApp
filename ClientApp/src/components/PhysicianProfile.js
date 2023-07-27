@@ -1,18 +1,17 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography} from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 
 const PhysicianProfile = () => {
     const [name, setName] = useState("");
     const [id, setId] = useState("");
     const [email, setEmail] = useState("");
+    const [nameArray, setNameArray] = useState([]);
+    const [idArray, setIdArray] = useState([]);
+    const [scoreArray, setScoreArray] = useState([]);
 
-    useEffect(() => {
-        getData();
-    }, []);
-
-    const getData = () => {
+    const getData = async () => {
         const storedDataString = localStorage.getItem('userInfo');
 
         try {
@@ -20,10 +19,37 @@ const PhysicianProfile = () => {
             setName(userData.fName + " " + userData.lName)
             setId(userData.userNumber)
             setEmail(userData.email)
+
+            const input = {
+                UserNumber: parseInt(userData.userNumber)
+            }
+
+            const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', input);
+
+            const dictionary = response.data.connectedUsers;
+            const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
+
+            const names = dataArray.map(item => item.name);
+            const ids = dataArray.map(item => +item.id);
+
+            setNameArray(names);
+            setIdArray(ids);
+
+            const input2 = {
+                IdArray: idArray
+            }
+
+            const response2 = await axios.post('https://localhost:44408/api/Auth/getScore', input2);
+            setScoreArray(response2.data.userScores)
+
         } catch (error) {
-            console.error("Error parsing 'userInfo' data from localStorage:", error);
+            console.error(error.message);
         }
     }
+
+    useEffect(() => {
+        getData();
+    }, [getData]);
 
 
     return (
@@ -43,7 +69,7 @@ const PhysicianProfile = () => {
                                 </div>
 
                                 {/* Bottom buttons */}
-                                <MDBRow className="position-absolute bottom-0 w-55">
+                                <MDBRow className="position-absolute bottom-0">
                                     <div>
                                         <Button style={{ color: "black", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
                                         <Button style={{ backgroundColor: "#ff4d4d", color: "black", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
@@ -72,11 +98,19 @@ const PhysicianProfile = () => {
                                     <MDBRow className="pt-1">
                                         <MDBCol size="6" className="mb-3">
                                             <MDBTypography tag="h6">Name</MDBTypography>
-                                            <MDBCardText className="text-muted">Patient Name</MDBCardText>
+                                                {nameArray.map((name, index) => (
+                                                    <MDBCardText key={index} className="text-muted">
+                                                        {name}
+                                                    </MDBCardText>
+                                                ))}
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-3">
                                             <MDBTypography tag="h6">Recent Score</MDBTypography>
-                                            <MDBCardText className="text-muted">50 / 100</MDBCardText>
+                                            {scoreArray.map((score, index) => (
+                                                <MDBCardText key={index} className="text-muted">
+                                                    {score} / 100
+                                                </MDBCardText>
+                                            ))}
                                         </MDBCol>
                                     </MDBRow>
 

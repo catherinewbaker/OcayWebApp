@@ -55,10 +55,9 @@ const Signup = () => {
                 LName: LName,
                 IsPatient: isPatient,
                 SurveyStatus: 0,
-                PhysFName: "",
-                PhysLName: "",
                 Email: email,
-                Password: password
+                Password: password,
+                ConnectedUsers: ""
             };
 
             try {
