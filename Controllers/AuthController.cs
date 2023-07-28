@@ -389,6 +389,7 @@ namespace OcayProject.Controllers
             {
                 var data = await _userContext.Set<Survey>()
                     .FromSqlRaw($"SELECT Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score FROM [User_{request.UserNumber}]")
+                    .OrderByDescending(survey => survey.Timestamp) // Order by Timestamp in descending order
                     .ToListAsync();
 
                 // Calculate average monthly scores
@@ -429,6 +430,48 @@ namespace OcayProject.Controllers
             }
         }
 
+        [HttpPost("getResultsByDate")]
+        public async Task<IActionResult> GetResultsByDate(DateRangeDto request)
+        {
+            try
+            {
+                DateTime startDate = DateTime.Parse(request.StartDate);
+                DateTime endDate = DateTime.Parse(request.EndDate);
+
+                var data = await _userContext.Set<Survey>()
+                    .FromSqlRaw($"SELECT Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score FROM [User_{request.UserNumber}]")
+                    .Where(survey => survey.Timestamp >= startDate && survey.Timestamp < endDate.AddDays(1))
+                    .OrderBy(survey => survey.Timestamp) // Order by Timestamp from start date to end date
+                    .ToListAsync();
+
+                // Create the userSurveys list with modified timestamp and split values
+                var userSurveys = data.Select(survey => new
+                {
+                    timestamp = survey.Timestamp.Date.ToString("yyyy-MM-dd"),
+                    q1 = survey.Q1.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q2 = survey.Q2.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q3 = survey.Q3.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q4 = survey.Q4.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q5 = survey.Q5.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q6 = survey.Q6.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q7 = survey.Q7.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q8 = survey.Q8.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q9 = survey.Q9.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q10 = survey.Q10.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q11 = survey.Q11.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
+                    q12 = survey.Q12,
+                    q13 = survey.Q13,
+                    score = survey.Score
+                }).ToList();
+
+                return Ok(new { userSurveys});
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the survey data: {ex.Message}");
+            }
+        }
+
         [HttpPost("getScore")]
         public async Task<IActionResult> GetScore(getScoreDto request)
         {
@@ -443,9 +486,9 @@ namespace OcayProject.Controllers
                     var data = await _userContext.Set<Survey>()
                         .FromSqlRaw($"SELECT Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score FROM [User_{userId}]")
                         .OrderByDescending(survey => survey.Timestamp)
-                        .FirstOrDefaultAsync();
+                        .FirstOrDefaultAsync(); // only getting the very first row
 
-                    // If data is not null (i.e., user found), add the score to the list
+                    // If data is NOT null add the score to the list
                     if (data != null)
                     {
                         userScores.Add(data.Score);
