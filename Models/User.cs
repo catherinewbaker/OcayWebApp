@@ -15,8 +15,7 @@ namespace OcayProject.Models
         public int SurveyStatus { get; set; }
 
         // Additional properties for patient-related information
-        public string PhysFName { get; set; } = string.Empty;
-        public string PhysLName { get; set; } = string.Empty;
+        public string ConnectedUsers { get; set; } = string.Empty;
 
     }
 }

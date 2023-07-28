@@ -2,6 +2,7 @@
 import { PhysicianResults } from "./components/PhysicianResults";
 import { HomePhysician } from "./components/HomePhysician";
 import { Question } from "./components/Question"
+import { PhysicianProfile } from "./components/PhysicianProfile"
 
 const PhysicianRoutes = [
     {
@@ -25,6 +26,12 @@ const PhysicianRoutes = [
         path: '/PhysicianResults',
         requireAuth: true,
         element: <PhysicianResults />
+    },
+
+    {
+        path: '/PhysicianProfile',
+        requireAuth: true,
+        element: <PhysicianProfile />
     },
 ];
 

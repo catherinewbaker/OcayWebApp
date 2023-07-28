@@ -2,11 +2,14 @@ import React, { Component, useState, useEffect } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { useNavigate } from 'react-router-dom'
 import logo from '../image/OCAY_logo.png';
 
 const NavMenu = () => {
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(true);
     const [selectedRoute, setSelectedRoute] = useState('/PatientResults');
+    const [selectedRoute2, setSelectedRoute2] = useState('/PatientProfile');
 
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
@@ -15,6 +18,7 @@ const NavMenu = () => {
     const handleLogout = () => {
         localStorage.removeItem('login');
         localStorage.removeItem('userInfo');
+        navigate("/")
         window.location.reload();
     };
 
@@ -22,8 +26,10 @@ const NavMenu = () => {
         const userData = JSON.parse(localStorage.getItem('userInfo'));
         if (userData.isPatient === false) {
             setSelectedRoute('/PhysicianResults');
+            setSelectedRoute2('/PhysicianProfile');
         } else {
             setSelectedRoute('/PatientResults');
+            setSelectedRoute2('/PatientProfile');
         }
     }, []);
 
@@ -50,6 +56,12 @@ const NavMenu = () => {
                             {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
                             <NavLink tag={Link} className="text" to={selectedRoute}>
                                 Results
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
+                            <NavLink tag={Link} className="text" to={selectedRoute2}>
+                                Profile
                             </NavLink>
                         </NavItem>
                         <NavItem>

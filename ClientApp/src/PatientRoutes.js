@@ -4,6 +4,7 @@ import { PhysicianResults } from "./components/PhysicianResults";
 import { Question } from "./components/Question"
 import { Signup } from "./components/Signup"
 import { PatientResults } from "./components/PatientResults";
+import { PatientProfile } from "./components/PatientProfile"
 
 const PatientRoutes = [
     {
@@ -28,6 +29,13 @@ const PatientRoutes = [
         requireAuth: true,
         element: <PatientResults />
     },
+
+    {
+        path: '/PatientProfile',
+        requireAuth: true,
+        element: <PatientProfile />
+    },
 ];
 
 export default PatientRoutes;
+

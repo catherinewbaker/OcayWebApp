@@ -82,7 +82,6 @@ const PhysicianResults = () => {
     // misc function variables
     var debugIndex = 0;
 
-    
     // FUNCTIONS
     // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
     const getData = () => {
@@ -395,7 +394,7 @@ const PhysicianResults = () => {
             <em>Your line chart is loading...</em>
         </p>
     ) : (
-            renderLine()
+        renderLine()
     );
 
     // if [loadingRadar] isn't true, load the radar chart
@@ -417,7 +416,7 @@ const PhysicianResults = () => {
             <br />
             <br />
             <br />
-            <Container style={{ width: '80%', height: '40%'} }>
+            <Container style={{ width: '80%', height: '40%' }}>
                 {contentsLine}
             </Container>
             <br />

@@ -70,8 +70,7 @@ namespace OcayProject.Controllers
                 LName = request.LName,
                 IsPatient = request.IsPatient,
                 SurveyStatus = request.SurveyStatus,
-                PhysFName = request.PhysFName,
-                PhysLName = request.PhysLName
+
             };
 
             if (request.IsPatient)
@@ -364,7 +363,7 @@ namespace OcayProject.Controllers
 
                 score += (decimal)(11 - request.Q12);
 
-                int finalScore = (int)Math.Round(score);
+                int finalScore = (int)Math.Round(score) - 9;
 
 
                 await _userContext.Database.ExecuteSqlRawAsync(
@@ -430,28 +429,139 @@ namespace OcayProject.Controllers
             }
         }
 
+        [HttpPost("getScore")]
+        public async Task<IActionResult> GetScore(getScoreDto request)
+        {
+            try
+            {
+                
+                var userScores = new List<int>();
 
-            //private string CreateToken(User user)
-            //{
-            //    List<Claim> claims = new List<Claim>
-            //    {
-            //        new Claim(ClaimTypes.Name, user.Username)
-            //    };
+                // Loop through each user ID in the input array
+                foreach (var userId in request.IdArray)
+                {
+                    var data = await _userContext.Set<Survey>()
+                        .FromSqlRaw($"SELECT Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score FROM [User_{userId}]")
+                        .OrderByDescending(survey => survey.Timestamp)
+                        .FirstOrDefaultAsync();
 
-            //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            //        _configuration.GetSection("Jwt:Token").Value!));
+                    // If data is not null (i.e., user found), add the score to the list
+                    if (data != null)
+                    {
+                        userScores.Add(data.Score);
+                    }
+                }
 
-            //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            //    var token = new JwtSecurityToken(
-            //            claims: claims,
-            //            expires: DateTime.Now.AddYears(1),
-            //            signingCredentials: creds
-            //        );
-
-            //    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            //    return jwt;
-            //}
+                return Ok(new { userScores });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving the survey data: {ex.Message}");
+            }
         }
+
+        [HttpPost("connectPhysician")]
+        public async Task<IActionResult> ConnectPhysician(ConnectDto request)
+        {
+            try
+            {
+                var physicianUser = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.PhysicianUserNumber);
+
+                if (physicianUser == null || physicianUser.IsPatient == true)
+                {
+                    return BadRequest("Please check your physician's ID number.");
+                }
+
+                string patientNum = request.PatientUserNumber.ToString();
+                string physicianNum = request.PhysicianUserNumber.ToString();
+
+                await _userContext.Database.ExecuteSqlRawAsync(
+                    $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{physicianNum};' " +
+                    $"WHERE UserNumber = {request.PatientUserNumber};"
+                );
+
+                await _userContext.Database.ExecuteSqlRawAsync(
+                    $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{patientNum};' " +
+                    $"WHERE UserNumber = {request.PhysicianUserNumber};"
+                );
+
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
+        [HttpPost("loadConnections")]
+        public async Task<IActionResult> LoadConnections(ResultDto request)
+        {
+            try
+            {
+                var userNum = request.UserNumber;
+
+                var data = await _userContext.User
+                    .Where(u => u.UserNumber == userNum)
+                    .Select(u => u.ConnectedUsers)
+                    .FirstOrDefaultAsync();
+
+                if (data == null)
+                {
+                    return NotFound("User not found.");
+                }
+
+                string[] connectedUsersArray = data.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                Dictionary<int, string> outputDict = new Dictionary<int, string>();
+
+                foreach (string connectedUser in connectedUsersArray)
+                {
+                    if (int.TryParse(connectedUser, out int connectedUserNum))
+                    {
+                        var nameData = await _userContext.User
+                            .Where(u => u.UserNumber == connectedUserNum)
+                            .Select(u => u.FName + " " + u.LName)
+                            .FirstOrDefaultAsync();
+
+                        if (nameData != null)
+                        {
+                            outputDict.Add(connectedUserNum, nameData);
+                        }
+                    }
+                }
+
+                return Ok(new { ConnectedUsers = outputDict });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
+
+        //private string CreateToken(User user)
+        //{
+        //    List<Claim> claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name, user.Username)
+        //    };
+
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+        //        _configuration.GetSection("Jwt:Token").Value!));
+
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        //    var token = new JwtSecurityToken(
+        //            claims: claims,
+        //            expires: DateTime.Now.AddYears(1),
+        //            signingCredentials: creds
+        //        );
+
+        //    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        //    return jwt;
+        //}
+    }
 }
