@@ -27,10 +27,10 @@ const Survey = () => {
     return (
         <Container className=" d-flex flex-column align-items-center vh-100">
             <div class="scrollHold">
-                <h1>
+                <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}>
                     OCAY Patient Consent Form
                 </h1>
-                <p>
+                <p style={{ color: '#a6a6a6' }}>
                     Please read the following terms and conditions carefully before proceeding with the survey. By selecting the "I Agree" checkbox, you acknowledge that you have read, understood, and agreed to the terms outlined below.
                 </p>
                 <br />
@@ -63,18 +63,21 @@ const Survey = () => {
                     </p>
                 </div>
             </div>
-            <Form.Check type="checkbox" label="I have read and agree to the terms and conditions" onClick={toggleRead} />
-            <p>{warning}</p>
-            <Button
-                label="btnStartSurvey"
-                type="button"
-                className="btn - primary"
-                style={{ fontSize: '20px' }}
-                onClick={onPressStart}
-                disabled={!hasRead}
-            >
-                Press to Start
-            </Button>
+            <br />
+            <Container className="d-flex flex-column align-items-center">
+                <Form.Check style={{ color: '#a6a6a6' }} type="checkbox" label="I have read and agree to the terms and conditions" onClick={toggleRead} />
+                <p>{warning}</p>
+                <Button
+                    label="btnStartSurvey"
+                    type="button"
+                    className="btn - primary"
+                    style={{ fontSize: '20px', width: '150px', color: '#FFFFFF' }}
+                    onClick={onPressStart}
+                    disabled={!hasRead}
+                >
+                    Press to Start
+                    </Button>
+            </Container>
         </Container>
     );
 };

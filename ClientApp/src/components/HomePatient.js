@@ -37,8 +37,8 @@ const HomePatient = () => {
 
     return (
         <div>
-            <h1>Welcome back {name}!</h1>
-            <p>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
+            <h1 style={{ color: '#a6a6a6', fontSize: '35px' }} >Welcome back {name}!</h1>
+            <p style={{ color: '#a6a6a6' }}>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
             <br />
             <Container className=" d-flex justify-content-left" >
                 <Row >

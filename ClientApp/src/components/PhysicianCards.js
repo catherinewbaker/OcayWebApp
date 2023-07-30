@@ -4,24 +4,55 @@ import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'rea
 
 const PhysicianCards = () => {
     const [patients, setPatients] = useState("");
+    const [number, setNumber] = useState("");
+    const [patientsContent, setPatientsContent] = useState("");
 
     useEffect(() => {
         getData();
     }, []);
 
+    useEffect(() => {
+        getPatients();
+    }, [number]);
+
+    useEffect(() => {
+        setPatientsContent(renderCards());
+    }, [patients])
+
     const getData = () => {
+        const storedDataString = localStorage.getItem('userInfo');
+
+        try {
+            const storedDataObject = JSON.parse(storedDataString);
+            //console.log(storedDataObject)
+            if (storedDataObject && storedDataObject.userNumber) {
+                setNumber(storedDataObject.userNumber);
+                // console.log(number)
+            } else {
+                console.log("Invalid or missing 'userInfo' data in localStorage.");
+            }
+        } catch (error) {
+            console.error("Error parsing 'userInfo' data from localStorage:", error);
+        }
+    }
+
+    const getPatients = () => {
+        if (number === "" || number === null) {
+            console.log("Error: User number improperly pulled");
+            setPatientsContent(<p>We had trouble pulling your patient information. Please reload the page to view your available patients.</p>)
+            return;
+        }
         const bodyParameters = {
-            UserNumber: "36587325", // change to pull actual UserNumber
+            UserNumber: number,
         };
         axios.post('https://localhost:44408/api/Auth/loadConnections', bodyParameters)
             .then((res) => {
-                console.log(res);
+                 console.log(res);
                 setPatients(res.data.connectedUsers)
             })
-            .catch((err) => console.log(err));
-    };
+            .catch((err) => console.log(err)); 
+    }; 
 
-    var holder;
     const renderCards = () => {
         for (var user of Object.keys(patients)) {
             console.log(user);
@@ -32,7 +63,7 @@ const PhysicianCards = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         justifyContent: 'left',
-                        width: '150px'
+                        width: '200px',
                     }} >
                         <Card style={{
                             backgroundColor: '#FFFFFF',
@@ -41,7 +72,7 @@ const PhysicianCards = () => {
                             color: '#79D4AC'
                         }}>
                             <Card.Body className="text-center">
-                                <Card.Title className="card-title" style={{ fontSize: '15px' }}>{patients[user]}</Card.Title>
+                                <Card.Title className="card-title" style={{ fontSize: '15px' }}>{patients[user]}<br />ID: {user}</Card.Title>
                             </Card.Body>
                         </Card>
                     </Button>
@@ -50,16 +81,18 @@ const PhysicianCards = () => {
         }
     }
     
-    const patientsContent = renderCards();
     return (
-        <div>
-            <h1>Please select one of your patients for viewing</h1>
+        <Container className="d-flex flex-column align-items-left">
+            <br />
+            <h1 style={{ color: '#a6a6a6', fontSize: '35px' }} >Your Patients</h1>
+            <p style={{ color: '#a6a6a6' }}>Please select one of your patients to view their results</p>
+            <br />
             <Container className=" d-flex justify-content-left" >
                 <Row >
                     {patientsContent}
                 </Row>
             </Container>
-        </div>
+        </Container>
     );
 
 }
