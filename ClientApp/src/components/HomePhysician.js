@@ -15,7 +15,7 @@ const HomePhysician = () => {
             const storedDataObject = JSON.parse(storedDataString);
             console.log(storedDataObject)
             if (storedDataObject && storedDataObject.lName) {
-                setName(storedDataObject.lName);
+                setName(storedDataObject.lName); // to pull userNumber do storedDataObject.UserNumber -> store as int!
             } else {
                 console.log("Invalid or missing 'userInfo' data in localStorage.");
             }
