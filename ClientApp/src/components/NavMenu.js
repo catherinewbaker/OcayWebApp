@@ -10,6 +10,7 @@ const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);
     const [selectedRoute, setSelectedRoute] = useState('/PatientResults');
     const [selectedRoute2, setSelectedRoute2] = useState('/PatientProfile');
+    const [isPatient, setIsPatient] = useState(true)
 
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
@@ -27,6 +28,7 @@ const NavMenu = () => {
         if (userData.isPatient === false) {
             setSelectedRoute('/PhysicianResults');
             setSelectedRoute2('/PhysicianProfile');
+            setIsPatient(false);
         } else {
             setSelectedRoute('/PatientResults');
             setSelectedRoute2('/PatientProfile');
@@ -47,11 +49,13 @@ const NavMenu = () => {
                                 Home
                             </NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className="text" to="/survey">
-                                Survey
-                            </NavLink>
-                        </NavItem>
+                        {isPatient && (
+                            <NavItem>
+                                <NavLink tag={Link} className="text" to="/survey">
+                                    Survey
+                                </NavLink>
+                            </NavItem>
+                        )}
                         <NavItem>
                             {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
                             <NavLink tag={Link} className="text" to={selectedRoute}>

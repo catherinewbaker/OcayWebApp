@@ -10,8 +10,9 @@ const PhysicianProfile = () => {
     const [nameArray, setNameArray] = useState([]);
     const [idArray, setIdArray] = useState([]);
     const [scoreArray, setScoreArray] = useState([]);
+    const [input, setInput] = useState();
 
-    const getData = async () => {
+    const getUserData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 
         try {
@@ -19,12 +20,22 @@ const PhysicianProfile = () => {
             setName(userData.fName + " " + userData.lName)
             setId(userData.userNumber)
             setEmail(userData.email)
+            setInput(parseInt(userData.userNumber))
+        } catch (error) {
+            console.error("Error parsing 'userInfo' data from localStorage:", error);
+        }
+    }
 
-            const input = {
-                UserNumber: parseInt(userData.userNumber)
-            }
-
-            const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', input);
+    const getCons = async () => {
+        const pInput = {
+            UserNumber: input,
+        }
+        if (input === null || input === "") {
+            console.log("input is null: " + input)
+            return;
+        }
+        try {
+            const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', pInput);
 
             const dictionary = response.data.connectedUsers;
             const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
@@ -35,8 +46,15 @@ const PhysicianProfile = () => {
             setNameArray(names);
             setIdArray(ids);
 
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const getScores = async () => {
+        try {
             const input2 = {
-                IdArray: idArray
+                IdArray: idArray,
             }
 
             const response2 = await axios.post('https://localhost:44408/api/Auth/getScore', input2);
@@ -48,8 +66,16 @@ const PhysicianProfile = () => {
     }
 
     useEffect(() => {
-        getData();
-    }, [getData]);
+        getUserData();
+    }, []);
+
+    useEffect(() => {
+        getCons(); // Call getCons() when 'input' state changes
+    }, [input]);
+
+    useEffect(() => {
+        getScores(); // Call getScores() when 'idArray' state changes
+    }, [idArray]);
 
 
     return (
@@ -108,7 +134,7 @@ const PhysicianProfile = () => {
                                             <MDBTypography tag="h6">Recent Score</MDBTypography>
                                             {scoreArray.map((score, index) => (
                                                 <MDBCardText key={index} className="text-muted">
-                                                    {score} / 100
+                                                    {score !== -1 ? `${score} / 100` : 'No score available'}
                                                 </MDBCardText>
                                             ))}
                                         </MDBCol>

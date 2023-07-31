@@ -489,7 +489,11 @@ namespace OcayProject.Controllers
                         .FirstOrDefaultAsync(); // only getting the very first row
 
                     // If data is NOT null add the score to the list
-                    if (data != null)
+                    if (data == null)
+                    {
+                        userScores.Add(-1);
+                    }
+                    else
                     {
                         userScores.Add(data.Score);
                     }
