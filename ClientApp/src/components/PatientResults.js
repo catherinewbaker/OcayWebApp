@@ -30,7 +30,8 @@ const PatientResults = () => {
 
     // misc function variables
     var debugIndex = 0;
-
+    var contentsTable = "";
+    var contentsEmpty = "";
 
     
 
@@ -194,20 +195,31 @@ const PatientResults = () => {
 
     // FINAL LAODING FOR RENDERING
     // if [loadingTable] isn't true, load the table
-
-    let contentsTable = loadingTable ? (
-        <p>
-            <em>Your recent survey results are loading...</em>
-        </p>
-    ) : (
-        renderTable()
-    );
+    if (isEmpty) {
+        contentsEmpty = (
+            <p>
+                <em>You have no surveys in our records! To get started, navigate to the <strong>Survey</strong> tab and take your first survey!</em>
+            </p>
+        )
+        contentsTable = <p> </p>
+    } else {
+        contentsEmpty = <p> </p>
+        contentsTable = loadingTable ? (
+            <p>
+                <em>Your recent survey results are loading...</em>
+            </p>
+        ) : (
+            renderTable()
+        );
+    }
+    
 
     // FINAL RETURN
     return (
 
         <div  >
             <br />
+            {contentsEmpty}
             {contentsTable}
             <br />
             <br />
