@@ -26,6 +26,7 @@ const PatientResults = () => {
 
     // loading variables
     const [loadingTable, setLoadingTable] = useState(true);
+    const [isEmpty, setIsEmpty] = useState(true)
 
     // misc function variables
     var debugIndex = 0;
@@ -43,20 +44,25 @@ const PatientResults = () => {
             .then((res) => {
                 console.log(res);
                 setTable(res.data.userSurveys[0]); // set table = most recent survey
-                setOneCon(res.data.userSurveys[0].q1);
-                setTwoCon(res.data.userSurveys[0].q2);
-                setThreeCon(res.data.userSurveys[0].q3);
-                setFourCon(res.data.userSurveys[0].q4);
-                setFiveCon(res.data.userSurveys[0].q5);
-                setSixCon(res.data.userSurveys[0].q6);
-                setSevenCon(res.data.userSurveys[0].q7);
-                setEightCon(res.data.userSurveys[0].q8);
-                setNineCon(res.data.userSurveys[0].q9);
-                setTenCon(res.data.userSurveys[0].q10);
-                setElevenCon(res.data.userSurveys[0].q11);
-                setTwelveCon(res.data.userSurveys[0].q12);
-                setThirteenCon(res.data.userSurveys[0].q13);
-                setTotalCon(res.data.userSurveys[0].score)
+                if (res.data.userSurveys[0] == null) {
+                    setIsEmpty(true)
+                } else {
+                    setOneCon(res.data.userSurveys[0].q1);
+                    setTwoCon(res.data.userSurveys[0].q2);
+                    setThreeCon(res.data.userSurveys[0].q3);
+                    setFourCon(res.data.userSurveys[0].q4);
+                    setFiveCon(res.data.userSurveys[0].q5);
+                    setSixCon(res.data.userSurveys[0].q6);
+                    setSevenCon(res.data.userSurveys[0].q7);
+                    setEightCon(res.data.userSurveys[0].q8);
+                    setNineCon(res.data.userSurveys[0].q9);
+                    setTenCon(res.data.userSurveys[0].q10);
+                    setElevenCon(res.data.userSurveys[0].q11);
+                    setTwelveCon(res.data.userSurveys[0].q12);
+                    setThirteenCon(res.data.userSurveys[0].q13);
+                    setTotalCon(res.data.userSurveys[0].score)
+                }
+                console.log(isEmpty)
             })
             .catch((err) => console.log(err));
     };
@@ -188,6 +194,7 @@ const PatientResults = () => {
 
     // FINAL LAODING FOR RENDERING
     // if [loadingTable] isn't true, load the table
+
     let contentsTable = loadingTable ? (
         <p>
             <em>Your recent survey results are loading...</em>
