@@ -84,31 +84,36 @@ const PhysicianResults = () => {
 
     // FUNCTIONS
     // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-    const getData = () => {
-        const bodyParameters = {
-            UserNumber: "36587325", // change to pull actual UserNumber
-        };
-        axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
-            .then((res) => {
-                console.log(res);
-                setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
-                setTable(res.data.userSurveys[0]); // set table = most recent survey
-                setOneCon(res.data.userSurveys[0].q1);
-                setTwoCon(res.data.userSurveys[0].q2);
-                setThreeCon(res.data.userSurveys[0].q3);
-                setFourCon(res.data.userSurveys[0].q4);
-                setFiveCon(res.data.userSurveys[0].q5);
-                setSixCon(res.data.userSurveys[0].q6);
-                setSevenCon(res.data.userSurveys[0].q7);
-                setEightCon(res.data.userSurveys[0].q8);
-                setNineCon(res.data.userSurveys[0].q9);
-                setTenCon(res.data.userSurveys[0].q10);
-                setElevenCon(res.data.userSurveys[0].q11);
-                setTwelveCon(res.data.userSurveys[0].q12);
-                setThirteenCon(res.data.userSurveys[0].q13);
-                setTotalCon(res.data.userSurveys[0].score)
-            })
-            .catch((err) => console.log(err));
+    const getData = async () => {
+        try {
+            // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
+            const number = parseInt(localStorage.getItem("patientID"));
+
+            const bodyParameters = {
+                UserNumber: number, // change to pull actual UserNumber
+            };
+
+            const res = await axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters);
+
+            setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
+            setTable(res.data.userSurveys[0]); // set table = most recent survey
+            setOneCon(res.data.userSurveys[0].q1);
+            setTwoCon(res.data.userSurveys[0].q2);
+            setThreeCon(res.data.userSurveys[0].q3);
+            setFourCon(res.data.userSurveys[0].q4);
+            setFiveCon(res.data.userSurveys[0].q5);
+            setSixCon(res.data.userSurveys[0].q6);
+            setSevenCon(res.data.userSurveys[0].q7);
+            setEightCon(res.data.userSurveys[0].q8);
+            setNineCon(res.data.userSurveys[0].q9);
+            setTenCon(res.data.userSurveys[0].q10);
+            setElevenCon(res.data.userSurveys[0].q11);
+            setTwelveCon(res.data.userSurveys[0].q12);
+            setThirteenCon(res.data.userSurveys[0].q13);
+            setTotalCon(res.data.userSurveys[0].score);
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     // pull the monthly averages from [table] into an array of scores

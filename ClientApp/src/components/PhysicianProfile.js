@@ -33,21 +33,22 @@ const PhysicianProfile = () => {
         if (input === null || input === "") {
             console.log("input is null: " + input)
             return;
-        }
-        try {
-            const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', pInput);
+        } else {
+            try {
+                const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', pInput);
 
-            const dictionary = response.data.connectedUsers;
-            const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
+                const dictionary = response.data.connectedUsers;
+                const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
 
-            const names = dataArray.map(item => item.name);
-            const ids = dataArray.map(item => +item.id);
+                const names = dataArray.map(item => item.name);
+                const ids = dataArray.map(item => +item.id);
 
-            setNameArray(names);
-            setIdArray(ids);
+                setNameArray(names);
+                setIdArray(ids);
 
-        } catch (error) {
-            console.log(error.message);
+            } catch (error) {
+                console.log(error.message);
+            }
         }
     }
 
@@ -94,7 +95,7 @@ const PhysicianProfile = () => {
                                 </div>
 
                                 {/* Bottom buttons */}
-                                <MDBRow className="position-absolute bottom-0">
+                                <MDBRow className="position-absolute bottom-0 mb-2">
                                     <div>
                                         <Button style={{ color: "white", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
                                         <Button style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>

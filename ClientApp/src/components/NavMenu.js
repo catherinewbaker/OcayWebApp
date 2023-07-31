@@ -19,6 +19,7 @@ const NavMenu = () => {
     const handleLogout = () => {
         localStorage.removeItem('login');
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('patientID');
         navigate("/")
         window.location.reload();
     };
