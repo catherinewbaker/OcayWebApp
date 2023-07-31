@@ -179,7 +179,7 @@ const Question = () => {
         },
 
         {
-            question: 'I eat ____ everyday.', // this section is not done
+            question: 'I eat ____ everyday.',
             answers: [
                 { imageSrc: require('../image/oneFood.png'), description: 'Once a day', color: '#56BF4F' },
                 { imageSrc: require('../image/twoFood.png'), description: 'Twice a day', color: '#088FDB' },

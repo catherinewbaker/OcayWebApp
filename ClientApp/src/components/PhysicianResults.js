@@ -82,7 +82,6 @@ const PhysicianResults = () => {
     // misc function variables
     var debugIndex = 0;
 
-
     // FUNCTIONS
     // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
     const getData = () => {

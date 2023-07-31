@@ -38,3 +38,4 @@ const PatientRoutes = [
 ];
 
 export default PatientRoutes;
+

@@ -143,6 +143,13 @@ a {
     cursor: pointer;
 }
 
+.card-home {
+    backgroundColor: #79D4AC;
+    border: none;
+    width: 30%;
+    color: #FFFFFF;
+}
+
 code {
     color: #E01A76;
 }
@@ -151,7 +158,7 @@ div.scroller {
     background-color: #f2f2f2;
     padding: 1rem;
     overflow-y: auto;
-    width: 70%;
+    width: 80%;
     height: 70%;
     margin: 0 auto;
 }

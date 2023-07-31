@@ -77,7 +77,6 @@ const PhysicianProfile = () => {
         getScores(); // Call getScores() when 'idArray' state changes
     }, [idArray]);
 
-
     return (
         <MDBContainer className="py-5 h-100">
             <MDBRow className="justify-content-center align-items-center h-100">
@@ -97,8 +96,8 @@ const PhysicianProfile = () => {
                                 {/* Bottom buttons */}
                                 <MDBRow className="position-absolute bottom-0">
                                     <div>
-                                        <Button style={{ color: "black", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
-                                        <Button style={{ backgroundColor: "#ff4d4d", color: "black", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
+                                        <Button style={{ color: "white", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
+                                        <Button style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
                                     </div>
                                 </MDBRow>
                             </MDBCol>

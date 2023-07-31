@@ -26,7 +26,7 @@ const NavMenu = () => {
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userInfo'));
         if (userData.isPatient === false) {
-            setSelectedRoute('/PhysicianResults');
+            setSelectedRoute('/PhysicianCards');
             setSelectedRoute2('/PhysicianProfile');
             setIsPatient(false);
         } else {

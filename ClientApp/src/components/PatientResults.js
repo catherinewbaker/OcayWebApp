@@ -6,32 +6,35 @@ import LineChart from "./LineChart";
 import axios from 'axios';
 
 const PatientResults = () => {
-    const [table, setTable] = useState();
+    // LIST OF VARIABLES
+    // table data
+    const [table, setTable] = useState(); // holds table data
+    const [oneCon, setOneCon] = useState(["loading..."]); // array with data for q1
+    const [twoCon, setTwoCon] = useState(["loading..."]); // array with data for q2
+    const [threeCon, setThreeCon] = useState(["loading..."]); // array with data for q3
+    const [fourCon, setFourCon] = useState(["loading..."]); // array with data for q4
+    const [fiveCon, setFiveCon] = useState(["loading..."]); // array with data for q5
+    const [sixCon, setSixCon] = useState(["loading..."]); // array with data for q6
+    const [sevenCon, setSevenCon] = useState(["loading..."]); // array with data for q7
+    const [eightCon, setEightCon] = useState(["loading..."]); // array with data for q8
+    const [nineCon, setNineCon] = useState(["loading..."]); // array with data for q9
+    const [tenCon, setTenCon] = useState(["loading..."]); // array with data for q10
+    const [elevenCon, setElevenCon] = useState(["loading..."]); // array with data for q11
+    const [twelveCon, setTwelveCon] = useState("loading..."); // array with data for q12
+    const [thirteenCon, setThirteenCon] = useState("loading..."); // array with data for q13
+    const [totalCon, setTotalCon] = useState(["Survey score loading..."]); // array with data for total score
 
-    const [oneCon, setOneCon] = useState(["loading..."]);
-    const [twoCon, setTwoCon] = useState(["loading..."]);
-    const [threeCon, setThreeCon] = useState(["loading..."]);
-    const [fourCon, setFourCon] = useState(["loading..."]);
-    const [fiveCon, setFiveCon] = useState(["loading..."]);
-    const [sixCon, setSixCon] = useState(["loading..."]);
-    const [sevenCon, setSevenCon] = useState(["loading..."]);
-    const [eightCon, setEightCon] = useState(["loading..."]);
-    const [nineCon, setNineCon] = useState(["loading..."]);
-    const [tenCon, setTenCon] = useState(["loading..."]);
-    const [elevenCon, setElevenCon] = useState(["loading..."]);
-    const [twelveCon, setTwelveCon] = useState("loading...");
-    const [thirteenCon, setThirteenCon] = useState("loading...");
-    const [totalCon, setTotalCon] = useState(["Survey score loading..."]);
-
+    // loading variables
     const [loadingTable, setLoadingTable] = useState(true);
 
+    // misc function variables
+    var debugIndex = 0;
 
-    useEffect(() => {
-        setLoadingTable(true);
-        getData();
-        setLoadingTable(false);
-    }, []);
 
+    
+
+    // FUNCTIONS
+    // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
     const getData = () => {
         const bodyParameters = {
             UserNumber: "36587325", // change to pull actual UserNumber
@@ -39,26 +42,26 @@ const PatientResults = () => {
         axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
                 console.log(res);
-                setTable(res.data.userSurveys[res.data.userSurveys.length - 1]); // set table = most recent survey
-                setOneCon(res.data.userSurveys[res.data.userSurveys.length - 1].q1);
-                setTwoCon(res.data.userSurveys[res.data.userSurveys.length - 1].q2);
-                setThreeCon(res.data.userSurveys[res.data.userSurveys.length - 1].q3);
-                setFourCon(res.data.userSurveys[res.data.userSurveys.length - 1].q4);
-                setFiveCon(res.data.userSurveys[res.data.userSurveys.length - 1].q5);
-                setSixCon(res.data.userSurveys[res.data.userSurveys.length - 1].q6);
-                setSevenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q7);
-                setEightCon(res.data.userSurveys[res.data.userSurveys.length - 1].q8);
-                setNineCon(res.data.userSurveys[res.data.userSurveys.length - 1].q9);
-                setTenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q10);
-                setElevenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q11);
-                setTwelveCon(res.data.userSurveys[res.data.userSurveys.length - 1].q12);
-                setThirteenCon(res.data.userSurveys[res.data.userSurveys.length - 1].q13);
-                setTotalCon(res.data.userSurveys[res.data.userSurveys.length - 1].score)
+                setTable(res.data.userSurveys[0]); // set table = most recent survey
+                setOneCon(res.data.userSurveys[0].q1);
+                setTwoCon(res.data.userSurveys[0].q2);
+                setThreeCon(res.data.userSurveys[0].q3);
+                setFourCon(res.data.userSurveys[0].q4);
+                setFiveCon(res.data.userSurveys[0].q5);
+                setSixCon(res.data.userSurveys[0].q6);
+                setSevenCon(res.data.userSurveys[0].q7);
+                setEightCon(res.data.userSurveys[0].q8);
+                setNineCon(res.data.userSurveys[0].q9);
+                setTenCon(res.data.userSurveys[0].q10);
+                setElevenCon(res.data.userSurveys[0].q11);
+                setTwelveCon(res.data.userSurveys[0].q12);
+                setThirteenCon(res.data.userSurveys[0].q13);
+                setTotalCon(res.data.userSurveys[0].score)
             })
             .catch((err) => console.log(err));
     };
 
-    var debugIndex = 0;
+    // determine if words in each [--Con] variable get a red or green badge
     const badgeSet = (arr, n) => arr.map((x, index) => {
         debugIndex += 1;
         if (x !== null && x !== " ") {
@@ -68,25 +71,33 @@ const PatientResults = () => {
         }
     });
 
+    // USE_EFFECT LOOPS
+    // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
-        console.log(sixCon)
-        console.log(nineCon)
-        console.log(tenCon)
-        setOneCon(badgeSet(oneCon, " "));
-        setTwoCon(badgeSet(twoCon, " "));
-        setThreeCon(badgeSet(threeCon, " "));
-        setFourCon(badgeSet(fourCon, " "));
-        setFiveCon(badgeSet(fiveCon, "Yes"));
-        setSixCon(badgeSet(sixCon, " "));
-        setSevenCon(badgeSet(sevenCon, "No"));
-        setEightCon(badgeSet(eightCon, "No"));
-        setNineCon(badgeSet(nineCon, " "));
-        setTenCon(badgeSet(tenCon, " "));
-        setElevenCon(badgeSet(elevenCon, " "));
-        setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{twelveCon}</span>);
-    }, [table, totalCon]);
+        setLoadingTable(true); // while we pull data, don't load the table
+        getData();
+        setLoadingTable(false);
+    }, []);
 
-    const renderTable = () => { // pass answers to this table
+    // reset the [--Con]'s to equal their proper badge in JSX
+    useEffect(() => {
+        setOneCon(o => badgeSet(o, " "));
+        setTwoCon(o => badgeSet(o, " "));
+        setThreeCon(o => badgeSet(o, " "));
+        setFourCon(o => badgeSet(o, " "));
+        setFiveCon(o => badgeSet(o, "Yes"));
+        setSixCon(o => badgeSet(o, " "));
+        setSevenCon(o => badgeSet(o, "No"));
+        setEightCon(o => badgeSet(o, "No"));
+        setNineCon(o => badgeSet(o, " "));
+        setTenCon(o => badgeSet(o, " "));
+        setElevenCon(o => badgeSet(o, " "));
+        setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
+    }, [table]);
+
+    // RENDERING FUNCTIONS
+    // render table
+    const renderTable = () => {
         return (
             <Container className="d-flex flex-column align-items-center">
                 <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}> Most Recent Score: {totalCon} / 100</h1>
@@ -175,6 +186,8 @@ const PatientResults = () => {
         );
     };
 
+    // FINAL LAODING FOR RENDERING
+    // if [loadingTable] isn't true, load the table
     let contentsTable = loadingTable ? (
         <p>
             <em>Your recent survey results are loading...</em>
@@ -183,11 +196,12 @@ const PatientResults = () => {
         renderTable()
     );
 
+    // FINAL RETURN
     return (
-        <div className="d-flex flex-column align-items-center vh-100" >
+
+        <div  >
             <br />
             {contentsTable}
-            <br />
             <br />
             <br />
         </div>
