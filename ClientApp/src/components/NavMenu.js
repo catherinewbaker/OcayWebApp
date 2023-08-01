@@ -38,47 +38,53 @@ const NavMenu = () => {
 
     return (
         <header>
-            <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-                <NavbarBrand tag={Link} to="/">
-                    <img src={logo} alt="Responsive image" className="logo-image" /> Ocay Patient Portal
-                </NavbarBrand>
-                <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-                <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
-                    <ul className="navbar-nav flex-grow">
-                        <NavItem>
-                            <NavLink tag={Link} className="text" to="/">
-                                Home
-                            </NavLink>
-                        </NavItem>
-                        {isPatient && (
+            <div className="container-fluid" style={{ padding: '0' }}>
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow" light style={{ margin: '0' }}>
+                    <NavbarBrand tag={Link} to="/">
+                        <img src={logo} alt="Responsive image" className="logo-image" /> Ocay Patient Portal
+                    </NavbarBrand>
+                    <NavbarToggler onClick={toggleNavbar} className="mr-2" />
+                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
+                        <ul className="navbar-nav ml-auto" style={{ margin: '0' }}> {/* Use 'ml-auto' to push items to the right */}
                             <NavItem>
-                                <NavLink tag={Link} className="text" to="/survey">
-                                    Survey
+                                <NavLink tag={Link} className="text" to="/">
+                                    Home
                                 </NavLink>
                             </NavItem>
-                        )}
-                        <NavItem>
-                            {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
-                            <NavLink tag={Link} className="text" to={selectedRoute}>
-                                Results
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
-                            <NavLink tag={Link} className="text" to={selectedRoute2}>
-                                Profile
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <a className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                                Logout
-                            </a>
-                        </NavItem>
-                    </ul>
-                </Collapse>
-            </Navbar>
+                            {isPatient && (
+                                <NavItem>
+                                    <NavLink tag={Link} className="text" to="/survey">
+                                        Survey
+                                    </NavLink>
+                                </NavItem>
+                            )}
+                            <NavItem>
+                                {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
+                                <NavLink tag={Link} className="text" to={selectedRoute}>
+                                    Results
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
+                                <NavLink tag={Link} className="text" to={selectedRoute2}>
+                                    Profile
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <a className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                                    Logout
+                                </a>
+                            </NavItem>
+                        </ul>
+                    </Collapse>
+                </Navbar>
+            </div>
         </header>
     );
+
+
+
+
 };
 
 export { NavMenu };
