@@ -53,7 +53,6 @@ const PhysicianResults = () => {
         "Fatigue": 0,
         "Shortness of breath": 0,
         "Anxious": 0,
-        "Scared": 0,
         "Confused": 0,
         "Bored": 0,
         "Reluctant": 0,
@@ -78,21 +77,36 @@ const PhysicianResults = () => {
     const [loadingLine, setLoadingLine] = useState(true);
     const [loadingRadar, setLoadingRadar] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
+    const [isEmpty, setIsEmpty] = useState(true);
 
     // misc function variables
     var debugIndex = 0;
+    var contentsTable = "";
+    var contentsEmpty = "";
+    var contentsRadar = "";
+    var contentsLine = "";
+
+
 
     // FUNCTIONS
     // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-    const getData = () => {
-        const bodyParameters = {
-            UserNumber: "36587325", // change to pull actual UserNumber
-        };
-        axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
-            .then((res) => {
-                console.log(res);
-                setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
-                setTable(res.data.userSurveys[0]); // set table = most recent survey
+    const getData = async () => {
+        try {
+            // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
+            const number = parseInt(localStorage.getItem("patientID"));
+
+            const bodyParameters = {
+                UserNumber: number, // change to pull actual UserNumber
+            };
+
+            const res = await axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters);
+
+            setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
+            setTable(res.data.userSurveys[0]); // set table = most recent survey
+            if (res.data.userSurveys[0] == null) {
+                setIsEmpty(true)
+            } else {
+                setIsEmpty(false)
                 setOneCon(res.data.userSurveys[0].q1);
                 setTwoCon(res.data.userSurveys[0].q2);
                 setThreeCon(res.data.userSurveys[0].q3);
@@ -106,9 +120,11 @@ const PhysicianResults = () => {
                 setElevenCon(res.data.userSurveys[0].q11);
                 setTwelveCon(res.data.userSurveys[0].q12);
                 setThirteenCon(res.data.userSurveys[0].q13);
-                setTotalCon(res.data.userSurveys[0].score)
-            })
-            .catch((err) => console.log(err));
+                setTotalCon(res.data.userSurveys[0].score);
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     // pull the monthly averages from [table] into an array of scores
@@ -172,7 +188,6 @@ const PhysicianResults = () => {
             "Fatigue": 0,
             "Shortness of breath": 0,
             "Anxious": 0,
-            "Scared": 0,
             "Confused": 0,
             "Bored": 0,
             "Reluctant": 0,
@@ -212,6 +227,39 @@ const PhysicianResults = () => {
             if (elevenCon.includes(x)) {
                 updatedFeelings[x] += 1;
             }
+        }
+        if (oneCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1; // if they do, then increase the value stored in [updatedFeelings]
+        }
+        if (twoCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (threeCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (fourCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (fiveCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (sixCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (sevenCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (eightCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (nineCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (tenCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
+        }
+        if (elevenCon.includes("Scared")) {
+            updatedFeelings["Fear"] += 1;
         }
         return updatedFeelings;
     };
@@ -380,37 +428,50 @@ const PhysicianResults = () => {
 
     // FINAL LAODING FOR RENDERING
     // if [loadingTable] isn't true, load the table
-    let contentsTable = loadingTable ? (
-        <p>
-            <em>Your recent survey results are loading...</em>
-        </p>
-    ) : (
-        renderTable()
-    );
-
-    // if [loadingLine] isn't true, load the line chart
-    let contentsLine = loadingLine ? (
-        <p>
-            <em>Your line chart is loading...</em>
-        </p>
-    ) : (
-        renderLine()
-    );
-
-    // if [loadingRadar] isn't true, load the radar chart
-    let contentsRadar = loadingRadar ? (
-        <p>
-            <em>Your radar chart is loading...</em>
-        </p>
-    ) : (
-        renderRadar()
-    );
+    if (isEmpty) {
+        contentsEmpty = (
+            <p>
+                <em>Your patient has no surveys in our records! They can log in and take their survey at any time.</em>
+            </p>
+        )
+        contentsTable = <p> </p>
+        contentsLine = <p> </p>
+        contentsRadar = <p> </p>
+    } else {
+        contentsEmpty = <p> </p>
+        // if [loadingTable] isn't true, load the table
+        contentsTable = loadingTable ? (
+            <p>
+                <em>Your recent survey results are loading...</em>
+            </p>
+        ) : (
+            renderTable()
+        );
+        // if [loadingLine] isn't true, load the line chart
+        contentsLine = loadingLine ? (
+            <p>
+                <em>Your line chart is loading...</em>
+            </p>
+        ) : (
+            renderLine()
+        );
+        // if [loadingRadar] isn't true, load the radar chart
+        contentsRadar = loadingRadar ? (
+            <p>
+                <em>Your radar chart is loading...</em>
+            </p>
+        ) : (
+            renderRadar()
+        );
+    }
+    
 
     // FINAL RETURN
     return (
 
         <div  >
             <br />
+            {contentsEmpty }
             {contentsTable}
             <br />
             <br />

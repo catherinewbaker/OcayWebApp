@@ -33,13 +33,17 @@ const PatientResults = () => {
     var contentsTable = "";
     var contentsEmpty = "";
 
-    
+
+
+
 
     // FUNCTIONS
     // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
     const getData = () => {
+        var object = JSON.parse(localStorage.getItem('userInfo'))
+
         const bodyParameters = {
-            UserNumber: "36587325", // change to pull actual UserNumber
+            UserNumber: object.userNumber, // change to pull actual UserNumber
         };
         axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
@@ -48,6 +52,7 @@ const PatientResults = () => {
                 if (res.data.userSurveys[0] == null) {
                     setIsEmpty(true)
                 } else {
+                    setIsEmpty(false)
                     setOneCon(res.data.userSurveys[0].q1);
                     setTwoCon(res.data.userSurveys[0].q2);
                     setThreeCon(res.data.userSurveys[0].q3);
@@ -101,6 +106,9 @@ const PatientResults = () => {
         setElevenCon(o => badgeSet(o, " "));
         setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
     }, [table]);
+
+
+
 
     // RENDERING FUNCTIONS
     // render table
@@ -212,7 +220,8 @@ const PatientResults = () => {
             renderTable()
         );
     }
-    
+
+
 
     // FINAL RETURN
     return (

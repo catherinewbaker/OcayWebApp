@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
+import temp from '../image/temp.png';
 
 const HomePatient = () => {
     const [name, setName] = useState("");
@@ -37,18 +38,25 @@ const HomePatient = () => {
 
     return (
         <div>
-            <h1 style={{ color: '#a6a6a6', fontSize: '35px' }} >Welcome back {name}!</h1>
-            <p style={{ color: '#a6a6a6' }}>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
+            <h1 style={{ color: 'black', fontSize: '35px' }} >Welcome back {name}!</h1>
+            <p style={{ color: 'black' }}>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
             <br />
-            <Container className=" d-flex justify-content-left" >
+
+            <div className="d-flex justify-content-center">
+                <img src={temp} alt="Responsive image" />
+            </div>
+
+            
+
+            <Container className=" d-flex justify-content-center" >
                 <Row >
-                    <Col style={{ marginBottom: '20px', width: '180px' }}>
+                    <Col style={{ marginBottom: '20px', marginRight: '200px' }}>
                         <Button onClick={onPressSurvey} style={{
                             backgroundColor: '#FFFFFF',
                             display: 'flex',
                             alignItems: 'flex-start',
                             justifyContent: 'left',
-                            width: '150px'
+                            width: '250px',
                         }} >
                             <Card style={{
                                 backgroundColor: '#FFFFFF',
@@ -68,7 +76,7 @@ const HomePatient = () => {
                             display: 'flex',
                             alignItems: 'flex-start',
                             justifyContent: 'left',
-                            width: '150px'
+                            width: '250px'
                         }} >
                             <Card style={{
                                 backgroundColor: '#FFFFFF',
