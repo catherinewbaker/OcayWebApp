@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Card, select, Select, Option, option } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
@@ -10,6 +10,7 @@ const PhysicianResults = () => {
     // LIST OF VARIABLES
     // table data
     const [table, setTable] = useState(); // holds table data
+    const [currentSurvey, setCurrentSurvey] = useState();
     const [oneCon, setOneCon] = useState(["loading..."]); // array with data for q1
     const [twoCon, setTwoCon] = useState(["loading..."]); // array with data for q2
     const [threeCon, setThreeCon] = useState(["loading..."]); // array with data for q3
@@ -77,6 +78,7 @@ const PhysicianResults = () => {
     const [loadingLine, setLoadingLine] = useState(true);
     const [loadingRadar, setLoadingRadar] = useState(true);
     const [loadingTable, setLoadingTable] = useState(true);
+    const [loadingDrop, setLoadingDrop] = useState(true);
     const [isEmpty, setIsEmpty] = useState(true);
 
     // misc function variables
@@ -85,7 +87,7 @@ const PhysicianResults = () => {
     var contentsEmpty = "";
     var contentsRadar = "";
     var contentsLine = "";
-
+    var contentsDrop = "";
 
 
     // FUNCTIONS
@@ -102,7 +104,8 @@ const PhysicianResults = () => {
             const res = await axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters);
 
             setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
-            setTable(res.data.userSurveys[0]); // set table = most recent survey
+            setTable(res.data.userSurveys); // set table = most recent survey
+            setCurrentSurvey(res.data.userSurveys[0])
             if (res.data.userSurveys[0] == null) {
                 setIsEmpty(true)
             } else {
@@ -122,6 +125,8 @@ const PhysicianResults = () => {
                 setThirteenCon(res.data.userSurveys[0].q13);
                 setTotalCon(res.data.userSurveys[0].score);
             }
+            console.log(table)
+            console.log(currentSurvey)
         } catch (err) {
             console.log(err);
         }
@@ -133,8 +138,14 @@ const PhysicianResults = () => {
     // pull the months from [table] that have monthly averages
     const monthArray = (arr) => arr.map(x => x.month);
 
+    const dropDown = (arr, n) => arr.map((x, index) => {
+        // for each arr given, take the timestamp and set it to {Action} as seen below
+        // onSelect (href) the item should link to setting currentSurvey = table[n]
+        // <a className="dropdown-item" href="#">Action</a>
+    });
+
     // determine if words in each [--Con] variable get a red or green badge
-    const badgeSet = (arr, n) => arr.map((x, index) => {
+    const badgeSet = (arr, n) => arr.map(x => {
         debugIndex += 1;
         if (x !== null && x !== " ") {
             if (x === "Sad" || x === "Fear" || x === "Anger" || x === "Nauseous" || x === "Fatigue" || x === "Shortness of breath" || x === "Anxious" || x === "Scared" || x === "Confused" || x === "Bored" || x === "Reluctant" || x === "Once a day" || x === "More than three times a day" || x === "Twice a day" || x === n || x === "Many times" || x === "Never" || x === "Less than half of the week" || x === "Fever") {
@@ -371,6 +382,26 @@ const PhysicianResults = () => {
         );
     }
 
+    const renderRadarDrop = () => {
+        // for the top 5 objects in array [table] ->
+        //      check if they exist (if they don't then move to return)
+        //          if they do! run it through "dropDown(table[n], n)" and set the results equal to a "contentsDrop{n}"
+
+        // add those contentsDrop{n} to the return statment below
+        return (
+            <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select a recent survey to view
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                    <a className="dropdown-item" href="#">Another action</a>
+                    <a className="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        );
+    }
+
 
     // USE_EFFECT LOOPS
     // pull initial data from sql into [table], [chart], and [--Con]'s
@@ -386,23 +417,27 @@ const PhysicianResults = () => {
 
     // reset the [--Con]'s to equal their proper badge in JSX
     useEffect(() => {
-        setOneCon(o => badgeSet(o, " "));
-        setTwoCon(o => badgeSet(o, " "));
-        setThreeCon(o => badgeSet(o, " "));
-        setFourCon(o => badgeSet(o, " "));
-        setFiveCon(o => badgeSet(o, "Yes"));
-        setSixCon(o => badgeSet(o, " "));
-        setSevenCon(o => badgeSet(o, "No"));
-        setEightCon(o => badgeSet(o, "No"));
-        setNineCon(o => badgeSet(o, " "));
-        setTenCon(o => badgeSet(o, " "));
-        setElevenCon(o => badgeSet(o, " "));
-        if (twelveCon >= 5) { // [twelveCon] is stored as an int (not an array), so it gets special treatment
-            setTwelveCon(o => <span className="badge badge-alert badge-pill mx-1">{o}</span>);
+        if (table == null) {
+
         } else {
-            setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
+            setOneCon(badgeSet(currentSurvey.q1, " "));
+            setTwoCon(badgeSet(currentSurvey.q2, " "));
+            setThreeCon(badgeSet(currentSurvey.q3, " "));
+            setFourCon(badgeSet(currentSurvey.q4, " "));
+            setFiveCon(badgeSet(currentSurvey.q5, "Yes"));
+            setSixCon(badgeSet(currentSurvey.q6, " "));
+            setSevenCon(badgeSet(currentSurvey.q7, "No"));
+            setEightCon(badgeSet(currentSurvey.q8, "No"));
+            setNineCon(badgeSet(currentSurvey.q9, " "));
+            setTenCon(badgeSet(currentSurvey.q10, " "));
+            setElevenCon(badgeSet(currentSurvey.q11, " "));
+            if (twelveCon >= 5) { // [twelveCon] is stored as an int (not an array), so it gets special treatment
+                setTwelveCon(<span className="badge badge-alert badge-pill mx-1">{currentSurvey.q12}</span>);
+            } else {
+                setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{currentSurvey.q12}</span>);
+            }
         }
-    }, [table]);
+    }, [currentSurvey]);
 
     // if [chart] has values in it (i.e. the patient has taken at least one survey) then separate [chart] into [months] and [scores]
     useEffect(() => {
@@ -463,31 +498,74 @@ const PhysicianResults = () => {
         ) : (
             renderRadar()
         );
+
+        contentsDrop = loadingDrop ? (
+            <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Loading past surveys...
+                </button>
+            </div>
+        ) : (
+            renderRadarDrop()
+        );
     }
     
 
     // FINAL RETURN
-    return (
+    return (// add "d-flex" to the container for alternate chart format
+        <Container className="justify-content-center" >
+            <Row>
+                {contentsEmpty}
+            </Row>
+            <Row style={{ width: '100%', alignItems: 'center' }} >
+                <Col className=" justify-content-center">
+                    <Card style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#79D4AC',
+                        width: '100%',
+                        color: '#79D4AC'
+                    }}>
+                        <Card.Body className="text-center">
+                            <Card.Title className="text-left">
+                                {contentsDrop}
+                            </Card.Title>
+                            {contentsTable}
+                        </Card.Body>
+                    </Card>
 
-        <div  >
+                </Col>
+            </Row>
             <br />
-            {contentsEmpty }
-            {contentsTable}
+            
+            
+            <Row >
+                <Col style={{ marginBottom: '2px', marginRight: '20px' }}>
+                    <Card style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#79D4AC',
+                        color: '#79D4AC',
+                    }}>
+                        <Card.Body className="text-center">
+                            {contentsLine}
+                        </Card.Body>
+                    </Card>
+                    
+                </Col>
+                <Col style={{ marginBottom: '20px', marginRight: '20px' }}>
+                    <Card style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#79D4AC',
+                        color: '#79D4AC'
+                    }}>
+                        <Card.Body className="text-center">
+                            {contentsRadar}
+                        </Card.Body>
+                    </Card>
+                    
+                </Col>
+            </Row>
             <br />
-            <br />
-            <br />
-            <br />
-            <Container style={{ width: '80%', height: '40%' }}>
-                {contentsLine}
-            </Container>
-            <br />
-            <br />
-            <Container >
-                {contentsRadar}
-            </Container>
-            <br />
-            <br />
-        </div>
+        </Container>
     );
 };
 
