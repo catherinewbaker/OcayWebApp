@@ -1,7 +1,7 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
-import { Container, Row, Col, Card, select, Select, Option, option } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
@@ -9,7 +9,7 @@ import axios from 'axios';
 const PhysicianResults = () => {
     // LIST OF VARIABLES
     // table data
-    const [table, setTable] = useState(); // holds table data
+    const [table, setTable] = useState([]); // holds table data
     const [currentSurvey, setCurrentSurvey] = useState();
     const [oneCon, setOneCon] = useState(["loading..."]); // array with data for q1
     const [twoCon, setTwoCon] = useState(["loading..."]); // array with data for q2
@@ -24,7 +24,7 @@ const PhysicianResults = () => {
     const [elevenCon, setElevenCon] = useState(["loading..."]); // array with data for q11
     const [twelveCon, setTwelveCon] = useState("loading..."); // array with data for q12
     const [thirteenCon, setThirteenCon] = useState("loading..."); // array with data for q13
-    const [totalCon, setTotalCon] = useState(["Survey score loading..."]); // array with data for total score
+    const [totalCon, setTotalCon] = useState("Survey score loading..."); // array with data for total score
 
     // line chart data
     const [chart, setChart] = useState([]); // holds chart data
@@ -73,6 +73,14 @@ const PhysicianResults = () => {
             },
         ],
     };
+
+    //drop down menu data
+    const [optZero, setOptZero] = useState("");
+    const [optOne, setOptOne] = useState("");
+    const [optTwo, setOptTwo] = useState("");
+    const [optThree, setOptThree] = useState("");
+    const [optFour, setOptFour] = useState("");
+    const [dropHolder, setDropHolder] = useState("");
 
     // loading variables
     const [loadingLine, setLoadingLine] = useState(true);
@@ -127,6 +135,10 @@ const PhysicianResults = () => {
             }
             console.log(table)
             console.log(currentSurvey)
+            setLoadingDrop(false);
+            setLoadingRadar(false);
+            setLoadingLine(false);
+            setLoadingTable(false);
         } catch (err) {
             console.log(err);
         }
@@ -137,12 +149,6 @@ const PhysicianResults = () => {
 
     // pull the months from [table] that have monthly averages
     const monthArray = (arr) => arr.map(x => x.month);
-
-    const dropDown = (arr, n) => arr.map((x, index) => {
-        // for each arr given, take the timestamp and set it to {Action} as seen below
-        // onSelect (href) the item should link to setting currentSurvey = table[n]
-        // <a className="dropdown-item" href="#">Action</a>
-    });
 
     // determine if words in each [--Con] variable get a red or green badge
     const badgeSet = (arr, n) => arr.map(x => {
@@ -275,6 +281,16 @@ const PhysicianResults = () => {
         return updatedFeelings;
     };
 
+    const dropDown = (obj) => {
+        return (
+            <a className="dropdown-item" href="#" onClick={() => onSelect(obj)}>{obj.timestamp}</a>
+        );
+    };
+
+    const onSelect = (obj) => {
+        setCurrentSurvey(obj);
+    }
+
     // RENDERING FUNCTIONS
     // render table
     const renderTable = () => {
@@ -382,44 +398,77 @@ const PhysicianResults = () => {
         );
     }
 
-    const renderRadarDrop = () => {
-        // for the top 5 objects in array [table] ->
-        //      check if they exist (if they don't then move to return)
-        //          if they do! run it through "dropDown(table[n], n)" and set the results equal to a "contentsDrop{n}"
-
-        // add those contentsDrop{n} to the return statment below
-        return (
-            <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select a recent survey to view
-                </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    
-                    <a className="dropdown-item" href="#">Another action</a>
-                    <a className="dropdown-item" href="#">Something else here</a>
-                </div>
-            </div>
-        );
-    }
-
 
     // USE_EFFECT LOOPS
     // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
-        setLoadingLine(true); // while we pull data, don't load the line chart
-        setLoadingTable(true); // while we pull data, don't load the table
-        setLoadingRadar(true); // while we pull data, don't load the radar chart
+        console.log(!table)
+        console.log(table)
+        //console.log(table[1])
+        if (table != null && table != undefined) {
+            console.log(table[4] != null && table[4] != undefined)
+            if (table[0] != null && table[0] != undefined) {
+                setOptZero(dropDown(table[0]));
+            }
+            if (table[1] != null && table[1] != undefined) {
+                setOptOne(dropDown(table[1]));
+            }
+            if (table[2] != null && table[2] != undefined) {
+                setOptTwo(dropDown(table[2]));
+            }
+            if (table[3] != null && table[3] != undefined) {
+                setOptThree(dropDown(table[3]));
+            }
+            if (table[4] != null && table[4] != undefined) {
+                setOptFour(dropDown(table[4]));
+            }
+        }
+
+        setDropHolder(
+            <div className="dropdown">
+                <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
+                    Select a recent survey to view
+                </button>
+                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {loadingDrop ? (
+                        <a className="dropdown-item" href="#">
+                            Loading...
+                        </a>
+                    ) : table.length > 0 ? ( // Check if table has data
+                        <>
+                            {optZero}
+                            {optOne}
+                            {optTwo}
+                            {optThree}
+                            {optFour}
+                        </>
+                    ) : (
+                        <a className="dropdown-item" href="#">
+                            No surveys available
+                        </a>
+                    )}
+                </div>
+            </div>
+        );
+
+        console.log(dropHolder)
+
+    }, [table.length]);
+
+    useEffect(() => {
         getData();
-        setLoadingRadar(false);
-        setLoadingLine(false);
-        setLoadingTable(false);
     }, []);
 
     // reset the [--Con]'s to equal their proper badge in JSX
     useEffect(() => {
-        if (table == null) {
-
-        } else {
+        if (currentSurvey != null && currentSurvey != undefined) {
             setOneCon(badgeSet(currentSurvey.q1, " "));
             setTwoCon(badgeSet(currentSurvey.q2, " "));
             setThreeCon(badgeSet(currentSurvey.q3, " "));
@@ -455,10 +504,10 @@ const PhysicianResults = () => {
     }, [months]);
 
     // update the feelings dictionary and it's reference
-    useEffect(() => {
+    useMemo(() => {
         setFeelings(updateFeelings(feelings));
         feelingsRef.current = feelings;
-    }, [oneCon, twoCon, threeCon, fourCon, fiveCon, sixCon, sevenCon, eightCon, nineCon, tenCon, elevenCon]);
+    }, [currentSurvey]);
 
 
     // FINAL LAODING FOR RENDERING
@@ -506,7 +555,7 @@ const PhysicianResults = () => {
                 </button>
             </div>
         ) : (
-            renderRadarDrop()
+            dropHolder
         );
     }
     
