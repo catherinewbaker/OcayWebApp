@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Dropdown } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
@@ -75,12 +75,12 @@ const PhysicianResults = () => {
     };
 
     //drop down menu data
-    const [optZero, setOptZero] = useState("");
-    const [optOne, setOptOne] = useState("");
-    const [optTwo, setOptTwo] = useState("");
-    const [optThree, setOptThree] = useState("");
-    const [optFour, setOptFour] = useState("");
-    const [dropHolder, setDropHolder] = useState("");
+    const [optZero, setOptZero] = useState();
+    const [optOne, setOptOne] = useState();
+    const [optTwo, setOptTwo] = useState();
+    const [optThree, setOptThree] = useState();
+    const [optFour, setOptFour] = useState();
+    const [dropHolder, setDropHolder] = useState();
 
     // loading variables
     const [loadingLine, setLoadingLine] = useState(true);
@@ -118,23 +118,7 @@ const PhysicianResults = () => {
                 setIsEmpty(true)
             } else {
                 setIsEmpty(false)
-                setOneCon(res.data.userSurveys[0].q1);
-                setTwoCon(res.data.userSurveys[0].q2);
-                setThreeCon(res.data.userSurveys[0].q3);
-                setFourCon(res.data.userSurveys[0].q4);
-                setFiveCon(res.data.userSurveys[0].q5);
-                setSixCon(res.data.userSurveys[0].q6);
-                setSevenCon(res.data.userSurveys[0].q7);
-                setEightCon(res.data.userSurveys[0].q8);
-                setNineCon(res.data.userSurveys[0].q9);
-                setTenCon(res.data.userSurveys[0].q10);
-                setElevenCon(res.data.userSurveys[0].q11);
-                setTwelveCon(res.data.userSurveys[0].q12);
-                setThirteenCon(res.data.userSurveys[0].q13);
-                setTotalCon(res.data.userSurveys[0].score);
             }
-            console.log(table)
-            console.log(currentSurvey)
             setLoadingDrop(false);
             setLoadingRadar(false);
             setLoadingLine(false);
@@ -283,7 +267,7 @@ const PhysicianResults = () => {
 
     const dropDown = (obj) => {
         return (
-            <a className="dropdown-item" href="#" onClick={() => onSelect(obj)}>{obj.timestamp}</a>
+            <Dropdown.Item href="#" onClick={() => onSelect(obj)} >{obj.timestamp}</Dropdown.Item>
         );
     };
 
@@ -402,10 +386,40 @@ const PhysicianResults = () => {
     // USE_EFFECT LOOPS
     // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
-        console.log(!table)
+        setDropHolder(
+            <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
+                    Select a recent survey...
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {loadingDrop ? (
+                        <Dropdown.Item href="#">
+                            Loading...
+                        </Dropdown.Item>
+                    ) : table.length > 0 ? ( // Check if table has data
+                        <>
+                            {optZero}
+                            {optOne}
+                            {optTwo}
+                            {optThree}
+                            {optFour}
+                        </>
+                    ) : (
+                        <Dropdown.Item href="#">
+                            No surveys available
+                        </Dropdown.Item>
+                    )}
+                </Dropdown.Menu>
+            </Dropdown>
+        );
+
+        console.log(dropHolder)
+    }, [optFour]);
+
+    useEffect(() => {
         console.log(table)
         //console.log(table[1])
-        if (table != null && table != undefined) {
+        if (table != null && table != undefined && table.length > 0) {
             console.log(table[4] != null && table[4] != undefined)
             if (table[0] != null && table[0] != undefined) {
                 setOptZero(dropDown(table[0]));
@@ -423,43 +437,6 @@ const PhysicianResults = () => {
                 setOptFour(dropDown(table[4]));
             }
         }
-
-        setDropHolder(
-            <div className="dropdown">
-                <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
-                    Select a recent survey to view
-                </button>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {loadingDrop ? (
-                        <a className="dropdown-item" href="#">
-                            Loading...
-                        </a>
-                    ) : table.length > 0 ? ( // Check if table has data
-                        <>
-                            {optZero}
-                            {optOne}
-                            {optTwo}
-                            {optThree}
-                            {optFour}
-                        </>
-                    ) : (
-                        <a className="dropdown-item" href="#">
-                            No surveys available
-                        </a>
-                    )}
-                </div>
-            </div>
-        );
-
-        console.log(dropHolder)
-
     }, [table.length]);
 
     useEffect(() => {
@@ -485,6 +462,8 @@ const PhysicianResults = () => {
             } else {
                 setTwelveCon(<span className="badge badge-primary badge-pill mx-1">{currentSurvey.q12}</span>);
             }
+            setThirteenCon(currentSurvey.q13);
+            setTotalCon(currentSurvey.score)
         }
     }, [currentSurvey]);
 
