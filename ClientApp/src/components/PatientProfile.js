@@ -2,8 +2,10 @@
 import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography, MDBInputGroup, MDBBtn  } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom'
 
 const PatientProfile = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState("");
     const [id, setId] = useState("");
     const [email, setEmail] = useState("");
@@ -90,7 +92,7 @@ const PatientProfile = () => {
                                 {/* Bottom buttons */}
                                 <MDBRow className="position-absolute bottom-0">
                                     <div>
-                                        <Button style={{ color: "black", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
+                                        <Button onClick={() => { navigate('/change-password') }} style={{ color: "black", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
                                         <Button style={{ backgroundColor: "#ff4d4d", color: "black", border: "none", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
                                     </div>
                                 </MDBRow>

@@ -138,6 +138,36 @@ namespace OcayProject.Controllers
             });
         }
 
+        [HttpPost("changePassword")]
+        public async Task<ActionResult<User>> ChangePassword(LoginDto request)
+        {
+            // Retrieve the user from the database based on the provided username
+            var user = await _userContext.User.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (user == null)
+            {
+                return BadRequest("Please check your email address.");
+            }
+
+            if (string.IsNullOrEmpty(request.Password) || request.Password.Length < 8 || !Regex.IsMatch(request.Password, "[A-Z]"))
+            {
+                // Password is weak or not provided
+                return BadRequest("Password must be at least 8 characters long and contain at least one uppercase letter.");
+            }
+
+            var newPasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+            // Update the PasswordHash property of the user object
+            user.PasswordHash = newPasswordHash;
+
+            // Save changes to the database
+            await _userContext.SaveChangesAsync();
+
+
+
+            return Ok();
+        }
+
         [HttpPost("postSurvey")]
         public async Task<IActionResult> PostSurvey(SurveyDto request)
         {

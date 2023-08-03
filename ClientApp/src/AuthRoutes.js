@@ -1,5 +1,6 @@
 ﻿import { Login } from "./components/Login"
 import { Signup } from "./components/Signup"
+import { ChangePassword } from "./components/ChangePassword"
 
 const AuthRoutes = [
     {
@@ -11,6 +12,12 @@ const AuthRoutes = [
         path: '/signup',
         requireAuth: true,
         element: <Signup />
+    },
+
+    {
+        path: '/change-password',
+        requireAuth: true,
+        element: <ChangePassword />
     },
 ];
 

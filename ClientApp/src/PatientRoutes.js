@@ -5,6 +5,7 @@ import { Question } from "./components/Question"
 import { Signup } from "./components/Signup"
 import { PatientResults } from "./components/PatientResults";
 import { PatientProfile } from "./components/PatientProfile"
+import { ChangePassword } from "./components/ChangePassword"
 
 const PatientRoutes = [
     {
@@ -34,6 +35,12 @@ const PatientRoutes = [
         path: '/PatientProfile',
         requireAuth: true,
         element: <PatientProfile />
+    },
+
+    {
+        path: '/change-password',
+        requireAuth: true,
+        element: <ChangePassword />
     },
 ];
 

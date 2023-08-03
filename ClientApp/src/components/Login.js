@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
+import { Col, Button, Row, Container, Card, Form, Modal } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import axios from "axios";
@@ -12,6 +12,70 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showModal, setShowModal] = useState('')
+    const [modalEmail, setModalEmail] = useState('')
+    const [showInput, setShowInput] = useState(false)
+    const [code, setCode] = useState('')
+    const [inputCode, setInputCode] = useState('')
+    const [verifyError, setVerifyError] = useState('')
+    const [emailError, setEmailError] = useState('')
+
+    const onClickVerify = async () => {
+        const randomNum = Math.floor(Math.random() * 10000);
+        const code = randomNum.toString().padStart(4, '0');
+        await setCode(code); // Update the state with the new code value
+
+        const requestData = {
+            sender: {
+                name: 'OCAY Team',
+                email: 'team@ocay.org',
+            },
+            to: [
+                {
+                    email: modalEmail,
+                    name: 'New User',
+                },
+            ],
+            subject: 'OCAY Forgot Password Code',
+            htmlContent: `<html><head></head><body><h1>Hello! Here is your 4 digit code for email verification to create a new password: ${code}</h1></body></html>`, // Use the updated value of code here
+            headers: {
+                'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2|custom_header_3:custom_value_3',
+                charset: 'iso-8859-1',
+            },
+        };
+
+        try {
+            await axios.post('https://api.sendinblue.com/v3/smtp/email', requestData, {
+                headers: {
+                    'accept': 'application/json',
+                    'api-key': "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",
+                    'content-type': 'application/json',
+                },
+            });
+            // Handle success if needed
+            setEmailError('')
+            console.log('Email sent successfully');
+            setShowInput(true);
+        } catch (error) {
+            // Handle errors if any
+            console.error('Error sending email:', error);
+            setEmailError("Please check your email.")
+            setShowInput(false)
+        }
+
+    };
+   
+    const onClickSubmit = () => {
+        if (code === inputCode) {
+            setVerifyError("")
+            setShowModal(false)
+            localStorage.setItem("email", modalEmail)
+            navigate("/change-password")
+            
+        } else {
+            setVerifyError("Please check the 4 digit code again.")
+        }
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -49,6 +113,51 @@ const Login = () => {
 
     return (
         <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+
+            <Modal show={showModal} onHide={() => {setShowModal(false)} } centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Forgot Password</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {emailError !== "" && (
+                        <Form.Label className="text-center" style={{ color: 'red' }}>
+                            {emailError}
+                        </Form.Label>
+                    )}
+                    <div className="d-flex align-items-center">
+                        <Form.Control
+                            type="text"
+                            placeholder="Please enter your email registered with OCAY."
+                            value={modalEmail}
+                            onChange={(event) => setModalEmail(event.target.value)}
+                            className="me-2"
+                            disabled={showInput}
+                        />
+                        <Button disabled={showInput} style={{ color: "black" }} variant="primary" onClick={onClickVerify}>Verify</Button>
+                    </div>
+
+                    {showInput && (
+                        <div>
+                            <Form.Control
+                                type="text"
+                                placeholder="Please enter the 4-digit code sent to your email!"
+                                value={inputCode}
+                                onChange={(event) => setInputCode(event.target.value)}
+                                className="mt-4"
+                            />
+                            {verifyError !== "" && (
+                                <Form.Label className="text-center" style={{ color: 'red' }}>
+                                    {verifyError}
+                                </Form.Label>
+                            )}
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button disabled={!showInput} style={{ color: "black" }} variant="primary" onClick={onClickSubmit}>Submit</Button>
+                </Modal.Footer>
+            </Modal>
+
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
 
@@ -104,7 +213,7 @@ const Login = () => {
                                             <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                                 <p className="small">
                                                     <a
-                                                        onClick={() => navigate('/forgot-password')}
+                                                        onClick={() => {setShowModal(true)} }
                                                         style={{ color: "#69b895", cursor: "pointer", textDecoration: "underline" }}
                                                     >
                                                         Forgot password?
