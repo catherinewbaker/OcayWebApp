@@ -280,7 +280,6 @@ const PhysicianResults = () => {
     const renderTable = () => {
         return (
             <Container className="d-flex flex-column align-items-center">
-                <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}> Most Recent Score: {totalCon} / 100</h1>
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >
@@ -387,34 +386,37 @@ const PhysicianResults = () => {
     // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
         setDropHolder(
-            <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
-                    Select a recent survey...
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                    {loadingDrop ? (
-                        <Dropdown.Item href="#">
-                            Loading...
-                        </Dropdown.Item>
-                    ) : table.length > 0 ? ( // Check if table has data
-                        <>
-                            {optZero}
-                            {optOne}
-                            {optTwo}
-                            {optThree}
-                            {optFour}
-                        </>
-                    ) : (
-                        <Dropdown.Item href="#">
-                            No surveys available
-                        </Dropdown.Item>
-                    )}
-                </Dropdown.Menu>
-            </Dropdown>
+            <Container>
+                <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
+                    <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
+                        Select a recent survey...
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {loadingDrop ? (
+                            <Dropdown.Item href="#">
+                                Loading...
+                            </Dropdown.Item>
+                        ) : table.length > 0 ? ( // Check if table has data
+                            <>
+                                {optZero}
+                                {optOne}
+                                {optTwo}
+                                {optThree}
+                                {optFour}
+                            </>
+                        ) : (
+                            <Dropdown.Item href="#">
+                                No surveys available
+                            </Dropdown.Item>
+                        )}
+                    </Dropdown.Menu> Survey Score: {totalCon} / 100
+                </Dropdown>
+                <h1 > </h1>
+            </Container>
         );
 
         console.log(dropHolder)
-    }, [optFour]);
+    }, [totalCon, optFour]);
 
     useEffect(() => {
         console.log(table)
@@ -500,6 +502,11 @@ const PhysicianResults = () => {
         contentsTable = <p> </p>
         contentsLine = <p> </p>
         contentsRadar = <p> </p>
+        return (
+            <Container>
+                {contentsEmpty}
+            </Container>
+        )
     } else {
         contentsEmpty = <p> </p>
         // if [loadingTable] isn't true, load the table
@@ -555,7 +562,7 @@ const PhysicianResults = () => {
                     }}>
                         <Card.Body className="text-center">
                             <Card.Title className="text-left">
-                                {contentsDrop}
+                                {contentsDrop} 
                             </Card.Title>
                             {contentsTable}
                         </Card.Body>
