@@ -21,6 +21,20 @@ const Login = () => {
     const [emailError, setEmailError] = useState('')
 
     const onClickVerify = async () => {
+        const input = {
+            Email: modalEmail
+        }
+
+        try {
+            const response = await axios.post('https://localhost:44408/api/Auth/checkEmail', input);
+            onClickVerify2()
+        } catch (error) {
+            setEmailError(error.response.data)
+            console.error(error.response.data);
+        }
+    }
+
+    const onClickVerify2 = async () => {
         const randomNum = Math.floor(Math.random() * 10000);
         const code = randomNum.toString().padStart(4, '0');
         await setCode(code); // Update the state with the new code value

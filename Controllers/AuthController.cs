@@ -168,6 +168,20 @@ namespace OcayProject.Controllers
             return Ok();
         }
 
+        [HttpPost("checkEmail")]
+        public async Task<ActionResult<User>> CheckEmail(EmailDto request)
+        {
+            // Retrieve the user from the database based on the provided username
+            var user = await _userContext.User.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (user == null)
+            {
+                return BadRequest("Please check your email address.");
+            }
+
+            return Ok();
+        }
+
         [HttpPost("postSurvey")]
         public async Task<IActionResult> PostSurvey(SurveyDto request)
         {
