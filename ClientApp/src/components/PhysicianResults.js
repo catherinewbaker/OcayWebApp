@@ -180,90 +180,82 @@ const PhysicianResults = () => {
     });
 
     // sets the values of [feelings] equal to the number of times the keys were used in the most recent survey
-    const updateFeelings = () => {
-        const updatedFeelings = { // create a copy of the base [feelings] dictionary
-            "Sad": 0,
-            "Fear": 0,
-            "Anger": 0,
-            "Nauseous": 0,
-            "Fatigue": 0,
-            "Shortness of breath": 0,
-            "Anxious": 0,
-            "Confused": 0,
-            "Bored": 0,
-            "Reluctant": 0,
-            "Fever": 0,
-        };
-        for (let x of Object.keys(updatedFeelings)) { // for each key in [updatedFeelings], check if the [--Con]'s hold that key
-            if (oneCon.includes(x)) {
-                updatedFeelings[x] += 1; // if they do, then increase the value stored in [updatedFeelings]
+    const updateFeelings = (arr, survey) => {
+        console.log(arr)
+        for (let x of Object.keys(arr)) { // for each key in [updatedFeelings], check if the [--Con]'s hold that key
+            console.log("x: " + x)
+            console.log("oneCon: " + oneCon)
+            if ((survey.q1).includes(x)) {
+                arr[x] += 1; // if they do, then increase the value stored in [updatedFeelings]
             }
-            if (twoCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q2).includes(x)) {
+                arr[x] += 1;
             }
-            if (threeCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q3).includes(x)) {
+                arr[x] += 1;
             }
-            if (fourCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q4).includes(x)) {
+                arr[x] += 1;
             }
-            if (fiveCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q5).includes(x)) {
+                arr[x] += 1;
             }
-            if (sixCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q6).includes(x)) {
+                arr[x] += 1;
             }
-            if (sevenCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q7).includes(x)) {
+                arr[x] += 1;
             }
-            if (eightCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q8).includes(x)) {
+                arr[x] += 1;
             }
-            if (nineCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q9).includes(x)) {
+                arr[x] += 1;
             }
-            if (tenCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q10).includes(x)) {
+                arr[x] += 1;
             }
-            if (elevenCon.includes(x)) {
-                updatedFeelings[x] += 1;
+            if ((survey.q11).includes(x)) {
+                arr[x] += 1;
             }
         }
-        if (oneCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1; // if they do, then increase the value stored in [updatedFeelings]
+        if ((survey.q1).includes("Scared")) {
+            arr["Fear"] += 1; // if they do, then increase the value stored in [updatedFeelings]
         }
-        if (twoCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q2).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (threeCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q3).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (fourCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q4).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (fiveCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q5).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (sixCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q6).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (sevenCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q7).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (eightCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q8).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (nineCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q9).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (tenCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q10).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        if (elevenCon.includes("Scared")) {
-            updatedFeelings["Fear"] += 1;
+        if ((survey.q11).includes("Scared")) {
+            arr["Fear"] += 1;
         }
-        return updatedFeelings;
+        console.log(arr)
+        return arr;
     };
+
 
     const dropDown = (obj) => {
         return (
@@ -383,7 +375,7 @@ const PhysicianResults = () => {
 
 
     // USE_EFFECT LOOPS
-    // pull initial data from sql into [table], [chart], and [--Con]'s
+    // update the dropDown menu with the last 5 surveys available
     useEffect(() => {
         setDropHolder(
             <Container>
@@ -418,6 +410,7 @@ const PhysicianResults = () => {
         console.log(dropHolder)
     }, [totalCon, optFour]);
 
+    // set the options for the dropdown menu
     useEffect(() => {
         console.log(table)
         //console.log(table[1])
@@ -441,6 +434,7 @@ const PhysicianResults = () => {
         }
     }, [table.length]);
 
+    // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
         getData();
     }, []);
@@ -486,9 +480,15 @@ const PhysicianResults = () => {
 
     // update the feelings dictionary and it's reference
     useMemo(() => {
-        setFeelings(updateFeelings(feelings));
-        feelingsRef.current = feelings;
+        // PSEUDOCODE
+        // call the sql method that pulls surveys by date
+        // create a map function. For every survey in that list, map to setFeelings(updateFeelings(feelingsRef.current, [THIS_SURVEY])
+        setFeelings(updateFeelings(feelingsRef.current, currentSurvey));
     }, [currentSurvey]);
+
+    useEffect(() => {
+        feelingsRef.current = feelings;
+    }, [feelings])
 
 
     // FINAL LAODING FOR RENDERING
