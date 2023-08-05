@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography, MDBInputGroup, MDBBtn  } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom'
+import '../custom.css';
 
 const PatientProfile = () => {
     const navigate = useNavigate();
@@ -11,8 +12,7 @@ const PatientProfile = () => {
     const [email, setEmail] = useState("");
     const [physicianUserNumber, setPhysicianUserNumber] = useState("")
     const [error, setError] = useState("")
-
-    const [nameArray, setNameArray] = useState([]);
+    const [nameArray, setNameArray] = useState({});
 
     useEffect(() => {
         getData();
@@ -33,9 +33,7 @@ const PatientProfile = () => {
 
             const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', input);
 
-            setNameArray(Object.values(response.data.connectedUsers));
-
-            console.log(nameArray)
+            setNameArray(response.data.connectedUsers);
 
 
         } catch (error) {
@@ -60,7 +58,7 @@ const PatientProfile = () => {
                     PhysicianUserNumber: inputPhys
                 }
 
-                const response = await axios.post('https://localhost:44408/api/Auth/connectPhysician', input);
+                await axios.post('https://localhost:44408/api/Auth/connectPhysician', input);
 
                 window.location.reload()
             }
@@ -68,6 +66,54 @@ const PatientProfile = () => {
 
         } catch (error) {
             setError(error.response.data)
+        }
+    }
+
+    const onPressDelete = async () => {
+        try {
+            const inputPhys = parseInt(physicianUserNumber)
+
+            if (isNaN(inputPhys) || physicianUserNumber.length !== 8) {
+                setError("Please check your physician's ID number.")
+            } else {
+
+                const storedDataString = localStorage.getItem('userInfo')
+                const userData = JSON.parse(storedDataString)
+
+                setError("")
+                const input = {
+                    PatientUserNumber: parseInt(userData.userNumber),
+                    PhysicianUserNumber: inputPhys
+                }
+
+                await axios.post('https://localhost:44408/api/Auth/disconnectPhysician', input);
+
+                window.location.reload()
+            }
+
+
+        } catch (error) {
+            setError(error.response.data)
+        }
+    }
+
+    const onPressDeleteAccount = async () => {
+        try {
+            const storedDataString = localStorage.getItem('userInfo')
+            const userData = JSON.parse(storedDataString)
+
+            const input = {
+                UserNumber: parseInt(userData.userNumber),
+            }
+
+            await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
+
+            localStorage.clear()
+            window.location.reload()
+
+
+        } catch (error) {
+            console.log(error.response.data)
         }
     }
 
@@ -92,15 +138,15 @@ const PatientProfile = () => {
                                 {/* Bottom buttons */}
                                 <MDBRow className="position-absolute bottom-0">
                                     <div>
-                                        <Button onClick={() => { navigate('/change-password') }} style={{ color: "black", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
-                                        <Button style={{ backgroundColor: "#ff4d4d", color: "black", border: "none", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
+                                        <Button onClick={() => { navigate('/change-password') }} style={{ backgroundColor: "#79D4AC", color: "white", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
+                                        <Button onClick={onPressDeleteAccount} style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
                                     </div>
                                 </MDBRow>
                             </MDBCol>
 
                             <MDBCol md="8">
                                 <MDBCardBody className="p-4">
-                                    <MDBTypography tag="h6">Information</MDBTypography>
+                                    <MDBTypography tag="h6">Your Information</MDBTypography>
                                     <hr className="mt-0 mb-4" />
                                     <MDBRow className="pt-1 mb-4">
                                         <MDBCol size="6" className="mb-3">
@@ -128,7 +174,7 @@ const PatientProfile = () => {
                                             <MDBInputGroup>
                                                 <input
                                                     className="form-control"
-                                                    placeholder="Enter your physician's 8-digit ID to add a new physician."
+                                                    placeholder="Enter your physician's 8-digit ID to add or delete"
                                                     style={{
                                                         fontSize: "0.9em",
                                                     }}
@@ -136,7 +182,8 @@ const PatientProfile = () => {
                                                     onChange={(event) => setPhysicianUserNumber(event.target.value)}
 
                                                 />
-                                                <MDBBtn style={{ color: "black", fontSize: "0.9em" }} onClick={onPressAdd}>Add</MDBBtn>
+                                                <MDBBtn style={{ backgroundColor: "#79D4AC", color: "white", fontSize: "0.9em", border: "none", outline: "none", width: "13%" }} onClick={onPressAdd}>Add</MDBBtn>
+                                                <MDBBtn style={{ color: "white", fontSize: "0.9em", backgroundColor: "#ff4d4d", border: "none", outline: "none" }} onClick={onPressDelete}>Delete</MDBBtn>
                                             </MDBInputGroup>
                                         </MDBCol>
                                     </MDBRow>
@@ -145,18 +192,20 @@ const PatientProfile = () => {
                                     <MDBRow className="pt-1">
                                         <MDBCol size="6" >
                                             <MDBTypography  tag="h6">Name</MDBTypography>
-                                                {nameArray.map((name, index) => (
+                                                {Object.values(nameArray).map((name, index) => (
                                                     <MDBCardText key={index} className="text-muted mb-2">
                                                         Dr. {name}
                                                     </MDBCardText>
                                                 ))}
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-2">
-                                            <MDBTypography tag="h6">Hospital</MDBTypography>
-                                                {nameArray.map((name, index) => (
-                                                    <MDBCardText key={index} className="text-muted mb-2">
-                                                        Hospital Name
-                                                    </MDBCardText>
+                                            <MDBTypography tag="h6">Physician ID</MDBTypography>
+                                                {Object.keys(nameArray).map((id, index) => (
+                                                    <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                                        <MDBCardText style={{ flex: 1 }} className="text-muted mb-2">
+                                                            {id}
+                                                        </MDBCardText>
+                                                    </div>
                                                 ))}
                                         </MDBCol>
                                     </MDBRow>

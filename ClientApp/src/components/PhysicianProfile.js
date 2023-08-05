@@ -68,6 +68,26 @@ const PhysicianProfile = () => {
         }
     }
 
+    const onPressDeleteAccount = async () => {
+        //try {
+        //    const storedDataString = localStorage.getItem('userInfo')
+        //    const userData = JSON.parse(storedDataString)
+
+        //    const input = {
+        //        UserNumber: parseInt(userData.userNumber),
+        //    }
+
+        //    const response = await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
+
+        //    localStorage.clear()
+        //    window.location.reload()
+
+
+        //} catch (error) {
+        //    console.log(error.response.data)
+        //}
+    }
+
     useEffect(() => {
         getUserData();
     }, []);
@@ -100,7 +120,7 @@ const PhysicianProfile = () => {
                                 <MDBRow className="position-absolute bottom-0 mb-2">
                                     <div>
                                         <Button onClick={() => { navigate('/change-password') }} style={{ color: "white", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
-                                        <Button style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
+                                        <Button onClick={onPressDeleteAccount} style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
                                     </div>
                                 </MDBRow>
                             </MDBCol>

@@ -566,16 +566,31 @@ namespace OcayProject.Controllers
                 string patientNum = request.PatientUserNumber.ToString();
                 string physicianNum = request.PhysicianUserNumber.ToString();
 
-                await _userContext.Database.ExecuteSqlRawAsync(
-                    $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{physicianNum};' " +
-                    $"WHERE UserNumber = {request.PatientUserNumber};"
-                );
+                var patientUser = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.PatientUserNumber);
 
-                await _userContext.Database.ExecuteSqlRawAsync(
-                    $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{patientNum};' " +
-                    $"WHERE UserNumber = {request.PhysicianUserNumber};"
-                );
+                if (patientUser != null && !IsAlreadyConnected(patientUser, physicianNum))
+                {
+                    await _userContext.Database.ExecuteSqlRawAsync(
+                        $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{physicianNum};' " +
+                        $"WHERE UserNumber = {request.PatientUserNumber};"
+                    );
+                }
+                else
+                {
+                    return BadRequest("This Physician is already connected.");
+                }
 
+                if (physicianUser != null && !IsAlreadyConnected(physicianUser, patientNum))
+                {
+                    await _userContext.Database.ExecuteSqlRawAsync(
+                        $"UPDATE [User] SET ConnectedUsers = ISNULL(ConnectedUsers, '') + '{patientNum};' " +
+                        $"WHERE UserNumber = {request.PhysicianUserNumber};"
+                    );
+                }
+                else
+                {
+                    return BadRequest("This Physician is already connected.");
+                }
 
                 return Ok();
             }
@@ -584,6 +599,104 @@ namespace OcayProject.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+        private bool IsAlreadyConnected(User user, string numToCheck)
+        {
+            if (!string.IsNullOrEmpty(user.ConnectedUsers))
+            {
+                return user.ConnectedUsers.Split(';').Contains(numToCheck);
+            }
+            return false;
+        }
+
+
+        [HttpPost("disconnectPhysician")]
+        public async Task<IActionResult> DisconnectPhysician(ConnectDto request)
+        {
+            try
+            {
+                var patientUser = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.PatientUserNumber);
+                var physicianUser = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.PhysicianUserNumber);
+
+                if (patientUser == null || physicianUser == null)
+                {
+                    return BadRequest("Invalid patient or physician ID number.");
+                }
+
+                string patientNumString = request.PatientUserNumber.ToString();
+                string physicianNumString = request.PhysicianUserNumber.ToString();
+
+                // Remove the physicianNum from the patient's ConnectedUsers column
+                if (!string.IsNullOrEmpty(patientUser.ConnectedUsers))
+                {
+                    patientUser.ConnectedUsers = patientUser.ConnectedUsers.Replace(physicianNumString + ";", "");
+                    await _userContext.SaveChangesAsync();
+                }
+
+                // Remove the patientNum from the physician's ConnectedUsers column
+                if (!string.IsNullOrEmpty(physicianUser.ConnectedUsers))
+                {
+                    physicianUser.ConnectedUsers = physicianUser.ConnectedUsers.Replace(patientNumString + ";", "");
+                    await _userContext.SaveChangesAsync();
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+        [HttpPost("deleteAccount")]
+        public async Task<IActionResult> DeleteAccount(ResultDto request)
+        {
+            try
+            {
+                var data = await _userContext.User
+                    .Where(u => u.UserNumber == request.UserNumber)
+                    .Select(u => u.ConnectedUsers)
+                    .FirstOrDefaultAsync();
+
+                if (data == null)
+                {
+                    return NotFound("User not found.");
+                }
+
+                string[] connectedUsersArray = data.Split(';', StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var connectedUserNumber in connectedUsersArray)
+                {
+                    int userNumber = int.Parse(connectedUserNumber);
+                    var user = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == userNumber);
+                    if (user != null)
+                    {
+                        // Replace the request.UserNumber with an empty string in the ConnectedUsers column
+                        user.ConnectedUsers = user.ConnectedUsers.Replace(request.UserNumber.ToString() + ";", "");
+                    }
+                }
+
+                await _userContext.SaveChangesAsync();
+
+                string tableName = $"User_{request.UserNumber}";
+                await _userContext.Database.ExecuteSqlRawAsync($"DROP TABLE {tableName}");
+
+                var userToDelete = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.UserNumber);
+                if (userToDelete != null)
+                {
+                    _userContext.User.Remove(userToDelete);
+                    await _userContext.SaveChangesAsync();
+                }
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
+
 
 
         [HttpPost("loadConnections")]
@@ -629,8 +742,6 @@ namespace OcayProject.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-
-
 
         //private string CreateToken(User user)
         //{
