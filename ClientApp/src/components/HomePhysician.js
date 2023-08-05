@@ -29,7 +29,7 @@ const HomePhysician = () => {
     return (
         <div>
             <h1 style={{ color: '#a6a6a6', fontSize: '35px' }} >Welcome back Dr. {name}!</h1>
-            <p style={{ color: '#a6a6a6' }}>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
+            <p style={{ color: '#a6a6a6' }}>To get started, select the <strong>Results</strong> menu</p>
 
             <div className="d-flex justify-content-center">
                 <img src={temp} alt="Responsive image" />

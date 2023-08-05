@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import axios from 'axios';
 
@@ -32,6 +32,8 @@ const PatientResults = () => {
     var debugIndex = 0;
     var contentsTable = "";
     var contentsEmpty = "";
+
+
 
 
 
@@ -104,6 +106,9 @@ const PatientResults = () => {
         setElevenCon(o => badgeSet(o, " "));
         setTwelveCon(o => <span className="badge badge-primary badge-pill mx-1">{o}</span>);
     }, [table]);
+
+
+
 
     // RENDERING FUNCTIONS
     // render table
@@ -205,6 +210,11 @@ const PatientResults = () => {
             </p>
         )
         contentsTable = <p> </p>
+        return (
+            <Container>
+                {contentsEmpty}
+            </Container>
+        )
     } else {
         contentsEmpty = <p> </p>
         contentsTable = loadingTable ? (
@@ -217,16 +227,31 @@ const PatientResults = () => {
     }
 
 
+
     // FINAL RETURN
     return (
+        <Container className="justify-content-center" >
+            <Row>
+                {contentsEmpty}
+            </Row>
+            <Row style={{ width: '100%', alignItems: 'center' }} >
+                <Col className=" justify-content-center">
+                    <Card style={{
+                        backgroundColor: '#FFFFFF',
+                        borderColor: '#79D4AC',
+                        width: '100%',
+                        color: '#79D4AC'
+                    }}>
+                        <Card.Body className="text-center">
+                            {contentsTable}
+                        </Card.Body>
+                    </Card>
 
-        <div  >
-            <br />
-            {contentsEmpty}
-            {contentsTable}
+                </Col>
+            </Row>
             <br />
             <br />
-        </div>
+        </Container>
     );
 };
 
