@@ -574,8 +574,12 @@ const PhysicianResults = () => {
             <p>
                 <em>Your radar chart is loading...</em>
             </p>
-        ) : (
+        ) : radarSurveys.length > 0 ? (
             renderRadar()
+        ) : (
+            <p style={{ color: 'black' }}>
+                <em>There are no surveys for this patient taken within that time frame.</em>
+            </p>
         );
 
         contentsDrop = loadingDrop ? (
@@ -633,7 +637,7 @@ const PhysicianResults = () => {
                     <Card.Body className="text-center">
                         <Card.Title className="text-left">
                             <Form>
-                                <Row>
+                                <Row style={{ marginBottom: '5px' }}>
                                     <Col style={{ width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
@@ -660,7 +664,7 @@ const PhysicianResults = () => {
                                     <Col>
                                     </Col>
                                 </Row>
-                                <Row>
+                                <Row style={{ marginBottom: '5px' }}>
                                     <Col>
                                         <Form.Label style={{
                                             display: 'flex',

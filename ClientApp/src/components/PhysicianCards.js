@@ -7,7 +7,6 @@ const PhysicianCards = () => {
     const navigate = useNavigate();
     const [patients, setPatients] = useState({});
     const [number, setNumber] = useState("");
-    const [patientsContent, setPatientsContent] = useState("");
 
     useEffect(() => {
         getPatients();
@@ -36,6 +35,21 @@ const PhysicianCards = () => {
         await localStorage.setItem("patientID", patientID)
         navigate("/PhysicianResults")
     }
+
+    useEffect(() => {
+        console.log(patients)
+    }, [patients])
+
+    if(Object.keys(patients).length === 0 || patients == null){
+        return (
+             <Container className="d-flex flex-column align-items-left">
+                <br />
+                <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
+                <p style={{ color: "black" }}>We could not find any of your patients. If this is a mistake, please contact support.</p>
+                <br />
+            </Container>
+        );
+    }
     
     return (
         <Container className="d-flex flex-column align-items-left">
@@ -52,7 +66,7 @@ const PhysicianCards = () => {
                                     backgroundColor: '#FFFFFF',
                                     display: 'flex',
                                     alignItems: 'flex-start',
-                                    justifyContent: 'left',
+                                    justifyContent: 'center',
                                     width: '200px',
                                 }}
                                 onClick={() => onPressPatient(id)}
@@ -65,8 +79,8 @@ const PhysicianCards = () => {
                                         color: '#79D4AC',
                                     }}
                                 >
-                                    <Card.Body className="text-center">
-                                        <Card.Title className="card-title" style={{ fontSize: '15px' }}>
+                                    <Card.Body>
+                                        <Card.Title style={{ fontSize: '15px', color: 'black' }}>
                                             {name}
                                             <br />
                                             ID: {id}

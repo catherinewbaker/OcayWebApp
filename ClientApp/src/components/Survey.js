@@ -25,7 +25,7 @@ const Survey = () => {
     };
 
     return (
-        <Container className="d-flex flex-column align-items-center vh-100">
+        <Container className="d-flex flex-column align-items-center vh-100" >
             <div className="" class="scrollHold" style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}>
                 <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}>
                     OCAY Patient Consent Form
