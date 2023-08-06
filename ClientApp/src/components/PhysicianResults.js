@@ -182,75 +182,77 @@ const PhysicianResults = () => {
     // sets the values of [feelings] equal to the number of times the keys were used in the most recent survey
     const updateFeelings = (arr, survey) => {
         console.log(arr)
-        for (let x of Object.keys(arr)) { // for each key in [updatedFeelings], check if the [--Con]'s hold that key
-            console.log("x: " + x)
-            console.log("oneCon: " + oneCon)
-            if ((survey.q1).includes(x)) {
-                arr[x] += 1; // if they do, then increase the value stored in [updatedFeelings]
+        if (survey != null && survey != undefined) {
+            for (let x of Object.keys(arr)) { // for each key in [updatedFeelings], check if the [--Con]'s hold that key
+                console.log("x: " + x)
+                console.log("oneCon: " + oneCon)
+                if ((survey.q1).includes(x)) {
+                    arr[x] += 1; // if they do, then increase the value stored in [updatedFeelings]
+                }
+                if ((survey.q2).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q3).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q4).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q5).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q6).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q7).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q8).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q9).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q10).includes(x)) {
+                    arr[x] += 1;
+                }
+                if ((survey.q11).includes(x)) {
+                    arr[x] += 1;
+                }
             }
-            if ((survey.q2).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q1).includes("Scared")) {
+                arr["Fear"] += 1; // if they do, then increase the value stored in [updatedFeelings]
             }
-            if ((survey.q3).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q2).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q4).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q3).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q5).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q4).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q6).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q5).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q7).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q6).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q8).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q7).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q9).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q8).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q10).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q9).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-            if ((survey.q11).includes(x)) {
-                arr[x] += 1;
+            if ((survey.q10).includes("Scared")) {
+                arr["Fear"] += 1;
             }
-        }
-        if ((survey.q1).includes("Scared")) {
-            arr["Fear"] += 1; // if they do, then increase the value stored in [updatedFeelings]
-        }
-        if ((survey.q2).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q3).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q4).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q5).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q6).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q7).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q8).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q9).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q10).includes("Scared")) {
-            arr["Fear"] += 1;
-        }
-        if ((survey.q11).includes("Scared")) {
-            arr["Fear"] += 1;
+            if ((survey.q11).includes("Scared")) {
+                arr["Fear"] += 1;
+            }
         }
         console.log(arr)
         return arr;
