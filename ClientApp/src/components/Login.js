@@ -181,7 +181,7 @@ const Login = () => {
                                 <div className="mb-3">
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">OCAY Login</h2>
+                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">Login</h2>
                                             <p className="mb-5">Please enter your email and password!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>

@@ -170,8 +170,8 @@ const Signup = () => {
                                 <div className="mb-3">
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">OCAY Register</h2>
-                                            <p className="mb-5">Please enter all information fields to register!</p>
+                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">Register</h2>
+                                            <p className="mb-5">Hi! Please enter all information fields to register!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>
                                         <img src={logo} alt="Responsive image" style={{ height: '20%', width: '20%' }} />
