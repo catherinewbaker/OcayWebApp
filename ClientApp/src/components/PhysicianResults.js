@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect, useRef, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
-import { Container, Row, Col, Card, Dropdown } from 'react-bootstrap';
+import { Container, Row, Form, Card, Col, Dropdown } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
@@ -46,6 +46,10 @@ const PhysicianResults = () => {
     };
 
     // radar chart data
+    const [startDate, setStartDate] = useState("2023-03-25");
+    const [endDate, setEndDate] = useState("2023-08-03");
+    const [radarSurveys, setRadarSurveys] = useState([]);
+    const [ticks, setTicks] = useState(30);
     const [feelings, setFeelings] = useState({ // keeps track of how many times each word was selected in the last survey
         "Sad": 0,
         "Fear": 0,
@@ -96,6 +100,7 @@ const PhysicianResults = () => {
     var contentsRadar = "";
     var contentsLine = "";
     var contentsDrop = "";
+    var maxTick = 30;
 
 
     // FUNCTIONS
@@ -123,6 +128,35 @@ const PhysicianResults = () => {
             setLoadingRadar(false);
             setLoadingLine(false);
             setLoadingTable(false);
+            console.log(chart)
+            console.log(table)
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getRadarData = async () => {
+        try {
+            // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
+            const number = parseInt(localStorage.getItem("patientID"));
+
+            const bodyParameters = {
+                UserNumber: number, // change to pull actual UserNumber
+                StartDate: startDate,
+                EndDate: endDate,
+            };
+
+            const res = await axios.post('https://localhost:44408/api/Auth/getResultsByDate', bodyParameters);
+            setRadarSurveys(res.data.userSurveys)
+            console.log(res.data)
+            if (res.data.userSurveys.length > 0) {
+                setTicks((res.data.userSurveys.length) * 3);
+            } else {
+                setTicks(10)
+            }
+            
+
+            setLoadingRadar(false);
         } catch (err) {
             console.log(err);
         }
@@ -179,13 +213,11 @@ const PhysicianResults = () => {
         }
     });
 
+    const feelingsArray = (arr) => arr.map(x => updateFeelings(feelingsRef.current, x));
     // sets the values of [feelings] equal to the number of times the keys were used in the most recent survey
-    const updateFeelings = (arr, survey) => {
-        console.log(arr)
+    const updateFeelings = (arr, survey) => { // arr = current feelings array, survey = current survey
         if (survey != null && survey != undefined) {
             for (let x of Object.keys(arr)) { // for each key in [updatedFeelings], check if the [--Con]'s hold that key
-                console.log("x: " + x)
-                console.log("oneCon: " + oneCon)
                 if ((survey.q1).includes(x)) {
                     arr[x] += 1; // if they do, then increase the value stored in [updatedFeelings]
                 }
@@ -254,7 +286,6 @@ const PhysicianResults = () => {
                 arr["Fear"] += 1;
             }
         }
-        console.log(arr)
         return arr;
     };
 
@@ -369,9 +400,9 @@ const PhysicianResults = () => {
     // render radar chart
     const renderRadar = () => {
         // console.log(Object.values(feelingsRef.current))
-
+        console.log(ticks)
         return (
-            <RadarChart data={radarData} />
+            <RadarChart data={radarData} maxTicks={ticks} />
         );
     }
 
@@ -408,16 +439,11 @@ const PhysicianResults = () => {
                 <h1 > </h1>
             </Container>
         );
-
-        console.log(dropHolder)
     }, [totalCon, optFour]);
 
     // set the options for the dropdown menu
     useEffect(() => {
-        console.log(table)
-        //console.log(table[1])
         if (table != null && table != undefined && table.length > 0) {
-            console.log(table[4] != null && table[4] != undefined)
             if (table[0] != null && table[0] != undefined) {
                 setOptZero(dropDown(table[0]));
             }
@@ -480,17 +506,33 @@ const PhysicianResults = () => {
         setMonthNames(names(months));
     }, [months]);
 
-    // update the feelings dictionary and it's reference
-    useMemo(() => {
-        // PSEUDOCODE
-        // call the sql method that pulls surveys by date
-        // create a map function. For every survey in that list, map to setFeelings(updateFeelings(feelingsRef.current, [THIS_SURVEY])
-        setFeelings(updateFeelings(feelingsRef.current, currentSurvey));
-    }, [currentSurvey]);
-
     useEffect(() => {
         feelingsRef.current = feelings;
     }, [feelings])
+
+    useEffect(() => {
+        getRadarData()
+        
+    }, [startDate, endDate])
+
+    useEffect(() => {
+        setFeelings({
+            "Sad": 0,
+            "Fear": 0,
+            "Anger": 0,
+            "Nauseous": 0,
+            "Fatigue": 0,
+            "Shortness of breath": 0,
+            "Anxious": 0,
+            "Confused": 0,
+            "Bored": 0,
+            "Reluctant": 0,
+            "Fever": 0
+        })
+        feelingsArray(radarSurveys)
+        console.log(feelings)
+    }, [radarSurveys])
+
 
 
     // FINAL LAODING FOR RENDERING
@@ -555,7 +597,6 @@ const PhysicianResults = () => {
                 {contentsEmpty}
             </Row>
             <Row style={{ width: '100%', alignItems: 'center' }} >
-                <Col className=" justify-content-center">
                     <Card style={{
                         backgroundColor: '#FFFFFF',
                         borderColor: '#79D4AC',
@@ -569,38 +610,88 @@ const PhysicianResults = () => {
                             {contentsTable}
                         </Card.Body>
                     </Card>
-
-                </Col>
             </Row>
             <br />
-            
-            
             <Row >
-                <Col style={{ marginBottom: '2px', marginRight: '20px' }}>
-                    <Card style={{
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#79D4AC',
-                        color: '#79D4AC',
-                    }}>
-                        <Card.Body className="text-center">
-                            {contentsLine}
-                        </Card.Body>
-                    </Card>
-                    
-                </Col>
-                <Col style={{ marginBottom: '20px', marginRight: '20px' }}>
-                    <Card style={{
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#79D4AC',
-                        color: '#79D4AC'
-                    }}>
-                        <Card.Body className="text-center">
-                            {contentsRadar}
-                        </Card.Body>
-                    </Card>
-                    
-                </Col>
+                <Card style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#79D4AC',
+                    color: '#79D4AC',
+                }}>
+                    <Card.Body className="text-center">
+                        {contentsLine}
+                    </Card.Body>
+                </Card>
             </Row>
+            <br />
+            <Row >
+                <Card style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#79D4AC',
+                    color: '#79D4AC'
+                }}>
+                    <Card.Body className="text-center">
+                        <Card.Title className="text-left">
+                            <Form>
+                                <Row>
+                                    <Col style={{ width: '100%' }}>
+                                        <Form.Label style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-start',
+                                            justifyContent: 'right',
+                                            width: '200px',
+                                            fontSize: '20px'
+                                        }}>Start Date: </Form.Label>
+                                    </Col>
+                                    <Col style={{ width: '100%' }}>
+                                        <Form.Control
+                                            type="date"
+                                            placeholder="2023-06-25"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                justifyContent: 'left',
+                                                width: '200px',
+                                            }}
+                                            onChange={(e) => setStartDate(e.target.value)} />
+                                    </Col>
+                                    <Col>
+                                    </Col>
+                                    <Col>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <Form.Label style={{
+                                            display: 'flex',
+                                            alignItems: 'flex-start',
+                                            justifyContent: 'right',
+                                            width: '200px',
+                                            fontSize: '20px'
+                                        }}>End Date: </Form.Label>
+                                    </Col>
+                                    <Col>
+                                        <Form.Control type="date"
+                                            placeholder="2023-06-25"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'flex-start',
+                                                justifyContent: 'left',
+                                                width: '200px',
+                                            }} onChange={(o) => setEndDate(o.target.value)} />
+                                    </Col>
+                                    <Col>
+                                    </Col>
+                                    <Col>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Card.Title>
+                        {contentsRadar}
+                    </Card.Body>
+                </Card>
+            </Row>
+            <br />
             <br />
         </Container>
     );
