@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography, MDBInputGroup, MDBBtn  } from 'mdb-react-ui-kit';
-import { Button } from "react-bootstrap";
+import { Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom'
 import '../custom.css';
 
@@ -169,9 +169,9 @@ const PatientProfile = () => {
                                         </MDBCardText>
                                     )}
 
-                                    <MDBRow className="align-items-center mb-3">
+                                    <MDBRow className="align-items-center mb-3" >
                                         <MDBCol size="12" className="">
-                                            <MDBInputGroup>
+                                            <MDBInputGroup style={{ height: "100%" }}>
                                                 <input
                                                     className="form-control"
                                                     placeholder="Enter your physician's 8-digit ID to add or delete"
@@ -182,8 +182,8 @@ const PatientProfile = () => {
                                                     onChange={(event) => setPhysicianUserNumber(event.target.value)}
 
                                                 />
-                                                <MDBBtn style={{ backgroundColor: "#79D4AC", color: "white", fontSize: "0.9em", border: "none", outline: "none", width: "13%" }} onClick={onPressAdd}>Add</MDBBtn>
-                                                <MDBBtn style={{ color: "white", fontSize: "0.9em", backgroundColor: "#ff4d4d", border: "none", outline: "none" }} onClick={onPressDelete}>Delete</MDBBtn>
+                                                <MDBBtn style={{ backgroundColor: "#79D4AC", color: "white", fontSize: "0.9em", border: "none", outline: "none", height: "100%", width: "13%" }} onClick={onPressAdd}>Add</MDBBtn>
+                                                <MDBBtn style={{ color: "white", fontSize: "0.9em", backgroundColor: "#ff4d4d", border: "none", outline: "none", height: "100%", width: "16%" }} onClick={onPressDelete}>Delete</MDBBtn>
                                             </MDBInputGroup>
                                         </MDBCol>
                                     </MDBRow>
