@@ -42,7 +42,7 @@ class App extends Component {
         return (
             <>
                 {isAuthenticated && checkPatient ? (
-                    // If the user is authenticated and checkPatient is true, render the protected routes
+                    // If the user is authenticated and checkPatient is true, render the patient routes
                     <Layout>
                         <Routes>
                             {PatientRoutes.map((route, index) => {

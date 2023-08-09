@@ -66,7 +66,7 @@ const PhysicianCards = () => {
                                     }}
                                 >
                                     <Card.Body className="text-center">
-                                        <Card.Title className="card-title" style={{ fontSize: '15px' }}>
+                                        <Card.Title className="card-title text-center" style={{ fontSize: '18px', color: 'black' }}>
                                             {name}
                                             <br />
                                             ID: {id}

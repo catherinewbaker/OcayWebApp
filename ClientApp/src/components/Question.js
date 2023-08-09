@@ -284,8 +284,9 @@ const Question = () => {
         const params = {
             Text: input,
             OutputFormat: 'mp3',
-            VoiceId: 'Joanna',
+            VoiceId: 'Ruth',
             TextType: 'ssml',
+            Engine: "neural"
         };
 
         polly.synthesizeSpeech(params, (err, data) => {

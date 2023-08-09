@@ -176,7 +176,7 @@ namespace OcayProject.Controllers
 
             if (user == null)
             {
-                return BadRequest("Please check your email address.");
+                return BadRequest("We could not find an account with your email address.");
             }
 
             return Ok();

@@ -62,7 +62,7 @@ const Login = () => {
             await axios.post('https://api.sendinblue.com/v3/smtp/email', requestData, {
                 headers: {
                     'accept': 'application/json',
-                    'api-key': "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",
+                    'api-key': process.env.REACT_APP_BREVO_API_KEY,
                     'content-type': 'application/json',
                 },
             });

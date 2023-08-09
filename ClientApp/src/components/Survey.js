@@ -25,12 +25,12 @@ const Survey = () => {
     };
 
     return (
-        <Container className="d-flex flex-column align-items-center vh-100">
+        <Container className="d-flex flex-column align-items-center">
             <div className="" class="scrollHold" style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}>
-                <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}>
+                <h1 style={{ color: 'black', fontSize: '35px' }}>
                     OCAY Patient Consent Form
                 </h1>
-                <p style={{ color: '#a6a6a6' }}>
+                <p style={{ color: 'black' }}>
                     Please read the following terms and conditions carefully before proceeding with the survey. By selecting the "I Agree" checkbox, you acknowledge that you have read, understood, and agreed to the terms outlined below.
                 </p>
                 <br />
