@@ -151,110 +151,110 @@ const Question = () => {
         {
             question: 'I feel ____ about the appointment today.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#56BF4F' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#088FDB' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#F4B000' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#AE0803' },
+                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I sometimes feel ____',
             answers: [
-                { imageSrc: require('../image/fever2.png'), description: 'Fever', color: '#56BF4F' },
-                { imageSrc: require('../image/fatigue2.png'), description: 'Fatigue', color: '#088FDB' },
-                { imageSrc: require('../image/shortnessofbreath2.png'), description: 'Shortness of breath', color: '#F4B000' },
-                { imageSrc: require('../image/nauseous2.png'), description: 'Nauseous', color: '#AE0803' },
+                { imageSrc: require('../image/fever2.png'), description: 'Fever', color: '#8074b5' },
+                { imageSrc: require('../image/fatigue2.png'), description: 'Fatigue', color: '#fbf0d6' },
+                { imageSrc: require('../image/shortnessofbreath2.png'), description: 'Shortness of breath', color: '#4fa75a' },
+                { imageSrc: require('../image/nauseous2.png'), description: 'Nauseous', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'My treaments make me feel ____', 
             answers: [
-                { imageSrc: require('../image/anxious2.png'), description: 'Anxious', color: '#56BF4F' },
-                { imageSrc: require('../image/scared2.png'), description: 'Scared', color: '#088FDB' },
-                { imageSrc: require('../image/ready2.png'), description: 'Ready', color: '#F4B000' },
-                { imageSrc: require('../image/supported2.png'), description: 'Supported', color: '#AE0803' },
+                { imageSrc: require('../image/anxious2.png'), description: 'Anxious', color: '#8074b5' },
+                { imageSrc: require('../image/scared2.png'), description: 'Scared', color: '#fbf0d6' },
+                { imageSrc: require('../image/ready2.png'), description: 'Ready', color: '#4fa75a' },
+                { imageSrc: require('../image/supported2.png'), description: 'Supported', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I eat ____ everyday.',
             answers: [
-                { imageSrc: require('../image/oneFood.png'), description: 'Once a day', color: '#56BF4F' },
-                { imageSrc: require('../image/twoFood.png'), description: 'Twice a day', color: '#088FDB' },
-                { imageSrc: require('../image/threeFood.png'), description: 'Three times a day', color: '#F4B000' },
-                { imageSrc: require('../image/fourFood.png'), description: 'More than three times a day', color: '#AE0803' },
+                { imageSrc: require('../image/oneFood.png'), description: 'Once a day', color: '#8074b5' },
+                { imageSrc: require('../image/twoFood.png'), description: 'Twice a day', color: '#fbf0d6' },
+                { imageSrc: require('../image/threeFood.png'), description: 'Three times a day', color: '#4fa75a' },
+                { imageSrc: require('../image/fourFood.png'), description: 'More than three times a day', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#56BF4F' },
-                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#088FDB' },
-                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#F4B000' },
-                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#AE0803' },
+                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#8074b5' },
+                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#4fa75a' },
+                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'In school, I feel ____ about what is being taught.',
             answers: [
-                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#56BF4F' },
-                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#088FDB' },
-                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#F4B000' },
-                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#AE0803' },
+                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#8074b5' },
+                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#4fa75a' },
+                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel safe during my daily activities.', // this section is not done
             answers: [
-                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#56BF4F' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#088FDB' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#F4B000' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#AE0803' },
+                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I have friends or classmates in school who I can spend time with', // this section is not done
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#56BF4F' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#088FDB' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#F4B000' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#AE0803' },
+                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel ____ throughout the day.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Joy', color: '#56BF4F' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#088FDB' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#F4B000' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#AE0803' },
+                { imageSrc: require('../image/happy2.png'), description: 'Joy', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'Taking home medicines make me feel',
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#56BF4F' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#088FDB' },
-                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#F4B000' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#AE0803' },
+                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#56BF4F' },
-                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#088FDB' },
-                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#F4B000' },
-                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#AE0803' },
+                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#fbf0d6' },
+                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#4fa75a' },
+                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#6d7b84' },
             ],
         },
 

@@ -46,8 +46,6 @@ const HomePatient = () => {
                 <img src={temp} alt="Responsive image" />
             </div>
 
-            
-
             <Container className=" d-flex justify-content-center" >
                 <Row >
                     <Col style={{ marginBottom: '20px', marginRight: '200px' }}>
