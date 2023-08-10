@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography, MDBInputGroup, MDBBtn  } from 'mdb-react-ui-kit';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBTypography, MDBInputGroup, MDBBtn } from 'mdb-react-ui-kit';
 import { Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom'
 import '../custom.css';
@@ -51,7 +51,7 @@ const PatientProfile = () => {
 
                 const storedDataString = localStorage.getItem('userInfo')
                 const userData = JSON.parse(storedDataString)
-                
+
                 setError("")
                 const input = {
                     PatientUserNumber: parseInt(userData.userNumber),
@@ -130,7 +130,7 @@ const PatientProfile = () => {
                                 className="gradient-custom text-center text-black d-flex flex-column justify-content-center position-relative"
                                 style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}
                             >
-                                <div style={{marginBottom: "20%"}}>
+                                <div style={{ marginBottom: "20%" }}>
                                     <MDBTypography tag="h5">{name}</MDBTypography>
                                     <MDBCardText>Patient</MDBCardText>
                                 </div>
@@ -191,22 +191,22 @@ const PatientProfile = () => {
 
                                     <MDBRow className="pt-1">
                                         <MDBCol size="6" >
-                                            <MDBTypography  tag="h6">Name</MDBTypography>
-                                                {Object.values(nameArray).map((name, index) => (
-                                                    <MDBCardText key={index} className="text-muted mb-2">
-                                                        Dr. {name}
-                                                    </MDBCardText>
-                                                ))}
+                                            <MDBTypography tag="h6">Name</MDBTypography>
+                                            {Object.values(nameArray).map((name, index) => (
+                                                <MDBCardText key={index} className="text-muted mb-2">
+                                                    Dr. {name}
+                                                </MDBCardText>
+                                            ))}
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-2">
                                             <MDBTypography tag="h6">Physician ID</MDBTypography>
-                                                {Object.keys(nameArray).map((id, index) => (
-                                                    <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                                                        <MDBCardText style={{ flex: 1 }} className="text-muted mb-2">
-                                                            {id}
-                                                        </MDBCardText>
-                                                    </div>
-                                                ))}
+                                            {Object.keys(nameArray).map((id, index) => (
+                                                <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                                    <MDBCardText style={{ flex: 1 }} className="text-muted mb-2">
+                                                        {id}
+                                                    </MDBCardText>
+                                                </div>
+                                            ))}
                                         </MDBCol>
                                     </MDBRow>
 
