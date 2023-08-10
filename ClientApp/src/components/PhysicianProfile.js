@@ -69,23 +69,23 @@ const PhysicianProfile = () => {
     }
 
     const onPressDeleteAccount = async () => {
-        //try {
-        //    const storedDataString = localStorage.getItem('userInfo')
-        //    const userData = JSON.parse(storedDataString)
+        try {
+            const storedDataString = localStorage.getItem('userInfo')
+            const userData = JSON.parse(storedDataString)
 
-        //    const input = {
-        //        UserNumber: parseInt(userData.userNumber),
-        //    }
+            const input = {
+                UserNumber: parseInt(userData.userNumber),
+            }
 
-        //    const response = await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
+            const response = await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
 
-        //    localStorage.clear()
-        //    window.location.reload()
+            localStorage.clear()
+            window.location.reload()
 
 
-        //} catch (error) {
-        //    console.log(error.response.data)
-        //}
+        } catch (error) {
+            console.log(error.response.data)
+        }
     }
 
     useEffect(() => {
@@ -101,8 +101,8 @@ const PhysicianProfile = () => {
     }, [idArray]);
 
     return (
-        <MDBContainer className="py-5 h-100">
-            <MDBRow className="justify-content-center align-items-center h-100">
+        <MDBContainer className="py-5" style={{ height: "100vh" }}>
+            <MDBRow className="justify-content-center align-items-center">
                 <MDBCol lg="8" className="mb-4 mb-lg-0">
                     <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
                         <MDBRow className="g-0">

@@ -425,6 +425,7 @@ const Question = () => {
     };
 
     return (
+
         <Container className='' style={{ margin: 'auto' }}>
             <Container className="d-flex justify-content-center" style={{ }}>
                 <ProgressBar now={now} label={`${now}%`} style={{ width: '90%', height: '3vh', margin: 'auto' }} />
@@ -434,7 +435,7 @@ const Question = () => {
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
                 <Container className= "d-flex justify-content-center">
 
-                    <h1 className="mb-5 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
+                    <h1 className="mb-1 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
                     <MdPlayCircle
                         onClick={togglePlay}
                         style={{
@@ -465,6 +466,12 @@ const Question = () => {
                     />
                 )}
             </Container>
+
+            {![3, 4, 6, 7, 10, 11, 12].includes(questionIndex) && (
+                <Container className="d-flex align-items-center justify-content-center">
+                    <p>(You can select multiple answer choices if you'd like!)</p>
+                </Container>
+            )}
 
 
             <Container className=" d-flex align-items-center justify-content-center" style={{ height: '15vh', marginBottom: '10px' }}>

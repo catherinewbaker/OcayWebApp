@@ -27,7 +27,7 @@ const HomePhysician = () => {
 
 
     return (
-        <div>
+        <div style={{ height: "100vh" }}>
             <h1 style={{ color: 'black', fontSize: '35px' }} >Welcome back Dr. {name}!</h1>
             <p style={{ color: 'black' }}>To get started, select the <strong>Results</strong> menu</p>
 

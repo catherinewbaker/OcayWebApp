@@ -37,7 +37,7 @@ const HomePatient = () => {
     }
 
     return (
-        <div>
+        <div style={{ height: "100vh" }}>
             <h1 style={{ color: 'black', fontSize: '35px' }} >Welcome back {name}!</h1>
             <p style={{ color: 'black' }}>To get started, select the <strong>Survey</strong> or <strong>Results</strong> menus</p>
             <br />

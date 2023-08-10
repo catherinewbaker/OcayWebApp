@@ -52,7 +52,7 @@ const PhysicianCards = () => {
     }
     
     return (
-        <Container className="d-flex flex-column align-items-left">
+        <Container className="d-flex flex-column align-items-left" style={{ height: "100vh" }}>
             <br />
             <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
             <p style={{ color: "black" }}>Please select one of your patients to view their results</p>

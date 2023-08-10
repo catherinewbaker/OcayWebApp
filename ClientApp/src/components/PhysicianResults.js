@@ -5,6 +5,7 @@ import { Container, Row, Form, Card, Col, Dropdown } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
+import puzzleBackground from '../image/Beige.png';
 
 const PhysicianResults = () => {
     // LIST OF VARIABLES

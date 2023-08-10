@@ -120,8 +120,8 @@ const PatientProfile = () => {
 
 
     return (
-        <MDBContainer className="py-5 h-100">
-            <MDBRow className="justify-content-center align-items-center h-100">
+        <MDBContainer className="py-5" style={{ height: "100vh" }}>
+            <MDBRow className="justify-content-center align-items-center">
                 <MDBCol lg="8" className="mb-4 mb-lg-0">
                     <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
                         <MDBRow className="g-0">

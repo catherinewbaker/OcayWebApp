@@ -114,7 +114,7 @@ const PatientResults = () => {
     // render table
     const renderTable = () => {
         return (
-            <Container className="d-flex flex-column align-items-center">
+            <Container className="d-flex flex-column align-items-center" >
                 <h1 style={{ color: '#a6a6a6', fontSize: '35px' }}> Most Recent Score: {totalCon} / 100</h1>
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
@@ -230,7 +230,7 @@ const PatientResults = () => {
 
     // FINAL RETURN
     return (
-        <Container className="justify-content-center" >
+        <Container className="justify-content-center" style={{ height: "100vh" }}>
             <Row>
                 {contentsEmpty}
             </Row>
