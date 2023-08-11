@@ -171,7 +171,7 @@ const PatientProfile = () => {
 
                                     <MDBRow className="align-items-center mb-3" >
                                         <MDBCol size="12" className="">
-                                            <MDBInputGroup style={{ height: "100%" }}>
+                                            <MDBInputGroup style={{ height: "36px" }}>
                                                 <input
                                                     className="form-control"
                                                     placeholder="Enter your physician's 8-digit ID to add or delete"
