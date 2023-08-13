@@ -45,7 +45,7 @@ const PatientResults = () => {
         const bodyParameters = {
             UserNumber: object.userNumber, // change to pull actual UserNumber
         };
-        axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters)
+        axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
                 console.log(res);
                 setTable(res.data.userSurveys[0]); // set table = most recent survey

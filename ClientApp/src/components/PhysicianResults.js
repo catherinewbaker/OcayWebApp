@@ -115,7 +115,7 @@ const PhysicianResults = () => {
                 UserNumber: number, // change to pull actual UserNumber
             };
 
-            const res = await axios.post('https://localhost:44408/api/Auth/getAllResults', bodyParameters);
+            const res = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters);
 
             setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
             setTable(res.data.userSurveys); // set table = most recent survey
@@ -147,7 +147,7 @@ const PhysicianResults = () => {
                 EndDate: endDate,
             };
 
-            const res = await axios.post('https://localhost:44408/api/Auth/getResultsByDate', bodyParameters);
+            const res = await axios.post('https://portal.ocay.org/api/Auth/getResultsByDate', bodyParameters);
             setRadarSurveys(res.data.userSurveys)
             console.log(res.data)
             if (res.data.userSurveys.length > 0) {

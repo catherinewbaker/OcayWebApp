@@ -37,7 +37,7 @@ const PhysicianProfile = () => {
             return;
         } else {
             try {
-                const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', pInput);
+                const response = await axios.post('https://portal.ocay.org/api/Auth/loadConnections', pInput);
 
                 const dictionary = response.data.connectedUsers;
                 const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
@@ -60,7 +60,7 @@ const PhysicianProfile = () => {
                 IdArray: idArray,
             }
 
-            const response2 = await axios.post('https://localhost:44408/api/Auth/getScore', input2);
+            const response2 = await axios.post('https://portal.ocay.org/api/Auth/getScore', input2);
             setScoreArray(response2.data.userScores)
 
         } catch (error) {
@@ -77,7 +77,7 @@ const PhysicianProfile = () => {
                 UserNumber: parseInt(userData.userNumber),
             }
 
-            const response = await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
+            const response = await axios.post('https://portal.ocay.org/api/Auth/deleteAccount', input);
 
             localStorage.clear()
             window.location.reload()

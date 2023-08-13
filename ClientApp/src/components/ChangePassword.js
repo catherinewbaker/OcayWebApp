@@ -51,7 +51,7 @@ const ChangePassword = () => {
             };
 
             try {
-                const response = await axios.post('https://localhost:44408/api/Auth/changePassword', data);
+                const response = await axios.post('https://portal.ocay.org/api/Auth/changePassword', data);
                 if (!location) {
                     localStorage.clear()
                     setError('')

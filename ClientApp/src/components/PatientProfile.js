@@ -31,7 +31,7 @@ const PatientProfile = () => {
                 UserNumber: parseInt(userData.userNumber)
             }
 
-            const response = await axios.post('https://localhost:44408/api/Auth/loadConnections', input);
+            const response = await axios.post('https://portal.ocay.org/api/Auth/loadConnections', input);
 
             setNameArray(response.data.connectedUsers);
 
@@ -58,7 +58,7 @@ const PatientProfile = () => {
                     PhysicianUserNumber: inputPhys
                 }
 
-                await axios.post('https://localhost:44408/api/Auth/connectPhysician', input);
+                await axios.post('https://portal.ocay.org/api/Auth/connectPhysician', input);
 
                 window.location.reload()
             }
@@ -86,7 +86,7 @@ const PatientProfile = () => {
                     PhysicianUserNumber: inputPhys
                 }
 
-                await axios.post('https://localhost:44408/api/Auth/disconnectPhysician', input);
+                await axios.post('https://portal.ocay.org/api/Auth/disconnectPhysician', input);
 
                 window.location.reload()
             }
@@ -106,7 +106,7 @@ const PatientProfile = () => {
                 UserNumber: parseInt(userData.userNumber),
             }
 
-            await axios.post('https://localhost:44408/api/Auth/deleteAccount', input);
+            await axios.post('https://portal.ocay.org/api/Auth/deleteAccount', input);
 
             localStorage.clear()
             window.location.reload()
