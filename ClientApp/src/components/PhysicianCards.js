@@ -22,7 +22,7 @@ const PhysicianCards = () => {
         };
 
         if (number !== "") {
-            axios.post('https://localhost:44408/api/Auth/loadConnections', bodyParameters)
+            axios.post('https://portal.ocay.org/api/Auth/loadConnections', bodyParameters)
                 .then((res) => {
                     setPatients(res.data.connectedUsers)
                 })
