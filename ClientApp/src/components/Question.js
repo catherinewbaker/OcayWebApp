@@ -416,7 +416,7 @@ const Question = () => {
         };
 
         try {
-            const response = await axios.post('https://localhost:44408/api/Auth/postSurvey', data);
+            const response = await axios.post('https://portal.ocay.org/api/Auth/postSurvey', data);
             console.log(response);
             navigate('/PatientResults')
         } catch (error) {

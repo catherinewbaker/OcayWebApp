@@ -26,7 +26,7 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post('https://localhost:44408/api/Auth/checkEmail', input);
+            const response = await axios.post('https://portal.ocay.org/api/Auth/checkEmail', input);
             onClickVerify2()
         } catch (error) {
             setEmailError(error.response.data)
@@ -110,7 +110,7 @@ const Login = () => {
             };
 
             try {
-                const response = await axios.post('https://localhost:44408/api/Auth/login', data);
+                const response = await axios.post('https://portal.ocay.org/api/Auth/login', data);
                 console.log(response.data);
                 setError('')
                 await localStorage.setItem('login', "success")

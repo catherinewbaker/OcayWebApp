@@ -122,7 +122,7 @@ const Signup = () => {
             };
 
             try {
-                const response = await axios.post('https://localhost:44408/api/Auth/register', data);
+                const response = await axios.post('https://portal.ocay.org/api/Auth/register', data);
                 console.log(response.data);
                 setError('')
 
