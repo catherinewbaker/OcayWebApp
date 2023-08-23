@@ -51,7 +51,7 @@ const Login = () => {
                 },
             ],
             subject: 'OCAY Forgot Password Code',
-            htmlContent: `<html><head></head><body><h1>Hello! Here is your 4 digit code for email verification to create a new password: ${code}</h1></body></html>`, // Use the updated value of code here
+            htmlContent: `<html><head>Hello!</head><body><h1>Here is your 4 digit code for email verification to create a new password: ${code}</h1></body></html>`, // Use the updated value of code here
             headers: {
                 'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2|custom_header_3:custom_value_3',
                 charset: 'iso-8859-1',
