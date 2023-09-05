@@ -88,10 +88,13 @@ const HomePatient = () => {
                             </Card>
                         </Button>
                     </Col>
-                    
                 </Row>
+
             </Container>
-            
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     )
 

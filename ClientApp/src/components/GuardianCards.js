@@ -1,9 +1,9 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 
-const PhysicianCards = () => {
+const GuardianCards = () => {
     const navigate = useNavigate();
     const [patients, setPatients] = useState({});
     const [number, setNumber] = useState("");
@@ -46,6 +46,41 @@ const PhysicianCards = () => {
                 <br />
                 <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
                 <p style={{ color: "black" }}>We could not find any of your patients. If this is a mistake and your connections do not load in the next 2 minutes, please contact support.</p>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
                 <br />
                 <br />
                 <br />
@@ -102,4 +137,4 @@ const PhysicianCards = () => {
     );
 
 }
-export { PhysicianCards };
+export { GuardianCards };

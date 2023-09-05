@@ -43,7 +43,7 @@ const PatientResults = () => {
         var object = JSON.parse(localStorage.getItem('userInfo'))
 
         const bodyParameters = {
-            UserNumber: object.userNumber, // change to pull actual UserNumber
+            UserNumber: object.userNumber, 
         };
         axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
@@ -207,6 +207,51 @@ const PatientResults = () => {
         contentsEmpty = (
             <p>
                 <em>You have no surveys in our records! To get started, navigate to the <strong>Survey</strong> tab and take your first survey!</em>
+                <br />
+                <br />
+                <em>If this is a mistake, just give us a minute or two to load in your survey.</em>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
             </p>
         )
         contentsTable = <p> </p>
@@ -249,6 +294,11 @@ const PatientResults = () => {
 
                 </Col>
             </Row>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <br />
             <br />
         </Container>

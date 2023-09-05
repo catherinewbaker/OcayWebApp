@@ -40,8 +40,8 @@ namespace OcayProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsPatient")
-                        .HasColumnType("bit");
+                    b.Property<char>("IsPatient")
+                        .HasColumnType("chaar(10)");
 
                     b.Property<string>("LName")
                         .IsRequired()

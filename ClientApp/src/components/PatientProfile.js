@@ -46,35 +46,37 @@ const PatientProfile = () => {
             const inputPhys = parseInt(physicianUserNumber)
 
             if (isNaN(inputPhys) || physicianUserNumber.length !== 8) {
-                setError("Please check your physician's ID number.")
+                setError("2222Please check your connection's ID number.")
+                
             } else {
-
                 const storedDataString = localStorage.getItem('userInfo')
                 const userData = JSON.parse(storedDataString)
-
                 setError("")
                 const input = {
                     PatientUserNumber: parseInt(userData.userNumber),
                     PhysicianUserNumber: inputPhys
                 }
+                console.log(userData.userNumber)
+                console.log(inputPhys)
 
-                await axios.post('https://portal.ocay.org/api/Auth/connectPhysician', input);
-
+                const res = await axios.post('https://portal.ocay.org/api/Auth/connectPhysician', input);
+                console.log(res)
                 window.location.reload()
             }
 
 
         } catch (error) {
+            console.log(error)
             setError(error.response.data)
         }
-    }
+    } // 86328226
 
     const onPressDelete = async () => {
         try {
             const inputPhys = parseInt(physicianUserNumber)
 
             if (isNaN(inputPhys) || physicianUserNumber.length !== 8) {
-                setError("Please check your physician's ID number.")
+                setError("3333Please check your connection's ID number.")
             } else {
 
                 const storedDataString = localStorage.getItem('userInfo')
@@ -159,7 +161,7 @@ const PatientProfile = () => {
                                         </MDBCol>
                                     </MDBRow>
 
-                                    <MDBTypography tag="h6">Your Physician</MDBTypography>
+                                    <MDBTypography tag="h6">Your Physicians and Guardians</MDBTypography>
 
                                     <hr className="mt-0 mb-4" />
 
@@ -174,7 +176,7 @@ const PatientProfile = () => {
                                             <MDBInputGroup style={{ height: "36px" }}>
                                                 <input
                                                     className="form-control"
-                                                    placeholder="Enter your physician's 8-digit ID to add or delete"
+                                                    placeholder="Enter your connection's 8-digit ID to add or delete"
                                                     style={{
                                                         fontSize: "0.9em",
                                                     }}
@@ -194,12 +196,12 @@ const PatientProfile = () => {
                                             <MDBTypography tag="h6">Name</MDBTypography>
                                             {Object.values(nameArray).map((name, index) => (
                                                 <MDBCardText key={index} className="text-muted mb-2">
-                                                    Dr. {name}
+                                                    {name}
                                                 </MDBCardText>
                                             ))}
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-2">
-                                            <MDBTypography tag="h6">Physician ID</MDBTypography>
+                                            <MDBTypography tag="h6">Connection ID</MDBTypography>
                                             {Object.keys(nameArray).map((id, index) => (
                                                 <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <MDBCardText style={{ flex: 1 }} className="text-muted mb-2">

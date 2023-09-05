@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PatientRoutes from './PatientRoutes';
 import PhysicianRoutes from './PhysicianRoutes';
+import GuardianRoutes from './GuardianRoutes';
 import AuthRoutes from './AuthRoutes'
 import { Layout } from './components/Layout';
 import Login from './components/Login';
 import './custom.css';
+import loading from './image/loading.gif';
+import axios from 'axios';
+import { Col, Button, Row, Container, Card, Form, Modal } from "react-bootstrap";
 
 class App extends Component {
     static displayName = App.name;
 
     state = {
         isAuthenticated: false, // Set initial authentication state here
-        checkPatient: true,
+        checkPatient: '1',
+        loadingState: true,
     };
 
     // Function to check if the user is authenticated (you need to implement this)
@@ -22,10 +27,12 @@ class App extends Component {
         this.setState({ isAuthenticated });
         if (isAuthenticated) {
             const userData = JSON.parse(localStorage.getItem('userInfo'));
-            if (userData.isPatient === true) {
-                this.setState({ checkPatient: true });
+            if (userData.isPatient === '1') {
+                this.setState({ checkPatient: '1' });
+            } else if (userData.isPatient === '0') {
+                this.setState({ checkPatient: '0' });
             } else {
-                this.setState({ checkPatient: false });
+                this.setState({ checkPatient: '2' });
             }
         }
     };
@@ -33,19 +40,76 @@ class App extends Component {
     componentDidMount() {
         // Call the authentication function when the app loads to check if the user is authenticated
         this.checkAuthentication();
+        // Start checking for loading state periodically
+        this.checkLoadingInterval = setInterval(this.checkLoading, 5000); // Check every 5 seconds
+    }
+
+    componentWillUnmount() {
+        // Clear the interval when the component is unmounted
+        clearInterval(this.checkLoadingInterval);
+    }
+
+    checkLoading = async () => {
+        try {
+            const response = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', {
+                UserNumber: 36587325,
+            });
+
+            // Handle success, if needed
+            console.log(response);
+            this.setState({ loadingState: false });
+            // Stop checking for loading state once it's successful
+            clearInterval(this.checkLoadingInterval);
+        } catch (err) {
+            console.error(err);
+            this.setState({ loadingState: true });
+        }
     }
 
     render() {
-        const { isAuthenticated } = this.state;
-        const { checkPatient } = this.state;
+        const { isAuthenticated, loadingState, checkPatient } = this.state;
 
-        return (
+        console.log(loadingState)
+
+        const contents = loadingState ? (
+            <Container>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div className="d-flex justify-content-center">
+                    <img src={loading} alt="Responsive image" />
+                </div>
+                <br />
+                <br />
+                <p className="mb-0 text-center">
+                    Thanks for choosing OCAY!
+                </p>
+                <br />
+                <br />
+                <p className="mb-0 text-center">
+                    Please give us a moment while we contact our servers. If this takes longer than 2 minutes, please try relaoding the page, or contacting support.
+                </p>
+
+            </Container>
+        ) : (
             <>
-                {isAuthenticated && checkPatient ? (
-                    // If the user is authenticated and checkPatient is true, render the patient routes
+                {isAuthenticated && (checkPatient === '1') ? (
+                    // If the user is authenticated and checkPatient says patient, render the patient routes
                     <Layout>
                         <Routes>
                             {PatientRoutes.map((route, index) => {
+                                const { element, ...rest } = route;
+                                return <Route key={index} {...rest} element={element} />;
+                            })}
+                        </Routes>
+                    </Layout>
+                ) : (isAuthenticated && (checkPatient === '2')) ? (
+                    // If the user is authenticated and checkPatient says guardian, render the guardian routes
+                    <Layout>
+                        <Routes>
+                            {GuardianRoutes.map((route, index) => {
                                 const { element, ...rest } = route;
                                 return <Route key={index} {...rest} element={element} />;
                             })}
@@ -73,6 +137,7 @@ class App extends Component {
             </>
         );
 
+        return <>{contents}</>;
     }
 }
 

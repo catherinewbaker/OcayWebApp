@@ -20,7 +20,7 @@ namespace OcayProject.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsPatient = table.Column<bool>(type: "bit", nullable: false),
+                    IsPatient = table.Column<char>(type: "char(10)", nullable: false),
                     SurveyStatus = table.Column<int>(type: "int", nullable: false),
                     PhysFName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhysLName = table.Column<string>(type: "nvarchar(max)", nullable: false)

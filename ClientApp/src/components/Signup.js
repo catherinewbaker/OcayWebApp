@@ -16,7 +16,7 @@ const Signup = () => {
     const [rePassword, setRePassword] = useState('');
     const [error, setError] = useState('');
     const [verifyError, setVerifyError] = useState('')
-    const [isPatient, setIsPatient] = useState(null)
+    const [isPatient, setIsPatient] = useState('')
     const [showModal, setShowModal] = useState(false);
     const [isVerified, setIsVerified] = useState(false);
     const [inputCode, setInputCode] = useState("");
@@ -26,6 +26,7 @@ const Signup = () => {
         const randomNum = Math.floor(Math.random() * 10000);
         const code = randomNum.toString().padStart(4, '0');
         await setCode(code); // Update the state with the new code value
+        
 
         const requestData = {
             sender: {
@@ -39,13 +40,13 @@ const Signup = () => {
                 },
             ],
             subject: 'OCAY Registration Code',
-            htmlContent: `<html><head></head><body><h1>Hello! Here is your 4 digit code for email verification upon registration: ${code}</h1></body></html>`, // Use the updated value of code here
+            htmlContent: `<html><head></head><body><h1>Hello!</h1><br /> Here is your 4 digit code for email verification upon registration: ${code}</body></html>`, // Use the updated value of code here
             headers: {
                 'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2|custom_header_3:custom_value_3',
                 charset: 'iso-8859-1',
             },
         };
-
+        console.log(code)
         try {
             await axios.post('https://api.sendinblue.com/v3/smtp/email', requestData, {
                 headers: {
@@ -100,7 +101,7 @@ const Signup = () => {
 
     const handleCheckChange = (event) => {
         const value = event.target.value;
-        setIsPatient(value === "Patient")
+        setIsPatient(value)
     }
 
     const handleRegisterFormSubmit = async (event) => {
@@ -111,6 +112,7 @@ const Signup = () => {
         } else if (password !== rePassword) {
             setError('Please check if your passwords match.')
         } else {
+            console.log(isPatient)
             const data = {
                 FName: FName,
                 LName: LName,
@@ -191,8 +193,8 @@ const Signup = () => {
                                                     label="Patient"
                                                     name="group1"
                                                     type="radio"
-                                                    value="Patient"
-                                                    checked={isPatient === true}
+                                                    value='1'
+                                                    checked={isPatient === '1'}
                                                     onChange={handleCheckChange}
                                                 />
                                                 <Form.Check
@@ -200,15 +202,25 @@ const Signup = () => {
                                                     label="Physician"
                                                     name="group1"
                                                     type="radio"
-                                                    value="Physician"
-                                                    checked={isPatient === false}
+                                                    value='0'
+                                                    checked={isPatient === '0'}
+                                                    onChange={handleCheckChange} 
+                                                    className="mb-3"
+                                                />
+                                                <Form.Check
+                                                    inline
+                                                    label="Parent or Guardian"
+                                                    name="group1"
+                                                    type="radio"
+                                                    value='2'
+                                                    checked={isPatient === '2'}
                                                     onChange={handleCheckChange}
                                                     className="mb-3"
                                                 />
                                             </div>
 
 
-                                            <Form.Group className="mb-3" controlId="formBasicName">
+                                            <Form.Group className="mb-3" controlId="formBasicFName">
                                                 <Form.Label className="text-center">
                                                     First Name
                                                 </Form.Label>
@@ -220,7 +232,7 @@ const Signup = () => {
                                                 />
                                             </Form.Group>
 
-                                            <Form.Group className="mb-3" controlId="formBasicName">
+                                            <Form.Group className="mb-3" controlId="formBasicLName">
                                                 <Form.Label className="text-center">
                                                     Last Name
                                                 </Form.Label>
@@ -308,6 +320,8 @@ const Signup = () => {
                                                     Login
                                                 </a>
                                             </p>
+                                            <br />
+                                            <p className="mb-0 text-center"> <em>Register button not taking you to your portal? We probably just need a minute to load your account. Just wait and you'll be in shortly!</em> </p>
                                         </div>
                                     </div>
                                 </div>

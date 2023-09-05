@@ -73,7 +73,7 @@ namespace OcayProject.Controllers
 
             };
 
-            if (request.IsPatient)
+            if (request.IsPatient == '1')
             {
                 // Create a new table for the user only if isPatient is true
                 await _userContext.Database.ExecuteSqlRawAsync(
@@ -417,7 +417,6 @@ namespace OcayProject.Controllers
                     q7, q8, q9, q10, q11, request.Q12,
                     request.Q13, finalScore
                 );
-
                 return Ok(finalScore);
             }
             catch (Exception ex)
@@ -557,10 +556,10 @@ namespace OcayProject.Controllers
             try
             {
                 var physicianUser = await _userContext.User.FirstOrDefaultAsync(u => u.UserNumber == request.PhysicianUserNumber);
-
-                if (physicianUser == null || physicianUser.IsPatient == true)
+                if (physicianUser == null || physicianUser.IsPatient == '1')
                 {
-                    return BadRequest("Please check your physician's ID number.");
+                    
+                    return BadRequest("1111Please check your connection's ID number.");
                 }
 
                 string patientNum = request.PatientUserNumber.ToString();
@@ -577,7 +576,7 @@ namespace OcayProject.Controllers
                 }
                 else
                 {
-                    return BadRequest("This Physician is already connected.");
+                    return BadRequest("This user is already connected.");
                 }
 
                 if (physicianUser != null && !IsAlreadyConnected(physicianUser, patientNum))
@@ -589,7 +588,7 @@ namespace OcayProject.Controllers
                 }
                 else
                 {
-                    return BadRequest("This Physician is already connected.");
+                    return BadRequest("This user is already connected.");
                 }
 
                 return Ok();

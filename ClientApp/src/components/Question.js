@@ -398,8 +398,10 @@ const Question = () => {
     }
 
     const onPressComplete = async () => {
+        var object = JSON.parse(localStorage.getItem('userInfo'))
+
         const data = {
-            UserNumber: 36587325,
+            UserNumber: object.userNumber,
             q1,
             q2,
             q3,
@@ -579,6 +581,12 @@ const Question = () => {
                     <Button variant="primary" onClick={onPressComplete}>See Result</Button>
                 </Modal.Footer>
             </Modal>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
 
         </Container>
     );

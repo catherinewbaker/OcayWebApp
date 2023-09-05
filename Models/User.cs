@@ -11,7 +11,7 @@ namespace OcayProject.Models
 
         public string FName { get; set; } = string.Empty;
         public string LName { get; set; } = string.Empty;
-        public Boolean IsPatient { get; set; }
+        public char IsPatient { get; set; }
         public int SurveyStatus { get; set; }
 
         // Additional properties for patient-related information

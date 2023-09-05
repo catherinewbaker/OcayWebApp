@@ -254,6 +254,8 @@ const Login = () => {
                                                     Sign Up
                                                 </a>
                                             </p>
+                                            <br />
+                                            <p className="mb-0 text-center"> <em>Login button not taking you to your portal? We probably just need a minute to load your account. Just wait and you'll be in shortly!</em> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -261,6 +263,9 @@ const Login = () => {
                         </Card>
                     </Col>
                 </Row>
+                <br />
+                <br />
+                <br />
             </Container>
         </div>
     );

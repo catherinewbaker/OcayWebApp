@@ -10,7 +10,7 @@ const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);
     const [selectedRoute, setSelectedRoute] = useState('/PatientResults');
     const [selectedRoute2, setSelectedRoute2] = useState('/PatientProfile');
-    const [isPatient, setIsPatient] = useState(true)
+    const [isPatient, setIsPatient] = useState('')
 
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
@@ -26,13 +26,18 @@ const NavMenu = () => {
 
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userInfo'));
-        if (userData.isPatient === false) {
-            setSelectedRoute('/PhysicianCards');
-            setSelectedRoute2('/PhysicianProfile');
-            setIsPatient(false);
-        } else {
+        if (userData.isPatient == '1') {
             setSelectedRoute('/PatientResults');
             setSelectedRoute2('/PatientProfile');
+            setIsPatient('1')
+        } else if (userData.isPatient == '2') {
+            setSelectedRoute('/GuardianCards');
+            setSelectedRoute2('/GuardianProfile');
+            setIsPatient('2');
+        } else {
+            setSelectedRoute('/PhysicianCards');
+            setSelectedRoute2('/PhysicianProfile');
+            setIsPatient('0');
         }
     }, []);
 
@@ -51,7 +56,7 @@ const NavMenu = () => {
                                     Home
                                 </NavLink>
                             </NavItem>
-                            {isPatient && (
+                            { (isPatient == '1') && (
                                 <NavItem>
                                     <NavLink tag={Link} className="text" to="/survey">
                                         Survey
