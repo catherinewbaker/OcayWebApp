@@ -1,0 +1,468 @@
+﻿/* Provide sufficient contrast against white background */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
+
+*{font-family: 'Raleway', sans-serif;}
+
+body::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+body::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #8074B5; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(230, 211, 255, 0.288);  /*스크롤바 뒷 배경 색상*/
+}
+
+a {
+    color: #79D4AC;
+}
+
+.form-control::placeholder{
+    padding-left: 5px;
+    color: #cecece;
+}
+
+.arrow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 92%;
+    margin-top: 20px;
+}
+
+.form-check-input:checked {
+    background-color: #79D4AC !important;
+    border-color: #79D4AC !important;
+}
+
+.start-hover:hover{
+    color: #79D4AC !important;
+}
+
+.btn-add {
+    background-color: #79D4AC;
+    color: white;
+}
+
+.btn-add:active, .btn-add:hover, .btn-add:focus, .btn:active:focus {
+    background-color: #79D4AC;
+    color: white;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(191, 191, 191, 0.5);
+    color: white;
+    outline: none;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(191, 191, 191, 0.5);
+    color: black;
+    outline: none;
+    border-color: #79D4AC;
+}
+
+
+.btn.btn-primary[disabled] {
+    color: #FFFFFF;
+    background-color: #b4d9c9;
+    border-color: #79dbb1;
+}
+
+
+.btn-primary {
+    color: #FFFFFF;
+    background-color: #79D4AC;
+    border-color: #79D4AC;
+    border-radius: 50px;
+}
+
+.btn-disabled {
+    color: #FFFFFF;
+    background-color: #b4d9c9;
+    border-color: #79D4AC;
+}
+
+.badge-primary {
+    color: #FFFFFF;
+    background-color: #79D4AC;
+    border: 2px solid #79D4AC;
+    padding: 8px;
+    font-size: 14px;
+}
+
+#logindiv, #registerdiv{
+    margin-bottom: 15px;
+}
+
+.badge-alert {
+    color: #FFFFFF;
+    background-color: #ff4d4d;
+    border-color: #ff4d4d;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.bg-primary {
+    background-color: #79D4AC;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    background-color: #fff;
+    border-color: rgba(121, 212, 172, 0.8);
+    color: rgba(121, 212, 172, 0.8);
+}
+
+.main-select{
+    padding: 10px !important;
+}
+
+.col .btn-primary:hover, .col .btn-primary:active,
+.btn-primary:hover .main-select,
+.btn-primary:active .main-select,
+.btn-primary:hover .patients-list{
+    background-color: #40bb85 !important;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.btn-answer.active {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #f0f0f0;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .btn-answer.active:focus {
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC;
+        outline: none;
+    }
+
+    .btn-answer.active:active {
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+    }
+
+.btn-answer:hover:not(.active) {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #f0f0f0;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.btn-idonot.active {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #f0f0f0;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    .btn-idonot.active:focus {
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC;
+        outline: none;
+    }
+
+    .btn-idonot.active:active {
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+    }
+
+.btn-idonot:hover:not(.active) {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    color: black;
+    transition: box-shadow 0.3s ease-in-out;
+    background-color: #f0f0f0;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-title, .register-title{
+    font-size: 3rem;
+}
+
+.card-home {
+    background-color: #79D4AC;
+    border: none;
+    width: 30%;
+    color: #FFFFFF;
+}
+
+.col-lg-6 .card{
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+}
+
+.card .card-body{
+    background-color: transparent;
+}
+
+.form-control{
+    border-radius: 50px;
+}
+
+.form-control:hover{
+    transition: 0.5s;
+    border-color: #79D4AC;
+}
+
+code {
+    color: #E01A76;
+}
+
+.card-title{
+    font-weight: bold;
+}
+
+
+div.scroller {
+    border: 2px solid #79D4AC;
+    border-radius: 10px;
+    margin-top: 20px !important;
+    padding: 2rem;
+    overflow-y: auto;
+    width: 80%;
+    height: 70%;
+    margin: 0 auto;
+}
+
+div.scroller::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+    height: 90%;
+}
+
+div.scroller::-webkit-scrollbar-thumb {
+    height: 50%; /* 스크롤바의 길이 */
+    background: #79D4AC; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+
+div.scroller::-webkit-scrollbar-track {
+    background: rgba(226, 255, 241, 0.288);  /*스크롤바 뒷 배경 색상*/
+}
+
+div.scrollHold {
+    background-color: #FFFFFF;
+    height: 70%;
+}
+
+.header {
+    font-size: 19px;
+}
+
+.list-group-item {
+    background-color: #F8F8F8;
+}
+
+.progress-bar {
+    background-color: #79D4AC;
+}
+
+.survey-start-image {
+    margin-top: 180px;
+    height: 50vh;
+}
+
+span.indent {
+    padding: 1rem;
+}
+
+span.indent2 {
+    padding: 3rem;
+}
+
+
+
+/* 반응형 */
+
+@media (max-width: 250px) {
+    .card-title {
+        font-size: 16px;
+    }
+
+    .question {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 251px) and (max-width: 360px) {
+    .card-title {
+        font-size: 14px;
+    }
+
+    .question {
+        font-size: 14px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 130px;
+        width: 80px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 30px;
+        width: 400px;
+    }
+}
+
+@media (min-width: 361px) and (max-width: 789px) {
+    .card-title {
+        font-size: 14px;
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 210px;
+        width: 120px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 30px;
+        width: 560px;
+    }
+}
+
+@media (min-width: 790px) and (max-width: 990px) {
+    .card-title {
+        font-size: 15px;
+    }
+
+    .question {
+        font-size: 20px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 220px;
+        width: 160px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 700px;
+    }
+}
+
+@media (min-width: 991px) and (max-width: 1199px) {
+    .card-title {
+        font-size: 18px;
+    }
+
+    .question {
+        font-size: 24px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 260px;
+        width: 200px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 950px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1449px) {
+    .card-title {
+        font-size: 22px;
+    }
+
+    .question {
+        font-size: 32px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 310px;
+        width: 240px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 40px;
+        width: 1030px;
+    }
+}
+
+@media (min-width: 1450px) {
+    .card-title {
+        font-size: 26px;
+    }
+
+    .question {
+        font-size: 38px;
+    }
+
+    .btn-answer {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 340px;
+        width: 260px;
+    }
+
+    .btn-idonot {
+        background-color: rgba(0,0,0,0);
+        border: 1px solid gray;
+        color: black;
+        height: 80px;
+        width: 1110px;
+    }
+}
