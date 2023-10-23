@@ -139,7 +139,7 @@ const GuardianProfile = () => {
                                         </MDBCol>
                                     </MDBRow>
 
-                                    <MDBTypography tag="h6">Your Patients</MDBTypography>
+                                    <MDBTypography tag="h6">Your Children</MDBTypography>
                                     <hr className="mt-0 mb-4" />
 
                                     
@@ -168,6 +168,7 @@ const GuardianProfile = () => {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
+            <p className="mb-0 text-center"> <em>This website is a work in progress! Please contact OCAY at team@ocay.org for bug reports, tech support, or questions.</em> </p>
         </MDBContainer>
     )
 

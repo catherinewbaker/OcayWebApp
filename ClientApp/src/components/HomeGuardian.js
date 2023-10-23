@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import temp from '../image/temp.png';
+import temp from '../image/dogWave.gif';
 
 const HomeGuardian = () => {
     const [name, setName] = useState("");
@@ -28,9 +28,12 @@ const HomeGuardian = () => {
 
     return (
         <div style={{ height: "100vh" }}>
-            <h1 style={{ color: 'black', fontSize: '35px' }} >Welcome back {name}!</h1>
-            <p style={{ color: 'black' }}>To get started, select the <strong>Results</strong> menu</p>
-
+            <h1 style={{ color: '#7CBBA6', fontSize: '35px' }} >Welcome back {name}!</h1>
+            <p style={{ color: '#7CBBA6' }}>To get started, select the <strong>Results</strong> menu</p>
+            <br />
+            <br />
+            <br />
+            <br />
             <div className="d-flex justify-content-center">
                 <img src={temp} alt="Responsive image" />
             </div>

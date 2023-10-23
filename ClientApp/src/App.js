@@ -50,18 +50,19 @@ class App extends Component {
     }
 
     checkLoading = async () => {
-        try {
-            const response = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', {
-                UserNumber: 36587325,
-            });
+        const data = {
+            Email: 'catherine.baker@ocay.org', Password: 'Asdf1234!'
+        };
 
-            // Handle success, if needed
-            console.log(response);
+        try {
+            const response = await axios.post('https://portal.ocay.org/api/Auth/login', data);
+            console.log(response.data);
             this.setState({ loadingState: false });
             // Stop checking for loading state once it's successful
             clearInterval(this.checkLoadingInterval);
-        } catch (err) {
-            console.error(err);
+
+        } catch (error) {
+            console.error(error.response.data);
             this.setState({ loadingState: true });
         }
     }

@@ -42,6 +42,9 @@ const PatientRoutes = [
         requireAuth: true,
         element: <ChangePassword />
     },
+
+
+
 ];
 
 export default PatientRoutes;

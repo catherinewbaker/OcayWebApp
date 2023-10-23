@@ -542,6 +542,20 @@ const GuardianResults = () => {
         contentsEmpty = (
             <p>
                 <em>Your child has no surveys in our records! They can log in and take their survey at any time.</em>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
             </p>
         )
         contentsTable = <p> </p>
@@ -696,6 +710,8 @@ const GuardianResults = () => {
                     </Card.Body>
                 </Card>
             </Row>
+            <br />
+            <br />
             <br />
             <br />
         </Container>

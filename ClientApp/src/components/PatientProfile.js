@@ -46,7 +46,7 @@ const PatientProfile = () => {
             const inputPhys = parseInt(physicianUserNumber)
 
             if (isNaN(inputPhys) || physicianUserNumber.length !== 8) {
-                setError("2222Please check your connection's ID number.")
+                setError("Please check your guardian's ID number.")
                 
             } else {
                 const storedDataString = localStorage.getItem('userInfo')
@@ -76,7 +76,7 @@ const PatientProfile = () => {
             const inputPhys = parseInt(physicianUserNumber)
 
             if (isNaN(inputPhys) || physicianUserNumber.length !== 8) {
-                setError("3333Please check your connection's ID number.")
+                setError("Please check your guardian's ID number.")
             } else {
 
                 const storedDataString = localStorage.getItem('userInfo')
@@ -89,9 +89,10 @@ const PatientProfile = () => {
                 }
 
                 await axios.post('https://portal.ocay.org/api/Auth/disconnectPhysician', input);
-
+                
                 window.location.reload()
             }
+            
 
 
         } catch (error) {
@@ -112,7 +113,6 @@ const PatientProfile = () => {
 
             localStorage.clear()
             window.location.reload()
-
 
         } catch (error) {
             console.log(error.response.data)
@@ -161,7 +161,7 @@ const PatientProfile = () => {
                                         </MDBCol>
                                     </MDBRow>
 
-                                    <MDBTypography tag="h6">Your Physicians and Guardians</MDBTypography>
+                                    <MDBTypography tag="h6">Your Guardians</MDBTypography>
 
                                     <hr className="mt-0 mb-4" />
 
@@ -176,7 +176,7 @@ const PatientProfile = () => {
                                             <MDBInputGroup style={{ height: "36px" }}>
                                                 <input
                                                     className="form-control"
-                                                    placeholder="Enter your connection's 8-digit ID to add or delete"
+                                                    placeholder="Enter your guardian's 8-digit ID to add or delete"
                                                     style={{
                                                         fontSize: "0.9em",
                                                     }}
@@ -201,7 +201,7 @@ const PatientProfile = () => {
                                             ))}
                                         </MDBCol>
                                         <MDBCol size="6" className="mb-2">
-                                            <MDBTypography tag="h6">Connection ID</MDBTypography>
+                                            <MDBTypography tag="h6">Guardian ID</MDBTypography>
                                             {Object.keys(nameArray).map((id, index) => (
                                                 <div key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                                     <MDBCardText style={{ flex: 1 }} className="text-muted mb-2">
@@ -218,6 +218,9 @@ const PatientProfile = () => {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
+            <br />
+            <br />
+            <p className="mb-0 text-center"> <em>This website is a work in progress! Please contact OCAY at team@ocay.org for bug reports, tech support, or questions.</em> </p>
         </MDBContainer>
     )
 

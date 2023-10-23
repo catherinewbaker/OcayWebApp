@@ -33,7 +33,7 @@ const GuardianCards = () => {
 
     const onPressPatient = async (patientID) => {
         await localStorage.setItem("patientID", patientID)
-        navigate("/PhysicianResults")
+        navigate("/GuardianResults")
     }
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const GuardianCards = () => {
              <Container className="d-flex flex-column align-items-left">
                 <br />
                 <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
-                <p style={{ color: "black" }}>We could not find any of your patients. If this is a mistake and your connections do not load in the next 2 minutes, please contact support.</p>
+                <p style={{ color: "black" }}>We could not find any of your children. If this is a mistake and your connections do not load in the next 2 minutes, please contact support.</p>
                 <br />
                 <br />
                 <br />
@@ -95,8 +95,8 @@ const GuardianCards = () => {
     return (
         <Container className="d-flex flex-column align-items-left" style={{ height: "100vh" }}>
             <br />
-            <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
-            <p style={{ color: "black" }}>Please select one of your patients to view their results</p>
+            <h1 style={{ color: "#7CBBA6", fontSize: '35px' }} >Your Children</h1>
+            <p style={{ color: "#7CBBA6" }}>Please select one of your children to view their results</p>
             <br />
             <Container className="d-flex justify-content-left" >
                 <Row>
@@ -117,11 +117,11 @@ const GuardianCards = () => {
                                         backgroundColor: '#FFFFFF',
                                         border: 'none',
                                         width: '90%',
-                                        color: '#79D4AC',
+                                        color: '#7CBBA6',
                                     }}
                                 >
                                     <Card.Body>
-                                        <Card.Title style={{ fontSize: '15px', color: 'black' }}>
+                                        <Card.Title style={{ fontSize: '15px', color: '#7CBBA6' }}>
                                             {name}
                                             <br />
                                             ID: {id}

@@ -168,6 +168,7 @@ const PhysicianProfile = () => {
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
+            <p className="mb-0 text-center"> <em>This website is a work in progress! Please contact OCAY at team@ocay.org for bug reports, tech support, or questions.</em> </p>
         </MDBContainer>
     )
 

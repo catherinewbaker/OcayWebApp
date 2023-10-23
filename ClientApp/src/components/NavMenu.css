@@ -1,5 +1,5 @@
 ﻿a.navbar-brand {
-    color: white;
+    color: #7CBBA6;
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -20,12 +20,12 @@ html {
 }
 
 .navbar {
-    background-color: #79D4AC; /*This is the OCAY turquiose color in hex code*/
-    color: white;
+    background-color: white; /*#7CBBA6; This is the OCAY turquiose color in hex code*/
+    color: #7CBBA6;
 }
 
 .nav-link {
-    color: white !important;
+    color: #7CBBA6 !important;
 }
 
 .logo-image {

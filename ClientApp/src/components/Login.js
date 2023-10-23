@@ -4,8 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
-import logo from '../image/OCAY_logo.png';
+import logo from '../image/whiteLogo.png';
 import puzzleBackground from '../image/puzzleBackground.png';
+import loginLoad from '../image/loginLoad.gif';
+
 
 const Login = () => {
     const navigate = useNavigate();
@@ -19,6 +21,7 @@ const Login = () => {
     const [inputCode, setInputCode] = useState('')
     const [verifyError, setVerifyError] = useState('')
     const [emailError, setEmailError] = useState('')
+    const [loadingLogin, setLoadingLogin] = useState(false)
 
     const onClickVerify = async () => {
         const input = {
@@ -100,6 +103,7 @@ const Login = () => {
     };
 
     const handleLoginFormSubmit = async (event) => {
+        setLoadingLogin(true)
         event.preventDefault();
 
         if (email === '' || password === '') {
@@ -116,14 +120,28 @@ const Login = () => {
                 await localStorage.setItem('login', "success")
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
 
+                setLoadingLogin(false)
+
                 window.location.reload()
 
             } catch (error) {
                 setError(error.response.data)
                 console.error(error.response.data);
+                setLoadingLogin(false)
             }
         }
+        
     };
+
+    var loginLoadContents = loadingLogin ? (
+        <>
+            <em>  </em>
+            <img src={loginLoad} style={{ width: '5%' }} alt="Responsive image" />
+        </>
+    ): (
+        <>
+        </>
+    )
 
     return (
         <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
@@ -185,7 +203,7 @@ const Login = () => {
                                             <p className="mb-5">Please enter your email and password!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>
-                                        <img src={logo} alt="Responsive image" style={{ height: '20%', width: '20%' }} />
+                                        <img src={logo} alt="Responsive image" style={{ height: '27%', width: '27%' }} />
                                     </div>
 
                                     {error === "Please fill in all fields." && (
@@ -240,7 +258,7 @@ const Login = () => {
                                                     style={{ color: "black", outline: "none" }}
                                                     
                                                 >
-                                                    Login
+                                                    Login{loginLoadContents}
                                                 </Button>
                                             </div>
                                         </Form>

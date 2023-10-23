@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
-import logo from '../image/OCAY_logo.png';
+import logo from '../image/whiteLogo.png';
 import puzzleBackground from '../image/puzzleBackground.png';
+import loginLoad from '../image/loginLoad.gif';
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Signup = () => {
     const [isVerified, setIsVerified] = useState(false);
     const [inputCode, setInputCode] = useState("");
     const [code, setCode] = useState("");
+    const [loadingRegister, setLoadingRegister] = useState(false)
 
     const onClickVerify = async () => {
         const randomNum = Math.floor(Math.random() * 10000);
@@ -39,19 +41,20 @@ const Signup = () => {
                     name: 'New User',
                 },
             ],
-            subject: 'OCAY Registration Code',
-            htmlContent: `<html><head></head><body><h1>Hello!</h1><br /> Here is your 4 digit code for email verification upon registration: ${code}</body></html>`, // Use the updated value of code here
             headers: {
                 'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2|custom_header_3:custom_value_3',
                 charset: 'iso-8859-1',
             },
+            templateId: 1,
+            params: {
+                Code: code
+            }
         };
-        console.log(code)
         try {
             await axios.post('https://api.sendinblue.com/v3/smtp/email', requestData, {
                 headers: {
                     'accept': 'application/json',
-                    'api-key': "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",
+                    'api-key': process.env.REACT_APP_BREVO_API_KEY,
                     'content-type': 'application/json',
                 },
             });
@@ -107,6 +110,8 @@ const Signup = () => {
     const handleRegisterFormSubmit = async (event) => {
         event.preventDefault();
 
+        setLoadingRegister(true)
+
         if (email === '' || password === '' || rePassword === '' || FName === '' || LName === '' || isPatient === null) {
             setError('Please fill in all fields and verify your email address.')
         } else if (password !== rePassword) {
@@ -131,13 +136,27 @@ const Signup = () => {
                 await localStorage.setItem('login', "success")
                 localStorage.setItem('userInfo', JSON.stringify(response.data));
 
+                setLoadingRegister(false)
+
                 window.location.reload()
+                
             } catch (error) {
                 setError(error.response.data)
                 console.error(error.response.data);
+                setLoadingRegister(false)
             }
         }
     };
+
+    var registerLoadingContents = loadingRegister ? (
+        <>
+            <em>  </em>
+            <img src={loginLoad} style={{ width: '5%' }} alt="Responsive image" />
+        </>
+    ) : (
+        <>
+        </>
+    )
 
     return (
         <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
@@ -176,7 +195,7 @@ const Signup = () => {
                                             <p className="mb-5">Hi! Please enter all information fields to register!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>
-                                        <img src={logo} alt="Responsive image" style={{ height: '20%', width: '20%' }} />
+                                        <img src={logo} alt="Responsive image" style={{ height: '27%', width: '27%' }} />
                                     </div>
                                     {error === "Please fill in all fields." && (
                                         <Form.Label className="text-center" style={{ color: 'red' }}>
@@ -306,7 +325,7 @@ const Signup = () => {
 
                                             <div className="d-grid">
                                                 <Button disabled={!isVerified} type="submit" style={{ color: "black", outline: "none" }}>
-                                                    Register
+                                                    Register{registerLoadingContents}
                                                 </Button>
                                             </div>
                                         </Form>
