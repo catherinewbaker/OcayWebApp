@@ -2,7 +2,7 @@
 import { Container } from 'reactstrap';
 import { NavMenu } from './NavMenu';
 import './Layout.css';
-import puzzleBackground from '../image/Alternative.png';
+// import puzzleBackground from '../image/Alternative.png';
 
 export class LayoutS extends Component {
     static displayName = LayoutS.name;

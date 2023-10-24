@@ -5,7 +5,7 @@ import { Container, Row, Form, Card, Col, Dropdown } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
-import puzzleBackground from '../image/Beige.png';
+// import puzzleBackground from '../image/Beige.png';
 
 const PhysicianResults = () => {
     // LIST OF VARIABLES
@@ -305,7 +305,7 @@ const PhysicianResults = () => {
     // render table
     const renderTable = () => {
         return (
-            <Container className="d-flex flex-column align-items-center">
+            <Container className="d-flex flex-column align-items-center mb-3">
                 <br />
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >
@@ -412,7 +412,7 @@ const PhysicianResults = () => {
     // update the dropDown menu with the last 5 surveys available
     useEffect(() => {
         setDropHolder(
-            <Container>
+            <Container className="pt-3 pb-1">
                 <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
                     <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
                         Select a recent survey...
@@ -578,7 +578,7 @@ const PhysicianResults = () => {
         ) : radarSurveys.length > 0 ? (
             renderRadar()
         ) : (
-            <p style={{ color: 'black' }}>
+            <p style={{ marginTop: '25px', color: 'black' }}>
                 <em>There are no surveys for this patient taken within that time frame.</em>
             </p>
         );
@@ -636,16 +636,17 @@ const PhysicianResults = () => {
                     color: '#79D4AC'
                 }}>
                     <Card.Body className="text-center">
-                        <Card.Title className="text-left">
+                        <Card.Title className="text-left mt-3">
                             <Form>
                                 <Row style={{ marginBottom: '5px' }}>
-                                    <Col style={{ width: '100%' }}>
+                                    <Col style={{ display:'flex', justifyContent: 'right',  width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
-                                            alignItems: 'flex-start',
-                                            justifyContent: 'right',
+                                            alignItems: 'center',
+                                            justifyContent: 'left',
                                             width: '200px',
-                                            fontSize: '20px'
+                                            fontSize: '20px',
+                                            marginBottom: '0px',
                                         }}>Start Date: </Form.Label>
                                     </Col>
                                     <Col style={{ width: '100%' }}>
@@ -654,25 +655,19 @@ const PhysicianResults = () => {
                                             placeholder="2023-06-25"
                                             style={{
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
+                                                alignItems: 'center',
                                                 justifyContent: 'left',
                                                 width: '200px',
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
-                                </Row>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col>
+                                    <Col style={{display:'flex', justifyContent: 'right',}}>
                                         <Form.Label style={{
                                             display: 'flex',
-                                            alignItems: 'flex-start',
-                                            justifyContent: 'right',
+                                            alignItems: 'center',
                                             width: '200px',
-                                            fontSize: '20px'
+                                            fontSize: '20px',
+                                            marginBottom: '0px',
                                         }}>End Date: </Form.Label>
                                     </Col>
                                     <Col>
@@ -680,15 +675,13 @@ const PhysicianResults = () => {
                                             placeholder="2023-06-25"
                                             style={{
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
-                                                justifyContent: 'left',
+                                                alignItems: 'center',
                                                 width: '200px',
                                             }} onChange={(o) => setEndDate(o.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
+                                </Row>
+                                <Row style={{  marginBottom: '5px' }}>
+                                    
                                 </Row>
                             </Form>
                         </Card.Title>

@@ -542,20 +542,6 @@ const GuardianResults = () => {
         contentsEmpty = (
             <p>
                 <em>Your child has no surveys in our records! They can log in and take their survey at any time.</em>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
             </p>
         )
         contentsTable = <p> </p>
@@ -650,16 +636,17 @@ const GuardianResults = () => {
                     color: '#79D4AC'
                 }}>
                     <Card.Body className="text-center">
-                        <Card.Title className="text-left">
+                        <Card.Title className="text-left mt-3">
                             <Form>
                                 <Row style={{ marginBottom: '5px' }}>
                                     <Col style={{ width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
-                                            alignItems: 'flex-start',
-                                            justifyContent: 'right',
+                                            alignItems: 'center',
+                                            justifyContent: 'left',
                                             width: '200px',
-                                            fontSize: '20px'
+                                            fontSize: '20px',
+                                            marginBottom: '0px',
                                         }}>Start Date: </Form.Label>
                                     </Col>
                                     <Col style={{ width: '100%' }}>
@@ -668,8 +655,7 @@ const GuardianResults = () => {
                                             placeholder="2023-06-25"
                                             style={{
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
-                                                justifyContent: 'left',
+                                                alignItems: 'center',
                                                 width: '200px',
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
@@ -683,10 +669,11 @@ const GuardianResults = () => {
                                     <Col>
                                         <Form.Label style={{
                                             display: 'flex',
-                                            alignItems: 'flex-start',
-                                            justifyContent: 'right',
+                                            alignItems: 'center',
+                                            justifyContent: 'left',
                                             width: '200px',
-                                            fontSize: '20px'
+                                            fontSize: '20px',
+                                            marginBottom: '0px',
                                         }}>End Date: </Form.Label>
                                     </Col>
                                     <Col>
@@ -694,8 +681,7 @@ const GuardianResults = () => {
                                             placeholder="2023-06-25"
                                             style={{
                                                 display: 'flex',
-                                                alignItems: 'flex-start',
-                                                justifyContent: 'left',
+                                                alignItems: 'center',
                                                 width: '200px',
                                             }} onChange={(o) => setEndDate(o.target.value)} />
                                     </Col>
@@ -703,6 +689,9 @@ const GuardianResults = () => {
                                     </Col>
                                     <Col>
                                     </Col>
+                                </Row>
+                                <Row style={{ marginBottom: '5px' }}>
+                                    
                                 </Row>
                             </Form>
                         </Card.Title>

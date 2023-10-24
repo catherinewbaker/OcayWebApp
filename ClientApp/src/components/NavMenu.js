@@ -45,39 +45,39 @@ const NavMenu = () => {
         <header>
             <div className="container-fluid" style={{ padding: '0' }}>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow" light style={{ margin: '0' }}>
-                    <NavbarBrand tag={Link} to="/">
-                        <img src={logo} alt="Responsive image" style={{ height: '15%', width: '20%' }} className="logo-image" /> <b>Ocay Patient Portal</b>
+                    <NavbarBrand style={{ marginLeft:"5px", fontWeight: "bold", color: "#40bb85" }}  tag={Link} to="/">
+                        <img src={logo} alt="Responsive image" className="logo-image" /> Ocay Patient Portal
                     </NavbarBrand>
                     <NavbarToggler onClick={toggleNavbar} className="mr-2" />
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>
-                        <ul className="navbar-nav ml-auto" style={{ margin: '0' }}> {/* Use 'ml-auto' to push items to the right */}
+                        <ul className="navbar-nav ml-auto" style={{ margin: '0', fontWeight: '500' }}> {/* Use 'ml-auto' to push items to the right */}
                             <NavItem>
                                 <NavLink tag={Link} className="text" to="/">
-                                    <b>Home</b>
+                                    Home
                                 </NavLink>
                             </NavItem>
                             { (isPatient == '1') && (
                                 <NavItem>
                                     <NavLink tag={Link} className="text" to="/survey">
-                                        <b>Survey</b>
+                                        Survey
                                     </NavLink>
                                 </NavItem>
                             )}
                             <NavItem>
                                 {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
                                 <NavLink tag={Link} className="text" to={selectedRoute}>
-                                <b>Results</b>
+                                    Results
                                 </NavLink>
                             </NavItem>
                             <NavItem>
                                 {/* Use the selectedRoute state variable to dynamically set the 'to' attribute */}
                                 <NavLink tag={Link} className="text" to={selectedRoute2}>
-                                <b>Profile</b>
+                                    Profile
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <a className="nav-link" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                                    <b>Logout</b>
+                                <a className="nav-link logout" onClick={handleLogout} style={{ cursor: 'pointer' , color: '#adadad' }}>
+                                    Logout
                                 </a>
                             </NavItem>
                         </ul>

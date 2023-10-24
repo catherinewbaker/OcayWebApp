@@ -159,7 +159,7 @@ const Signup = () => {
     )
 
     return (
-        <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div>
 
             <Modal show={showModal} onHide={closeModal} centered>
                 <Modal.Header closeButton>
@@ -179,23 +179,23 @@ const Signup = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{color: "black"}} variant="primary" onClick={onClickVerify2}>Verify</Button>
+                    <Button style={{color: "white" , fontWeight: "bold"}} variant="primary" onClick={onClickVerify2}>Verify</Button>
                 </Modal.Footer>
             </Modal>
 
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
-                        <Card className="shadow">
+                        <Card style={{ padding: "40px"}}>
                             <Card.Body>
                                 <div className="mb-3">
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">Register</h2>
-                                            <p className="mb-5">Hi! Please enter all information fields to register!</p>
+                                        <div id="registerdiv" style={{ display: 'flex', flexDirection: 'column' }}>
+                                            <h2 className="register-title fw-bold mt-md-3 text-uppercase">Register</h2>
+                                            <p className="mb-0">Hi! Please enter all information fields to register!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>
-                                        <img src={logo} alt="Responsive image" style={{ height: '27%', width: '27%' }} />
+                                        <img src={logo} alt="Responsive image" style={{ height: '80px', width: '100px' }} />
                                     </div>
                                     {error === "Please fill in all fields." && (
                                         <Form.Label className="text-center" style={{ color: 'red' }}>
@@ -283,7 +283,7 @@ const Signup = () => {
                                                                 className="me-2"
                                                                 disabled={isVerified}
                                                             />
-                                                            <Button disabled={isVerified} onClick={onClickVerify} style={{ color: "black", outline: "none" }}>
+                                                            <Button disabled={isVerified} onClick={onClickVerify} style={{ outline: "none", fontWeight: "bold" }}>
                                                                 Verify
                                                             </Button>
                                                         </div>
@@ -324,7 +324,7 @@ const Signup = () => {
                                             </Form.Group>
 
                                             <div className="d-grid">
-                                                <Button disabled={!isVerified} type="submit" style={{ color: "black", outline: "none" }}>
+                                                <Button disabled={!isVerified} type="submit" style={{ color: "gray", outline: "none" }}>
                                                     Register{registerLoadingContents}
                                                 </Button>
                                             </div>

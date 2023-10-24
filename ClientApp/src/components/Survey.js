@@ -25,13 +25,13 @@ const Survey = () => {
     };
 
     return (
-        <Container className="d-flex flex-column align-items-center vh-100" >
-            <div className="" className="scrollHold" style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}>
-                <h1 style={{ color: 'black', fontSize: '35px' }}>
+        <Container className="d-flex flex-column align-items-center vh-100 mt-4 " >
+            <div className="scrollHold" style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}>
+                <h1 className="d-flex justify-content-center mt-4 " style={{ color: '#8074B5', fontSize: '35px', fontWeight: "700" }}>
                     OCAY Patient Consent Form
                 </h1>
-                <p style={{ color: 'black' }}>
-                    Please read the following terms and conditions carefully before proceeding with the survey. By selecting the "I Agree" checkbox, you acknowledge that you have read, understood, and agreed to the terms outlined below.
+                <p style={{ margin:"0 auto", textAlign: "center", color: 'black', width: "1017px" }}>
+                    Please read the following terms and conditions carefully before proceeding with the survey. <br/> By selecting the "I Agree" checkbox, you acknowledge that you have read, understood, and agreed to the terms outlined below.
                 </p>
                 <br />
                 <div className="scroller" >
@@ -70,8 +70,8 @@ const Survey = () => {
                 <Button
                     label="btnStartSurvey"
                     type="button"
-                    className="btn - primary"
-                    style={{ fontSize: '20px', width: '150px', color: '#FFFFFF' }}
+                    className="btn - primary start-hover"
+                    style={{ fontSize: '20px', width: '180px', color: '#FFFFFF', fontWeight:'bold' }}
                     onClick={onPressStart}
                     disabled={!hasRead}
                 >

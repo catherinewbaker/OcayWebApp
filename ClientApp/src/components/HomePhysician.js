@@ -28,11 +28,11 @@ const HomePhysician = () => {
 
     return (
         <div style={{ height: "100vh" }}>
-            <h1 style={{ color: 'black', fontSize: '35px' }} >Welcome back Dr. {name}!</h1>
-            <p style={{ color: 'black' }}>To get started, select the <strong>Results</strong> menu</p>
+            <h1 className="d-flex justify-content-center mt-5" style={{ color: 'black', fontSize: '35px' , fontWeight: 'bold' }} >Welcome back Dr. {name}!</h1>
+            <p className="d-flex justify-content-center" style={{ color: 'black' }}>To get started, select the <strong>&nbsp;Results</strong>&nbsp;menu</p>
 
             <div className="d-flex justify-content-center">
-                <img src={temp} alt="Responsive image" />
+                <img style={{width: "80%"}} src={temp} alt="Responsive image" />
             </div>
         </div>
     )

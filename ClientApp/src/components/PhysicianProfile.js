@@ -104,20 +104,20 @@ const PhysicianProfile = () => {
         <MDBContainer className="py-5" style={{ height: "100vh" }}>
             <MDBRow className="justify-content-center align-items-center">
                 <MDBCol lg="8" className="mb-4 mb-lg-0">
-                    <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
+                    <MDBCard className=" p-4 mb-3" style={{ borderRadius: '.5rem' }}>
                         <MDBRow className="g-0">
                             <MDBCol
                                 md="4"
                                 className="gradient-custom text-center text-black d-flex flex-column justify-content-center position-relative"
                                 style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}
                             >
-                                <div style={{ marginBottom: "20%" }}>
+                                <div style={{ marginBottom: "35%" }}>
                                     <MDBTypography tag="h5">Dr. {name}</MDBTypography>
                                     <MDBCardText>Physician</MDBCardText>
                                 </div>
 
                                 {/* Bottom buttons */}
-                                <MDBRow className="position-absolute bottom-0 mb-2">
+                                <MDBRow className="position-absolute bottom-0 mb-4">
                                     <div>
                                         <Button onClick={() => { navigate('/change-password') }} style={{ color: "white", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
                                         <Button onClick={onPressDeleteAccount} style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '90%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
@@ -125,8 +125,8 @@ const PhysicianProfile = () => {
                                 </MDBRow>
                             </MDBCol>
                             <MDBCol md="8">
-                                <MDBCardBody className="p-4">
-                                    <MDBTypography tag="h6">Information</MDBTypography>
+                                <MDBCardBody style={{padding:'20px 50px'}} className="p-4">
+                                    <MDBTypography className="mt-3" style={{fontWeight: "bold"}} tag="h6">Information</MDBTypography>
                                     <hr className="mt-0 mb-4" />
                                     <MDBRow className="pt-1 mb-4">
                                         <MDBCol size="6" className="mb-3">

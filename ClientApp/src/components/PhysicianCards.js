@@ -60,10 +60,10 @@ const PhysicianCards = () => {
     return (
         <Container className="d-flex flex-column align-items-left" style={{ height: "100vh" }}>
             <br />
-            <h1 style={{ color: "black", fontSize: '35px' }} >Your Patients</h1>
-            <p style={{ color: "black" }}>Please select one of your patients to view their results</p>
+            <h1 style={{ fontWeight: 'bold', marginTop: '20px', textAlign: 'center', color: "black", fontSize: '35px' }} >Your Patients</h1>
+            <p style={{ textAlign: 'center', color: "black" }}>Please select one of your patients to view their results</p>
             <br />
-            <Container className="d-flex justify-content-left" >
+            <Container className="d-flex justify-content-center" >
                 <Row>
                     {Object.entries(patients).map(([id, name]) => (
                         <Col key={id} style={{ marginBottom: '20px', width: '100%'}}>
@@ -85,8 +85,8 @@ const PhysicianCards = () => {
                                         color: '#79D4AC',
                                     }}
                                 >
-                                    <Card.Body>
-                                        <Card.Title style={{ fontSize: '15px', color: 'black' }}>
+                                    <Card.Body className="patients-list">
+                                        <Card.Title style={{ fontSize: '15px' }}>
                                             {name}
                                             <br />
                                             ID: {id}

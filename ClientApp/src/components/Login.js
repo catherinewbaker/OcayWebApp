@@ -144,7 +144,7 @@ const Login = () => {
     )
 
     return (
-        <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div style={{ backgroundColor: '#fff', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
 
             <Modal show={showModal} onHide={() => {setShowModal(false)} } centered>
                 <Modal.Header closeButton>
@@ -165,7 +165,7 @@ const Login = () => {
                             className="me-2"
                             disabled={showInput}
                         />
-                        <Button disabled={showInput} style={{ color: "black" }} variant="primary" onClick={onClickVerify}>Verify</Button>
+                        <Button disabled={showInput} style={{ fontWeight: "bold" }} variant="primary" onClick={onClickVerify}>Verify</Button>
                     </div>
 
                     {showInput && (
@@ -194,16 +194,16 @@ const Login = () => {
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
 
                     <Col md={8} lg={6} xs={12}>
-                        <Card className="shadow">
+                        <Card style={{ padding: "50px"}}>
                             <Card.Body>
                                 <div className="mb-3">
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <div id="logindiv" style={{ display: 'flex', alignItems: 'center' }}>
                                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">Login</h2>
-                                            <p className="mb-5">Please enter your email and password!</p>
+                                            <h2 className="login-title fw-bold mb-1 mt-md-3 text-uppercase" >Login</h2>
+                                            <p className="mb-3">Please enter your email and password!</p>
                                         </div>
                                         <div style={{ flexGrow: 1 }}></div>
-                                        <img src={logo} alt="Responsive image" style={{ height: '27%', width: '27%' }} />
+                                        <img src={logo} alt="Responsive image" style={{ height: '80px', width: '100px' }} />
                                     </div>
 
                                     {error === "Please fill in all fields." && (
@@ -242,7 +242,7 @@ const Login = () => {
                                                     onChange={handlePasswordChange}
                                                 />
                                             </Form.Group>
-                                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                            <Form.Group className="mb-5" controlId="formBasicCheckbox">
                                                 <p className="small">
                                                     <a
                                                         onClick={() => {setShowModal(true)} }
@@ -254,9 +254,9 @@ const Login = () => {
                                             </Form.Group>
                                             <div className="d-grid">
                                                 <Button
+                                                    className="fw-bold"
                                                     type="submit"
-                                                    style={{ color: "black", outline: "none" }}
-                                                    
+                                                    style={{ outline: "none" }}
                                                 >
                                                     Login{loginLoadContents}
                                                 </Button>
@@ -272,8 +272,6 @@ const Login = () => {
                                                     Sign Up
                                                 </a>
                                             </p>
-                                            <br />
-                                            <p className="mb-0 text-center"> <em>Login button not taking you to your portal? We probably just need a minute to load your account. Just wait and you'll be in shortly!</em> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -281,9 +279,6 @@ const Login = () => {
                         </Card>
                     </Col>
                 </Row>
-                <br />
-                <br />
-                <br />
             </Container>
         </div>
     );

@@ -47,7 +47,7 @@ const SpeechToText = ({ q13, onQ13Change }) => {
     }
 
     return (
-        <Container className='d-flex justify-content-center align-items-center' style={{ paddingBottom: '330px' }}>
+        <Container className='d-flex justify-content-center align-items-center' style={{ paddingBottom: '330px', marginTop: '20px' }}>
             <BsRecord2
                 style={{
                     cursor: 'pointer',
@@ -61,6 +61,7 @@ const SpeechToText = ({ q13, onQ13Change }) => {
                     cursor: 'pointer',
                     fontSize: "2em",
                     color: 'grey',
+                    marginRight: '3px',
                 }}
                 onClick={stopListening}
             />
@@ -69,6 +70,7 @@ const SpeechToText = ({ q13, onQ13Change }) => {
                     cursor: 'pointer',
                     fontSize: "2em",
                     color: 'gray',
+                    marginRight: '5px',
                 }}
                 onClick={onResetTranscript}
             />

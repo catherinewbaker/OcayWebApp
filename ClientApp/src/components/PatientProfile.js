@@ -89,10 +89,9 @@ const PatientProfile = () => {
                 }
 
                 await axios.post('https://portal.ocay.org/api/Auth/disconnectPhysician', input);
-                
+
                 window.location.reload()
             }
-            
 
 
         } catch (error) {
@@ -124,21 +123,21 @@ const PatientProfile = () => {
     return (
         <MDBContainer className="py-5" style={{ height: "100vh" }}>
             <MDBRow className="justify-content-center align-items-center">
-                <MDBCol lg="8" className="mb-4 mb-lg-0">
-                    <MDBCard className="mb-3" style={{ borderRadius: '.5rem' }}>
+                <MDBCol lg="8" className=" mb-4 mb-lg-0">
+                    <MDBCard className="p-4 mb-3" style={{ borderRadius: '.5rem' }}>
                         <MDBRow className="g-0">
                             <MDBCol
                                 md="4"
                                 className="gradient-custom text-center text-black d-flex flex-column justify-content-center position-relative"
                                 style={{ borderTopLeftRadius: '.5rem', borderBottomLeftRadius: '.5rem' }}
                             >
-                                <div style={{ marginBottom: "20%" }}>
+                                <div style={{ marginBottom: "35%" }}>
                                     <MDBTypography tag="h5">{name}</MDBTypography>
                                     <MDBCardText>Patient</MDBCardText>
                                 </div>
 
                                 {/* Bottom buttons */}
-                                <MDBRow className="position-absolute bottom-0">
+                                <MDBRow className="position-absolute bottom-0 mb-4">
                                     <div>
                                         <Button onClick={() => { navigate('/change-password') }} style={{ backgroundColor: "#79D4AC", color: "white", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Change Password</Button>
                                         <Button onClick={onPressDeleteAccount} style={{ backgroundColor: "#ff4d4d", color: "white", border: "none", outline: "none", width: '80%', fontSize: "0.9em", marginBottom: '5%' }}>Delete Account</Button>
@@ -147,8 +146,8 @@ const PatientProfile = () => {
                             </MDBCol>
 
                             <MDBCol md="8">
-                                <MDBCardBody className="p-4">
-                                    <MDBTypography tag="h6">Your Information</MDBTypography>
+                                <MDBCardBody style={{padding:'20px 50px'}}>
+                                    <MDBTypography className="mt-3" style={{fontWeight: "bold"}} tag="h6">Your Information</MDBTypography>
                                     <hr className="mt-0 mb-4" />
                                     <MDBRow className="pt-1 mb-4">
                                         <MDBCol size="6" className="mb-3">
@@ -161,7 +160,7 @@ const PatientProfile = () => {
                                         </MDBCol>
                                     </MDBRow>
 
-                                    <MDBTypography tag="h6">Your Guardians</MDBTypography>
+                                    <MDBTypography tag="h6">Your Physicians and Guardians</MDBTypography>
 
                                     <hr className="mt-0 mb-4" />
 

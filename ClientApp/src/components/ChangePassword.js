@@ -70,18 +70,18 @@ const ChangePassword = () => {
 
     const content = (
         <Container>
-            <Row className="vh-100 d-flex justify-content-center align-items-center">
+            <Row className="vh-100 d-flex justify-content-center align-items-center" style={{ marginTop:'-7%'}}>
                 <Col md={8} lg={6} xs={12}>
-                    <Card className="shadow">
+                    <Card style={{ padding: "50px"}}>
                         <Card.Body>
                             <div className="mb-3">
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom:'50px' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                                         <h2 className="fw-bold mb-2 mt-md-3 text-uppercase">OCAY Change Password</h2>
-                                        <p className="mb-5">Please enter your new password and confirm the changes!</p>
+                                        <p className="mb-0">Please enter your new password and confirm the changes!</p>
                                     </div>
                                     <div style={{ flexGrow: 1 }}></div>
-                                    <img src={logo} alt="Responsive image" style={{ height: '20%', width: '20%' }} />
+                                    <img src={logo} alt="Responsive image" style={{ height: '80px', width: '100px' }} />
                                 </div>
                                 {error === "Please fill in all fields." && (
                                     <Form.Label className="text-center" style={{ color: 'red' }}>
@@ -116,7 +116,7 @@ const ChangePassword = () => {
                                             />
                                         </Form.Group>
                                         <div className="d-grid">
-                                            <Button type="submit" style={{ color: "black", outline: "none" }}>
+                                            <Button type="submit" style={{ fontWeight:'bold', outline: "none" }}>
                                                 Confirm
                                             </Button>
                                         </div>

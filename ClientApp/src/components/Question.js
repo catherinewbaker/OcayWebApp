@@ -429,13 +429,13 @@ const Question = () => {
     return (
 
         <Container className='' style={{ margin: 'auto' }}>
-            <Container className="d-flex justify-content-center" style={{ }}>
+            <Container className="d-flex justify-content-center" style={{}}>
                 <ProgressBar now={now} label={`${now}%`} style={{ width: '90%', height: '3vh', margin: 'auto' }} />
                 <h2 className="ml-2">{questionIndex + 1} / 13</h2>
             </Container>
 
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
-                <Container className= "d-flex justify-content-center">
+                <Container className="d-flex justify-content-center">
 
                     <h1 className="mb-1 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
                     <MdPlayCircle
