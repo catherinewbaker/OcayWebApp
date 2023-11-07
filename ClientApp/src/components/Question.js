@@ -10,6 +10,16 @@ import { RiPlayFill, RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
 import { SpeechToText } from './SpeechToText'
 import { CustomSlider } from './CustomSlider'
 import axios from 'axios'
+import back from '../image/DogBackflip.gif'
+import chase from '../image/DogChasing.gif'
+import eat from '../image/DogEating.gif'
+import play from '../image/DogPlaying.gif'
+import roll from '../image/DogRolling.gif'
+import run from '../image/DogRunning.gif'
+import sit from '../image/DogSitting.gif'
+import sleep from '../image/DogSleeping.gif'
+import tilt from '../image/DogTilting.gif'
+import walk from '../image/DogWalking.gif'
 
 const Question = () => {
     const navigate = useNavigate();
@@ -18,6 +28,8 @@ const Question = () => {
     const [showModal, setShowModal] = useState(false);
     const [showQuestionModal, setShowQuestionModal] = useState(false);
     const [showCompleteModal, setShowCompleteModal] = useState(false);
+    const [showDogModal, setShowDogModal] = useState(false);
+    const [dogGif, setDogGif] = useState('../image/DogBackflip');
     const [buttonActive, setButtonActive] = useState(false);
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
@@ -33,8 +45,38 @@ const Question = () => {
     const [q12, setQ12] = useState(5);
     const [q13, setQ13] = useState("");
     const [mute, setMute] = useState(false);
+    const [last, setLast] = useState(0);
+
+    var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk]
+
+    const whichDog = () => {
+        let indexArray = JSON.parse(localStorage.getItem('indexArray')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        let reset = indexArray.every((val) => val === 1);
+        console.log(indexArray);
+
+        if (reset) {
+            console.log("Resetting indexArray");
+            indexArray = indexArray.map(() => 0);
+        }
+
+        let ind = Math.floor(Math.random() * 10);
+        while (indexArray[ind] === 1 || ind === last) {
+            ind = (ind + 1) % 10;
+        }
+        console.log(last)
+
+        console.log(`Selected index: ${ind}, value before setting: ${indexArray[ind]}`);
+        indexArray[ind] = 1;
+        console.log(`Updated indexArray: ${indexArray}`);
+        localStorage.setItem('indexArray', JSON.stringify(indexArray));
+
+        setLast(ind)
+        setDogGif(dogArray[ind]);
+        console.log(`Set dogGif to: ${dogArray[ind]}`);
+    };
 
     const onPressAnswer = (questionIndex, description) => {
+        
         // Get the corresponding state setter function based on the question index
         const setAnswer = getSetAnswerFunction(questionIndex);
 
@@ -364,7 +406,6 @@ const Question = () => {
 
     const forwardButton = () => {
         // put logic to call synthesize function
-
         if (questionIndex !== 12 && getSelectedAnswers(questionIndex).length === 0) {
             setShowQuestionModal(true)
         } else {
@@ -372,12 +413,18 @@ const Question = () => {
             if (questionIndex <= 10) {
                 setQuestionIndex(questionIndex + 1)
                 console.log(eval(`q${questionIndex + 1}`));
+                whichDog();
+                setShowDogModal(true);
             }
             if (questionIndex == 11) {
                 setQuestionIndex(questionIndex + 1)
+                whichDog();
+                setShowDogModal(true);
             }
             if (questionIndex == 12) {
                 // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
+                whichDog();
+                setShowDogModal(true);
                 setShowCompleteModal(true)
             }
         }
@@ -391,6 +438,10 @@ const Question = () => {
     const closeQuestionModal = () => {
         setShowQuestionModal(false)
         setShowCompleteModal(false)
+    }
+
+    const closeDogModal = () => {
+        setShowDogModal(false);
     }
 
     const onPressExit = () => {
@@ -474,11 +525,11 @@ const Question = () => {
                     <p>(You can select multiple answer choices if you'd like!)</p>
                 </Container>
             )}
-
-
-            <Container className=" d-flex align-items-center justify-content-center" style={{ height: '15vh', marginBottom: '10px' }}>
-                <h1>Put animation here</h1>
-            </Container>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
             {questionIndex < 11 && (
                 <Container className=" d-flex justify-content-center" >
@@ -581,12 +632,20 @@ const Question = () => {
                     <Button variant="primary" onClick={onPressComplete}>See Result</Button>
                 </Modal.Footer>
             </Modal>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
 
+            <Modal show={showDogModal} onHide={closeDogModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>You're doing great!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="d-flex justify-content-center">
+                        <img style={{ width: "80%" }} src={dogGif} alt="Responsive" />
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={closeDogModal}>Close</Button>
+                </Modal.Footer>
+            </Modal>
 
         </Container>
     );

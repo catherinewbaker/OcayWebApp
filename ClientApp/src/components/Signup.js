@@ -179,7 +179,8 @@ const Signup = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{color: "white" , fontWeight: "bold"}} variant="primary" onClick={onClickVerify2}>Verify</Button>
+                    <Button style={{ color: "white", fontWeight: "bold" }} variant="primary" onClick={onClickVerify2}>Verify</Button>
+                    <p><em>If you still haven't received your email after 2 minutes please close this box and re-try</em></p>
                 </Modal.Footer>
             </Modal>
 
