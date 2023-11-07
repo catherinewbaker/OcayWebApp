@@ -163,8 +163,6 @@ namespace OcayProject.Controllers
             // Save changes to the database
             await _userContext.SaveChangesAsync();
 
-
-
             return Ok();
         }
 
@@ -408,6 +406,13 @@ namespace OcayProject.Controllers
                 score += (decimal)(11 - request.Q12);
 
                 int finalScore = (int)Math.Round(score) - 9;
+                if(finalScore > 100)
+                {
+                    finalScore = 100;
+                } else if(finalScore < 0)
+                {
+                    finalScore = 0;
+                }
 
 
                 await _userContext.Database.ExecuteSqlRawAsync(
