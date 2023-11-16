@@ -39,7 +39,7 @@ const Question = () => {
     const [q6, setQ6] = useState([]);
     const [q7, setQ7] = useState([]);
     const [q8, setQ8] = useState([]);
-    const [q9, setQ9] = useState([]);
+    const [q9, setQ9] = useState(5);
     const [q10, setQ10] = useState([]);
     const [q11, setQ11] = useState([]);
     const [q12, setQ12] = useState(5);
@@ -52,10 +52,8 @@ const Question = () => {
     const whichDog = () => {
         let indexArray = JSON.parse(localStorage.getItem('indexArray')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let reset = indexArray.every((val) => val === 1);
-        console.log(indexArray);
 
         if (reset) {
-            console.log("Resetting indexArray");
             indexArray = indexArray.map(() => 0);
         }
 
@@ -63,16 +61,12 @@ const Question = () => {
         while (indexArray[ind] === 1 || ind === last) {
             ind = (ind + 1) % 10;
         }
-        console.log(last)
 
-        console.log(`Selected index: ${ind}, value before setting: ${indexArray[ind]}`);
         indexArray[ind] = 1;
-        console.log(`Updated indexArray: ${indexArray}`);
         localStorage.setItem('indexArray', JSON.stringify(indexArray));
 
         setLast(ind)
         setDogGif(dogArray[ind]);
-        console.log(`Set dogGif to: ${dogArray[ind]}`);
     };
 
     const onPressAnswer = (questionIndex, description) => {
@@ -88,7 +82,7 @@ const Question = () => {
             } else {
                 setAnswer(["I do not wish to answer."]);
             }
-        } else if (questionIndex == 3 || questionIndex == 4 || questionIndex == 6 || questionIndex == 7 || questionIndex == 10) {
+        } else if (questionIndex === 3 || questionIndex === 4 || questionIndex === 6 || questionIndex === 7 || questionIndex === 10) {
             const isSelected = getSelectedAnswers(questionIndex).includes(description);
             if (isSelected) {
                 setAnswer([])
@@ -179,6 +173,10 @@ const Question = () => {
         }
     };
 
+    const handleQ9Change = (value) => {
+        setQ9(value);
+    };
+
     const handleQ12Change = (value) => {
         setQ12(value);
     };
@@ -193,30 +191,30 @@ const Question = () => {
         {
             question: 'I feel ____ about the appointment today.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/1.png'), description: 'Happy', color: '#8074b5' },
+                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/3.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I sometimes feel ____',
             answers: [
-                { imageSrc: require('../image/fever2.png'), description: 'Fever', color: '#8074b5' },
-                { imageSrc: require('../image/fatigue2.png'), description: 'Fatigue', color: '#fbf0d6' },
-                { imageSrc: require('../image/shortnessofbreath2.png'), description: 'Shortness of breath', color: '#4fa75a' },
-                { imageSrc: require('../image/nauseous2.png'), description: 'Nauseous', color: '#6d7b84' },
+                { imageSrc: require('../image/5.png'), description: 'Fever', color: '#8074b5' },
+                { imageSrc: require('../image/6.png'), description: 'Fatigue', color: '#fbf0d6' },
+                { imageSrc: require('../image/7.png'), description: 'Shortness of breath', color: '#4fa75a' },
+                { imageSrc: require('../image/8.png'), description: 'Nauseous', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'My treaments make me feel ____', 
             answers: [
-                { imageSrc: require('../image/anxious2.png'), description: 'Anxious', color: '#8074b5' },
-                { imageSrc: require('../image/scared2.png'), description: 'Scared', color: '#fbf0d6' },
-                { imageSrc: require('../image/ready2.png'), description: 'Ready', color: '#4fa75a' },
-                { imageSrc: require('../image/supported2.png'), description: 'Supported', color: '#6d7b84' },
+                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
+                { imageSrc: require('../image/10.png'), description: 'Scared', color: '#fbf0d6' },
+                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
+                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
             ],
         },
 
@@ -233,70 +231,65 @@ const Question = () => {
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#8074b5' },
-                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#6d7b84' },
+                { imageSrc: require('../image/13.png'), description: 'No', color: '#8074b5' },
+                { imageSrc: require('../image/14.png'), description: 'Sometimes', color: '#fbf0d6' },
+                { imageSrc: require('../image/15.png'), description: 'Many times', color: '#4fa75a' },
+                { imageSrc: require('../image/16.png'), description: 'Yes', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'In school, I feel ____ about what is being taught.',
             answers: [
-                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#4fa75a' },
-                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#6d7b84' },
+                { imageSrc: require('../image/17.png'), description: 'Confused', color: '#8074b5' },
+                { imageSrc: require('../image/18.png'), description: 'Confident', color: '#fbf0d6' },
+                { imageSrc: require('../image/19.png'), description: 'Bored', color: '#4fa75a' },
+                { imageSrc: require('../image/20.png'), description: 'Excited', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel safe during my daily activities.', // this section is not done
             answers: [
-                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I have friends or classmates in school who I can spend time with', // this section is not done
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/25.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel ____ throughout the day.',
-            answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Joy', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
-            ],
+
         },
 
         {
             question: 'Taking home medicines make me feel',
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/27.png'), description: 'Eager', color: '#8074b5' },
+                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/28.png'), description: 'Reluctant', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#fbf0d6' },
-                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/29.png'), description: 'Most of the week', color: '#fbf0d6' },
+                { imageSrc: require('../image/30.png'), description: 'Less than half of the week', color: '#4fa75a' },
+                { imageSrc: require('../image/31.png'), description: 'Never', color: '#6d7b84' },
             ],
         },
 
@@ -354,7 +347,7 @@ const Question = () => {
     const createAWSinput = (index, question, answers) => {
         let result = "<speak> ";
 
-        if (index <= 10) {
+        if (index <= 10 && index !== 8) {
             if (question.includes("____")) {
                 let helper = question.replace("____", "<break time=\"1s\"/>");
                 result += helper
@@ -371,14 +364,14 @@ const Question = () => {
             result += "<break time=\"0.5s\"/> I do not wish to answer. </speak>";
         }
 
-        if (index == 11) {
+        if (index === 11 || index === 8) {
             let helper = question.replace("__", "<break time=\"1s\"/>");
             result += helper
             result += " Click on the scale to change your level. </speak>"
 
         }
 
-        if (index == 12) {
+        if (index === 12) {
             result += question
             result += " <break time=\"0.5s\"/> Press the record button to talk about something or type in your thoughts. </speak>"
 
@@ -416,12 +409,12 @@ const Question = () => {
                 whichDog();
                 setShowDogModal(true);
             }
-            if (questionIndex == 11) {
+            if (questionIndex === 11 || questionIndex === 8) {
                 setQuestionIndex(questionIndex + 1)
                 whichDog();
                 setShowDogModal(true);
             }
-            if (questionIndex == 12) {
+            if (questionIndex === 12) {
                 // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
                 whichDog();
                 setShowDogModal(true);
@@ -473,7 +466,21 @@ const Question = () => {
             console.log(response);
             navigate('/PatientResults')
         } catch (error) {
-            console.error(error);
+            //console.error(error);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error("Data:", error.response.data);
+                console.error("Status:", error.response.status);
+                console.error("Headers:", error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error("Request:", error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error("Error:", error.message);
+            }
+            console.error("Config:", error.config);
         }
     };
 
@@ -531,18 +538,13 @@ const Question = () => {
             <br />
             <br />
 
-            {questionIndex < 11 && (
+            {(questionIndex < 11 && questionIndex !== 8) && (
                 <Container className=" d-flex justify-content-center" >
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
-                                    <Card style={{ backgroundColor: card.color, border: 'none', width: '100%' }}>
-                                        <Card.Img variant="top" src={card.imageSrc} />
-                                        <Card.Body className="text-center">
-                                            <Card.Title className="card-title">{card.description}</Card.Title>
-                                        </Card.Body>
-                                    </Card>
+                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'flex-start' }} >
+                                    <img style={{ width: "100%" }} src={card.imageSrc} alt="Responsive image" />
                                 </Button>
                             </Col>
                         ))}
@@ -550,7 +552,7 @@ const Question = () => {
                 </Container>
             )}
 
-            {questionIndex < 11 && (
+            {(questionIndex < 11 && questionIndex !== 8) && (
                 <Container className=' d-flex justify-content-center'>
                     <Button
                         onClick={() => onPressAnswer(questionIndex, "I do not wish to answer.")}
@@ -564,13 +566,19 @@ const Question = () => {
                 </Container>
             )}
 
+            {questionIndex === 8 && (
+                // put scale 1-10 here
+                <CustomSlider q12={q9} onQ12Change={handleQ9Change} />
+
+            )}
+
             {questionIndex === 11 && (
                 // put scale 1-10 here
                 <CustomSlider q12={q12} onQ12Change={handleQ12Change} />
 
             )}
 
-            {questionIndex == 12 && (
+            {questionIndex === 12 && (
                 <SpeechToText q13={q13} onQ13Change={setQ13} />
             )}
 
