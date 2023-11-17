@@ -193,30 +193,30 @@ const Question = () => {
         {
             question: 'I feel ____ about the appointment today.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/1.png'), description: 'Happy', color: '#8074b5' },
+                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/3.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I sometimes feel ____',
             answers: [
-                { imageSrc: require('../image/fever2.png'), description: 'Fever', color: '#8074b5' },
-                { imageSrc: require('../image/fatigue2.png'), description: 'Fatigue', color: '#fbf0d6' },
-                { imageSrc: require('../image/shortnessofbreath2.png'), description: 'Shortness of breath', color: '#4fa75a' },
-                { imageSrc: require('../image/nauseous2.png'), description: 'Nauseous', color: '#6d7b84' },
+                { imageSrc: require('../image/5.png'), description: 'Fever', color: '#8074b5' },
+                { imageSrc: require('../image/6.png'), description: 'Fatigue', color: '#fbf0d6' },
+                { imageSrc: require('../image/7.png'), description: 'Shortness of breath', color: '#4fa75a' },
+                { imageSrc: require('../image/8.png'), description: 'Nauseous', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'My treaments make me feel ____', 
             answers: [
-                { imageSrc: require('../image/anxious2.png'), description: 'Anxious', color: '#8074b5' },
-                { imageSrc: require('../image/scared2.png'), description: 'Scared', color: '#fbf0d6' },
-                { imageSrc: require('../image/ready2.png'), description: 'Ready', color: '#4fa75a' },
-                { imageSrc: require('../image/supported2.png'), description: 'Supported', color: '#6d7b84' },
+                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
+                { imageSrc: require('../image/20.png'), description: 'Scared', color: '#fbf0d6' },
+                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
+                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
             ],
         },
 
@@ -233,70 +233,70 @@ const Question = () => {
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#8074b5' },
-                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#6d7b84' },
+                { imageSrc: require('../image/13.png'), description: 'No', color: '#8074b5' },
+                { imageSrc: require('../image/14.png'), description: 'Sometimes', color: '#fbf0d6' },
+                { imageSrc: require('../image/15.png'), description: 'Many times', color: '#4fa75a' },
+                { imageSrc: require('../image/16.png'), description: 'Yes', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'In school, I feel ____ about what is being taught.',
             answers: [
-                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#4fa75a' },
-                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#6d7b84' },
+                { imageSrc: require('../image/17.png'), description: 'Confused', color: '#8074b5' },
+                { imageSrc: require('../image/18.png'), description: 'Confident', color: '#fbf0d6' },
+                { imageSrc: require('../image/19.png'), description: 'Bored', color: '#4fa75a' },
+                { imageSrc: require('../image/20.png'), description: 'Excited', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel safe during my daily activities.', // this section is not done
             answers: [
-                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I have friends or classmates in school who I can spend time with', // this section is not done
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel ____ throughout the day.',
             answers: [
-                { imageSrc: require('../image/happy2.png'), description: 'Joy', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/25.png'), description: 'Joy', color: '#8074b5' },
+                { imageSrc: require('../image/26.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/3.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'Taking home medicines make me feel',
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/27.png'), description: 'Eager', color: '#8074b5' },
+                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/28.png'), description: 'Reluctant', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#fbf0d6' },
-                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/29.png'), description: 'Most of the week', color: '#fbf0d6' },
+                { imageSrc: require('../image/30.png'), description: 'Less than half of the week', color: '#4fa75a' },
+                { imageSrc: require('../image/31.png'), description: 'Never', color: '#6d7b84' },
             ],
         },
 
@@ -536,13 +536,10 @@ const Question = () => {
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
-                                    <Card style={{ backgroundColor: card.color, border: 'none', width: '100%' }}>
-                                        <Card.Img variant="top" src={card.imageSrc} />
-                                        <Card.Body className="text-center">
-                                            <Card.Title className="card-title">{card.description}</Card.Title>
-                                        </Card.Body>
-                                    </Card>
+                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
+                                    <div className="d-flex justify-content-center">
+                                        <img style={{ width: "100%" }} src={card.imageSrc} alt="Responsive image" />
+                                    </div>
                                 </Button>
                             </Col>
                         ))}
