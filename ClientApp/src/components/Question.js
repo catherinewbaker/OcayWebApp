@@ -52,10 +52,8 @@ const Question = () => {
     const whichDog = () => {
         let indexArray = JSON.parse(localStorage.getItem('indexArray')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let reset = indexArray.every((val) => val === 1);
-        console.log(indexArray);
 
         if (reset) {
-            console.log("Resetting indexArray");
             indexArray = indexArray.map(() => 0);
         }
 
@@ -63,16 +61,12 @@ const Question = () => {
         while (indexArray[ind] === 1 || ind === last) {
             ind = (ind + 1) % 10;
         }
-        console.log(last)
 
-        console.log(`Selected index: ${ind}, value before setting: ${indexArray[ind]}`);
         indexArray[ind] = 1;
-        console.log(`Updated indexArray: ${indexArray}`);
         localStorage.setItem('indexArray', JSON.stringify(indexArray));
 
         setLast(ind)
         setDogGif(dogArray[ind]);
-        console.log(`Set dogGif to: ${dogArray[ind]}`);
     };
 
     const onPressAnswer = (questionIndex, description) => {
@@ -88,7 +82,7 @@ const Question = () => {
             } else {
                 setAnswer(["I do not wish to answer."]);
             }
-        } else if (questionIndex == 3 || questionIndex == 4 || questionIndex == 6 || questionIndex == 7 || questionIndex == 10) {
+        } else if (questionIndex === 3 || questionIndex === 4 || questionIndex === 6 || questionIndex === 7 || questionIndex === 10) {
             const isSelected = getSelectedAnswers(questionIndex).includes(description);
             if (isSelected) {
                 setAnswer([])
@@ -217,6 +211,10 @@ const Question = () => {
                 { imageSrc: require('../image/20.png'), description: 'Scared', color: '#fbf0d6' },
                 { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
                 { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
+                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
+                { imageSrc: require('../image/10.png'), description: 'Scared', color: '#fbf0d6' },
+                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
+                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
             ],
         },
 
@@ -233,30 +231,30 @@ const Question = () => {
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/13.png'), description: 'No', color: '#8074b5' },
-                { imageSrc: require('../image/14.png'), description: 'Sometimes', color: '#fbf0d6' },
-                { imageSrc: require('../image/15.png'), description: 'Many times', color: '#4fa75a' },
-                { imageSrc: require('../image/16.png'), description: 'Yes', color: '#6d7b84' },
+                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#8074b5' },
+                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#4fa75a' },
+                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'In school, I feel ____ about what is being taught.',
             answers: [
-                { imageSrc: require('../image/17.png'), description: 'Confused', color: '#8074b5' },
-                { imageSrc: require('../image/18.png'), description: 'Confident', color: '#fbf0d6' },
-                { imageSrc: require('../image/19.png'), description: 'Bored', color: '#4fa75a' },
-                { imageSrc: require('../image/20.png'), description: 'Excited', color: '#6d7b84' },
+                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#8074b5' },
+                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#4fa75a' },
+                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel safe during my daily activities.', // this section is not done
             answers: [
-                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
@@ -283,20 +281,20 @@ const Question = () => {
         {
             question: 'Taking home medicines make me feel',
             answers: [
-                { imageSrc: require('../image/27.png'), description: 'Eager', color: '#8074b5' },
-                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/28.png'), description: 'Reluctant', color: '#4fa75a' },
-                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/29.png'), description: 'Most of the week', color: '#fbf0d6' },
-                { imageSrc: require('../image/30.png'), description: 'Less than half of the week', color: '#4fa75a' },
-                { imageSrc: require('../image/31.png'), description: 'Never', color: '#6d7b84' },
+                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#fbf0d6' },
+                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#4fa75a' },
+                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#6d7b84' },
             ],
         },
 
@@ -473,7 +471,21 @@ const Question = () => {
             console.log(response);
             navigate('/PatientResults')
         } catch (error) {
-            console.error(error);
+            //console.error(error);
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.error("Data:", error.response.data);
+                console.error("Status:", error.response.status);
+                console.error("Headers:", error.response.headers);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error("Request:", error.request);
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                console.error("Error:", error.message);
+            }
+            console.error("Config:", error.config);
         }
     };
 
