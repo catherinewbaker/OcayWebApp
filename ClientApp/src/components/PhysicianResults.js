@@ -20,7 +20,7 @@ const PhysicianResults = () => {
     const [sixCon, setSixCon] = useState(["loading..."]); // array with data for q6
     const [sevenCon, setSevenCon] = useState(["loading..."]); // array with data for q7
     const [eightCon, setEightCon] = useState(["loading..."]); // array with data for q8
-    const [nineCon, setNineCon] = useState("loading..."); // array with data for q9
+    const [nineCon, setNineCon] = useState(["loading..."]); // array with data for q9
     const [tenCon, setTenCon] = useState(["loading..."]); // array with data for q10
     const [elevenCon, setElevenCon] = useState(["loading..."]); // array with data for q11
     const [twelveCon, setTwelveCon] = useState("loading..."); // array with data for q12
@@ -243,6 +243,9 @@ const PhysicianResults = () => {
                 if ((survey.q8).includes(x)) {
                     arr[x] += 1;
                 }
+                if ((survey.q9).includes(x)) {
+                    arr[x] += 1;
+                }
                 if ((survey.q10).includes(x)) {
                     arr[x] += 1;
                 }
@@ -272,6 +275,9 @@ const PhysicianResults = () => {
                 arr["Fear"] += 1;
             }
             if ((survey.q8).includes("Scared")) {
+                arr["Fear"] += 1;
+            }
+            if ((survey.q9).includes("Scared")) {
                 arr["Fear"] += 1;
             }
             if ((survey.q10).includes("Scared")) {
@@ -473,11 +479,7 @@ const PhysicianResults = () => {
             setSixCon(badgeSet(currentSurvey.q6, " "));
             setSevenCon(badgeSet(currentSurvey.q7, "No"));
             setEightCon(badgeSet(currentSurvey.q8, "No"));
-            if (nineCon >= 5) { // [twelveCon] is stored as an int (not an array), so it gets special treatment
-                setNineCon(<span className="badge badge-alert badge-pill mx-1">{currentSurvey.q9}</span>);
-            } else {
-                setNineCon(<span className="badge badge-primary badge-pill mx-1">{currentSurvey.q9}</span>);
-            }
+            setNineCon(badgeSet(currentSurvey.q9, " "));
             setTenCon(badgeSet(currentSurvey.q10, " "));
             setElevenCon(badgeSet(currentSurvey.q11, " "));
             if (twelveCon >= 5) { // [twelveCon] is stored as an int (not an array), so it gets special treatment
@@ -604,7 +606,8 @@ const PhysicianResults = () => {
                         backgroundColor: '#FFFFFF',
                         borderColor: '#79D4AC',
                         width: '100%',
-                        color: '#79D4AC'
+                        color: '#79D4AC',
+                        padding: '25px',
                     }}>
                         <Card.Body className="text-center">
                             <Card.Title className="text-left">
@@ -659,10 +662,11 @@ const PhysicianResults = () => {
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col style={{display:'flex', justifyContent: 'right',}}>
+                                    <Col style={{display:'flex', justifyContent: 'right'}}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
+                                            justifyContent: 'center',
                                             width: '200px',
                                             fontSize: '20px',
                                             marginBottom: '0px',

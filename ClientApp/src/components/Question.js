@@ -10,16 +10,6 @@ import { RiPlayFill, RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
 import { SpeechToText } from './SpeechToText'
 import { CustomSlider } from './CustomSlider'
 import axios from 'axios'
-import back from '../image/DogBackflip.gif'
-import chase from '../image/DogChasing.gif'
-import eat from '../image/DogEating.gif'
-import play from '../image/DogPlaying.gif'
-import roll from '../image/DogRolling.gif'
-import run from '../image/DogRunning.gif'
-import sit from '../image/DogSitting.gif'
-import sleep from '../image/DogSleeping.gif'
-import tilt from '../image/DogTilting.gif'
-import walk from '../image/DogWalking.gif'
 
 const Question = () => {
     const navigate = useNavigate();
@@ -28,8 +18,6 @@ const Question = () => {
     const [showModal, setShowModal] = useState(false);
     const [showQuestionModal, setShowQuestionModal] = useState(false);
     const [showCompleteModal, setShowCompleteModal] = useState(false);
-    const [showDogModal, setShowDogModal] = useState(false);
-    const [dogGif, setDogGif] = useState('../image/DogBackflip');
     const [buttonActive, setButtonActive] = useState(false);
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
@@ -45,32 +33,8 @@ const Question = () => {
     const [q12, setQ12] = useState(5);
     const [q13, setQ13] = useState("");
     const [mute, setMute] = useState(false);
-    const [last, setLast] = useState(0);
-
-    var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk]
-
-    const whichDog = () => {
-        let indexArray = JSON.parse(localStorage.getItem('indexArray')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        let reset = indexArray.every((val) => val === 1);
-
-        if (reset) {
-            indexArray = indexArray.map(() => 0);
-        }
-
-        let ind = Math.floor(Math.random() * 10);
-        while (indexArray[ind] === 1 || ind === last) {
-            ind = (ind + 1) % 10;
-        }
-
-        indexArray[ind] = 1;
-        localStorage.setItem('indexArray', JSON.stringify(indexArray));
-
-        setLast(ind)
-        setDogGif(dogArray[ind]);
-    };
 
     const onPressAnswer = (questionIndex, description) => {
-        
         // Get the corresponding state setter function based on the question index
         const setAnswer = getSetAnswerFunction(questionIndex);
 
@@ -82,7 +46,7 @@ const Question = () => {
             } else {
                 setAnswer(["I do not wish to answer."]);
             }
-        } else if (questionIndex === 3 || questionIndex === 4 || questionIndex === 6 || questionIndex === 7 || questionIndex === 10) {
+        } else if (questionIndex == 3 || questionIndex == 4 || questionIndex == 6 || questionIndex == 7 || questionIndex == 10) {
             const isSelected = getSelectedAnswers(questionIndex).includes(description);
             if (isSelected) {
                 setAnswer([])
@@ -187,34 +151,30 @@ const Question = () => {
         {
             question: 'I feel ____ about the appointment today.',
             answers: [
-                { imageSrc: require('../image/1.png'), description: 'Happy', color: '#8074b5' },
-                { imageSrc: require('../image/2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/3.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/happy2.png'), description: 'Happy', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I sometimes feel ____',
             answers: [
-                { imageSrc: require('../image/5.png'), description: 'Fever', color: '#8074b5' },
-                { imageSrc: require('../image/6.png'), description: 'Fatigue', color: '#fbf0d6' },
-                { imageSrc: require('../image/7.png'), description: 'Shortness of breath', color: '#4fa75a' },
-                { imageSrc: require('../image/8.png'), description: 'Nauseous', color: '#6d7b84' },
+                { imageSrc: require('../image/fever2.png'), description: 'Fever', color: '#8074b5' },
+                { imageSrc: require('../image/fatigue2.png'), description: 'Fatigue', color: '#fbf0d6' },
+                { imageSrc: require('../image/shortnessofbreath2.png'), description: 'Shortness of breath', color: '#4fa75a' },
+                { imageSrc: require('../image/nauseous2.png'), description: 'Nauseous', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'My treaments make me feel ____', 
             answers: [
-                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
-                { imageSrc: require('../image/20.png'), description: 'Scared', color: '#fbf0d6' },
-                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
-                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
-                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
-                { imageSrc: require('../image/10.png'), description: 'Scared', color: '#fbf0d6' },
-                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
-                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
+                { imageSrc: require('../image/anxious2.png'), description: 'Anxious', color: '#8074b5' },
+                { imageSrc: require('../image/scared2.png'), description: 'Scared', color: '#fbf0d6' },
+                { imageSrc: require('../image/ready2.png'), description: 'Ready', color: '#4fa75a' },
+                { imageSrc: require('../image/supported2.png'), description: 'Supported', color: '#6d7b84' },
             ],
         },
 
@@ -261,20 +221,20 @@ const Question = () => {
         {
             question: 'I have friends or classmates in school who I can spend time with', // this section is not done
             answers: [
-                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel ____ throughout the day.',
             answers: [
-                { imageSrc: require('../image/25.png'), description: 'Joy', color: '#8074b5' },
-                { imageSrc: require('../image/26.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/3.png'), description: 'Fear', color: '#4fa75a' },
-                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/happy2.png'), description: 'Joy', color: '#8074b5' },
+                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/fear2.png'), description: 'Fear', color: '#4fa75a' },
+                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
@@ -404,6 +364,7 @@ const Question = () => {
 
     const forwardButton = () => {
         // put logic to call synthesize function
+
         if (questionIndex !== 12 && getSelectedAnswers(questionIndex).length === 0) {
             setShowQuestionModal(true)
         } else {
@@ -411,18 +372,12 @@ const Question = () => {
             if (questionIndex <= 10) {
                 setQuestionIndex(questionIndex + 1)
                 console.log(eval(`q${questionIndex + 1}`));
-                whichDog();
-                setShowDogModal(true);
             }
             if (questionIndex == 11) {
                 setQuestionIndex(questionIndex + 1)
-                whichDog();
-                setShowDogModal(true);
             }
             if (questionIndex == 12) {
                 // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
-                whichDog();
-                setShowDogModal(true);
                 setShowCompleteModal(true)
             }
         }
@@ -436,10 +391,6 @@ const Question = () => {
     const closeQuestionModal = () => {
         setShowQuestionModal(false)
         setShowCompleteModal(false)
-    }
-
-    const closeDogModal = () => {
-        setShowDogModal(false);
     }
 
     const onPressExit = () => {
@@ -471,52 +422,27 @@ const Question = () => {
             console.log(response);
             navigate('/PatientResults')
         } catch (error) {
-            //console.error(error);
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.error("Data:", error.response.data);
-                console.error("Status:", error.response.status);
-                console.error("Headers:", error.response.headers);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error("Request:", error.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.error("Error:", error.message);
-            }
-            console.error("Config:", error.config);
+            console.error(error);
         }
     };
 
     return (
 
-        <Container className='' style={{ margin: 'auto' }}>
-            <Container className="d-flex justify-content-center" style={{}}>
-                <ProgressBar now={now} label={`${now}%`} style={{ width: '90%', height: '3vh', margin: 'auto' }} />
+        <Container className='mt-4' style={{ margin: 'auto' }}>
+            <Container className="d-flex justify-content-center" style={{ }}>
+                <ProgressBar now={now} label={`${now}%`} style={{ width: '78%', height: '3vh', marginRight:'30px' }} />
                 <h2 className="ml-2">{questionIndex + 1} / 13</h2>
             </Container>
 
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
                 <Container className="d-flex justify-content-center">
 
-                    <h1 className="mb-1 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
-                    <MdPlayCircle
-                        onClick={togglePlay}
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "3em",
-                            color: "grey",
-                        }}
-                    />
-                </Container>
-
                 {!mute ? (
                     <RiVolumeUpFill
                         onClick={onPressMute}
                         style={{
                             cursor: "pointer",
-                            fontSize: "3em",
+                            fontSize: "2.8em",
                             color: "grey",
                         }}
                     />
@@ -525,11 +451,23 @@ const Question = () => {
                         onClick={onPressMute}
                         style={{
                             cursor: "pointer",
-                            fontSize: "3em",
+                            fontSize: "2.8em",
                             color: "grey",
                         }}
                     />
-                )}
+                )} 
+                    <h1 className="mb-1 question" style={{ marginLeft: '15px',marginRight: '15px', textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
+                    <MdPlayCircle
+                        onClick={togglePlay}
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "2.8em",
+                            color: "grey",
+                        }}
+                    />
+                </Container>
+
+                
             </Container>
 
             {![3, 4, 6, 7, 10, 11, 12].includes(questionIndex) && (
@@ -537,21 +475,42 @@ const Question = () => {
                     <p>(You can select multiple answer choices if you'd like!)</p>
                 </Container>
             )}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+
+            <Container className=" d-flex align-items-center justify-content-center" style={{ height: '10vh', marginTop:'50px',marginBottom: '10px' }}>
+            <Container className="arrow-container">
+                    <MdArrowCircleLeft
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "4em",
+                            color: "#79D4AC",
+                        }}
+                        onClick={backButton}
+                    />
+                    <h1>Put animation here</h1>
+                    <MdArrowCircleRight
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "4em",
+                            color: "#79D4AC",
+                        }}
+                        onClick={forwardButton}
+                    />
+                </Container>
+                
+            </Container>
 
             {questionIndex < 11 && (
                 <Container className=" d-flex justify-content-center" >
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
-                                    <div className="d-flex justify-content-center">
-                                        <img style={{ width: "100%" }} src={card.imageSrc} alt="Responsive image" />
-                                    </div>
+                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: card.color, display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
+                                    <Card style={{ backgroundColor: card.color, border: 'none', width: '100%' }}>
+                                        <Card.Img variant="top" src={card.imageSrc} />
+                                        <Card.Body className="text-center">
+                                            <Card.Title className="card-title">{card.description}</Card.Title>
+                                        </Card.Body>
+                                    </Card>
                                 </Button>
                             </Col>
                         ))}
@@ -564,10 +523,10 @@ const Question = () => {
                     <Button
                         onClick={() => onPressAnswer(questionIndex, "I do not wish to answer.")}
                         className={`btn-idonot d-flex justify-content-center align-items-center ${getSelectedAnswers(questionIndex).includes("I do not wish to answer.") ? 'active' : ''}`}
-                        style={{ backgroundColor: 'rgba(218, 223, 225,1)' }}
+                        style={{ borderColor:'#5fccab',  borderRadius:'10px', backgroundColor: 'white' }}
                     >
-                        <Card style={{ backgroundColor: 'rgba(218, 223, 225,1)', border: 'none' }}>
-                            <Card.Title style={{ margin: 'auto' }}>I do not wish to answer.</Card.Title>
+                        <Card style={{ border: 'none' }}>
+                            <Card.Title style={{ color:'#5fccab', margin: 'auto' }}>I do not wish to answer.</Card.Title>
                         </Card>
                     </Button>
                 </Container>
@@ -583,28 +542,7 @@ const Question = () => {
                 <SpeechToText q13={q13} onQ13Change={setQ13} />
             )}
 
-            <Container className="d-flex justify-content-center align-items-end">
-                <div className="mt-auto"></div>
-                <Container className="arrow-container">
-                    <MdArrowCircleLeft
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "4em",
-                            color: "#79D4AC",
-                        }}
-                        onClick={backButton}
-                    />
-
-                    <MdArrowCircleRight
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "4em",
-                            color: "#79D4AC",
-                        }}
-                        onClick={forwardButton}
-                    />
-                </Container>
-            </Container>
+            
 
             <Modal show={showModal} onHide={closeModal} centered>
                 <Modal.Header closeButton>
@@ -641,20 +579,12 @@ const Question = () => {
                     <Button variant="primary" onClick={onPressComplete}>See Result</Button>
                 </Modal.Footer>
             </Modal>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
-            <Modal show={showDogModal} onHide={closeDogModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>You're doing great!</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex justify-content-center">
-                        <img style={{ width: "80%" }} src={dogGif} alt="Responsive" />
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={closeDogModal}>Close</Button>
-                </Modal.Footer>
-            </Modal>
 
         </Container>
     );
