@@ -18,38 +18,90 @@ body::-webkit-scrollbar-track {
 }
 
 a {
-    color: #79D4AC;
+    color: #7ab8a5;
 }
+
+.record-btn{
+    margin: 0 auto;
+}
+
+.k-btn{
+    margin-top: 20px;
+}
+
+#k-record, #k-reset, #k-stop{
+display: inline;
+}
+
+
+#k-record::after{
+    content: "Record";
+    display: inline;
+    position: relative;
+    color: #7ab8a5;
+    font-weight: bold;
+    width: 100px;
+    top: 60px;
+    left: -77px;
+}
+
+#k-stop::after{
+    content: "Stop";
+    display: inline;
+    position: relative;
+    color: #7ab8a5;
+    font-weight: bold;
+    width: 100px;
+    top: 60px;
+    left: -72px;
+}
+
+#k-reset::after{
+    content: "Reset";
+    display: inline;
+    position: relative;
+    color: #7ab8a5;
+    font-weight: bold;
+    top: 60px;
+    left: -61px;
+}
+
 
 .form-control::placeholder{
     padding-left: 5px;
     color: #cecece;
 }
 
+span .MuiSlider-markLabel{
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
 .arrow-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 92%;
-    margin-top: 20px;
+    width: 91%;
+    margin-top: 0px;
 }
 
 .form-check-input:checked {
-    background-color: #79D4AC !important;
-    border-color: #79D4AC !important;
+    background-color: #7ab8a5 !important;
+    border-color: #7ab8a5 !important;
 }
 
 .start-hover:hover{
-    color: #79D4AC !important;
+    color: #7ab8a5 !important;
 }
 
 .btn-add {
-    background-color: #79D4AC;
+    background-color: #7ab8a5;
     color: white;
 }
 
 .btn-add:active, .btn-add:hover, .btn-add:focus, .btn:active:focus {
-    background-color: #79D4AC;
+    background-color: #7ab8a5;
     color: white;
     outline: none;
     box-shadow: none;
@@ -65,37 +117,38 @@ a {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(191, 191, 191, 0.5);
     color: black;
     outline: none;
-    border-color: #79D4AC;
+    border-color: #7ab8a5;
 }
 
 
 .btn.btn-primary[disabled] {
     color: #FFFFFF;
     background-color: #b4d9c9;
-    border-color: #79dbb1;
+    border-color: #7ab8a5;
 }
 
 
 .btn-primary {
     color: #FFFFFF;
-    background-color: #79D4AC;
-    border-color: #79D4AC;
+    background-color: #7ab8a5;
+    border-color: #7ab8a5;
     border-radius: 50px;
 }
 
 .btn-disabled {
     color: #FFFFFF;
     background-color: #b4d9c9;
-    border-color: #79D4AC;
+    border-color: #7ab8a5;
 }
 
 .badge-primary {
     color: #FFFFFF;
-    background-color: #79D4AC;
-    border: 2px solid #79D4AC;
+    background-color: #7ab8a5;
+    border: 2px solid #7ab8a5;
     padding: 8px;
     font-size: 14px;
 }
+
 
 #logindiv, #registerdiv{
     margin-bottom: 15px;
@@ -109,8 +162,13 @@ a {
     font-size: 14px;
 }
 
+.btn-answer{
+    border-radius: 10px;
+    height: 370px !important;
+}
+
 .bg-primary {
-    background-color: #79D4AC;
+    background-color: #7ab8a5;
 }
 
 .btn-primary:hover, .btn-primary:active {
@@ -127,13 +185,13 @@ a {
 .btn-primary:hover .main-select,
 .btn-primary:active .main-select,
 .btn-primary:hover .patients-list{
-    background-color: #40bb85 !important;
+    background-color: #7ab8a5 !important;
     color: #fff;
     transition: 0.3s;
 }
 
 .btn-answer.active {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5;
     color: black;
     transition: box-shadow 0.3s ease-in-out;
     background-color: #f0f0f0;
@@ -146,16 +204,16 @@ a {
 }
 
     .btn-answer.active:focus {
-        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC;
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #7ab8a5;
         outline: none;
     }
 
     .btn-answer.active:active {
-        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #7ab8a5, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
     }
 
 .btn-answer:hover:not(.active) {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5;
     color: black;
     transition: box-shadow 0.3s ease-in-out;
     background-color: #f0f0f0;
@@ -169,10 +227,10 @@ a {
 
 
 .btn-idonot.active {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
-    color: black;
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5;
+    color: white;
     transition: box-shadow 0.3s ease-in-out;
-    background-color: #f0f0f0;
+    background-color: #7ab8a5;
     border: none;
     outline: none;
     padding: 0.5rem 1rem;
@@ -182,16 +240,16 @@ a {
 }
 
     .btn-idonot.active:focus {
-        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC;
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #7ab8a5;
         outline: none;
     }
 
     .btn-idonot.active:active {
-        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #79D4AC, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 0 0.3rem rgba(255, 255, 255, 0.7), 0 0 0 0.6rem #7ab8a5, inset 0 0 0 0.1rem rgba(0, 0, 0, 0.2);
     }
 
 .btn-idonot:hover:not(.active) {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #79D4AC;
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5;
     color: black;
     transition: box-shadow 0.3s ease-in-out;
     background-color: #f0f0f0;
@@ -208,7 +266,7 @@ a {
 }
 
 .card-home {
-    background-color: #79D4AC;
+    background-color: #7ab8a5;
     border: none;
     width: 30%;
     color: #FFFFFF;
@@ -229,7 +287,7 @@ a {
 
 .form-control:hover{
     transition: 0.5s;
-    border-color: #79D4AC;
+    border-color: #7ab8a5;
 }
 
 code {
@@ -242,7 +300,7 @@ code {
 
 
 div.scroller {
-    border: 2px solid #79D4AC;
+    border: 2px solid #7ab8a5;
     border-radius: 10px;
     margin-top: 20px !important;
     padding: 2rem;
@@ -259,7 +317,7 @@ div.scroller::-webkit-scrollbar {
 
 div.scroller::-webkit-scrollbar-thumb {
     height: 50%; /* 스크롤바의 길이 */
-    background: #79D4AC; /* 스크롤바의 색상 */
+    background: #7ab8a5; /* 스크롤바의 색상 */
     border-radius: 10px;
 }
 
@@ -281,15 +339,13 @@ div.scrollHold {
 }
 
 .progress-bar {
-    background-color: #79D4AC;
+    background-color: #5fccab;
 }
 
 .survey-start-image {
     margin-top: 180px;
     height: 50vh;
 }
-
-
 
 span.indent {
     padding: 1rem;
