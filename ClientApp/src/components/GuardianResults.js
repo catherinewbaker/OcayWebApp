@@ -294,8 +294,7 @@ const GuardianResults = () => {
     // render table
     const renderTable = () => {
         return (
-            <Container className="d-flex flex-column align-items-center">
-                <br />
+            <Container className="d-flex flex-column align-items-center mt-5">
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >
                         <div className="ms-2 me-auto">
@@ -522,16 +521,17 @@ const GuardianResults = () => {
         var currentYear = new Date().getFullYear();
         console.log(currentMonth)
         if (val === 6) {
-            const filteredMonths = months.filter(monthString => {
-                const mon = parseInt(monthString.substring(0, 2), 10);
+            const filteredMonths = table.filter(date => {
+                const mon = parseInt(date.timestamp.substring(5, 7), 10);
+                const year = parseInt(date.timestamp.substring(0, 5), 10);
                 if (mon < currentMonth) {
-                    return mon > currentMonth - val;
+                    return (mon > currentMonth - val) && (currentYear === year);
                 } else if (mon > currentMonth) {
                     return mon >= 13 - val + currentMonth;
                 }
                 return true;
             });
-            setMonths(filteredMonths);
+            setMonths(monthArray(filteredMonths));
         } else if (val === 12) {
             const filteredMonths = table.filter(date => {
                 const mon = parseInt(date.timestamp.substring(5, 7), 10);
@@ -631,12 +631,14 @@ const GuardianResults = () => {
             <Row>
                 {contentsEmpty}
             </Row>
-            <Row style={{ width: '100%', alignItems: 'center' }} >
+            <Row style={{ width: '100%', alignItems: 'center', marginTop:'15px' }} >
                     <Card style={{
                         backgroundColor: '#FFFFFF',
                         borderColor: '#79D4AC',
                         width: '100%',
-                        color: '#79D4AC'
+                        color: '#79D4AC',
+                        padding: '25px',
+                        paddingBottom: '30px',
                     }}>
                         <Card.Body className="text-center">
                             <Card.Title className="text-left">
@@ -646,8 +648,8 @@ const GuardianResults = () => {
                         </Card.Body>
                     </Card>
             </Row>
-            <br />
-            <Row >
+
+            <Row style={{ marginTop: '30px' }}>
                 <Card style={{
                     backgroundColor: '#FFFFFF',
                     borderColor: '#79D4AC',
@@ -676,17 +678,17 @@ const GuardianResults = () => {
                     color: '#79D4AC'
                 }}>
                     <Card.Body className="text-center">
-                        <Card.Title className="text-left mt-3">
+                        <Card.Title className="text-left mt-3 pt-3">
                             <Form>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col style={{ width: '100%' }}>
+                                <Row style={{ marginBottom: '8px' }}>
+                                    <Col style={{ display:'flex', justifyContent: 'right',  width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'left',
                                             width: '200px',
                                             fontSize: '20px',
-                                            marginBottom: '0px',
+                                            height: '33px',
                                         }}>Start Date: </Form.Label>
                                     </Col>
                                     <Col style={{ width: '100%' }}>
@@ -696,23 +698,19 @@ const GuardianResults = () => {
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
+                                                justifyContent: 'left',
                                                 width: '200px',
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
-                                </Row>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col>
+                                    <Col style={{display:'flex', justifyContent: 'right'}}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            justifyContent: 'left',
+                                            justifyContent: 'center',
                                             width: '200px',
                                             fontSize: '20px',
+                                            height: '33px',
                                             marginBottom: '0px',
                                         }}>End Date: </Form.Label>
                                     </Col>
@@ -725,10 +723,9 @@ const GuardianResults = () => {
                                                 width: '200px',
                                             }} onChange={(o) => setEndDate(o.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
+                                </Row>
+                                <Row style={{ marginBottom: '5px' }}>
+                                    
                                 </Row>
                                 <Row style={{ marginBottom: '5px' }}>
                                     

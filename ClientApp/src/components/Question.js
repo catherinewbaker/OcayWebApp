@@ -70,7 +70,7 @@ const Question = () => {
     };
 
     const onPressAnswer = (questionIndex, description) => {
-        
+
         // Get the corresponding state setter function based on the question index
         const setAnswer = getSetAnswerFunction(questionIndex);
 
@@ -208,10 +208,6 @@ const Question = () => {
             question: 'My treaments make me feel ____', 
             answers: [
                 { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
-                { imageSrc: require('../image/20.png'), description: 'Scared', color: '#fbf0d6' },
-                { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
-                { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
-                { imageSrc: require('../image/9.png'), description: 'Anxious', color: '#8074b5' },
                 { imageSrc: require('../image/10.png'), description: 'Scared', color: '#fbf0d6' },
                 { imageSrc: require('../image/11.png'), description: 'Ready', color: '#4fa75a' },
                 { imageSrc: require('../image/12.png'), description: 'Supported', color: '#6d7b84' },
@@ -231,30 +227,30 @@ const Question = () => {
         {
             question: 'At night, I wake up ____', // this section is not done
             answers: [
-                { imageSrc: require('../image/fatigue3.png'), description: 'No', color: '#8074b5' },
-                { imageSrc: require('../image/sometimes.png'), description: 'Sometimes', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Many times', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Yes', color: '#6d7b84' },
+                { imageSrc: require('../image/13.png'), description: 'No', color: '#8074b5' },
+                { imageSrc: require('../image/14.png'), description: 'Sometimes', color: '#fbf0d6' },
+                { imageSrc: require('../image/15.png'), description: 'Many times', color: '#4fa75a' },
+                { imageSrc: require('../image/16.png'), description: 'Yes', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'In school, I feel ____ about what is being taught.',
             answers: [
-                { imageSrc: require('../image/confused2.png'), description: 'Confused', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Confident', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Bored', color: '#4fa75a' },
-                { imageSrc: require('../image/excited2.png'), description: 'Excited', color: '#6d7b84' },
+                { imageSrc: require('../image/17.png'), description: 'Confused', color: '#8074b5' },
+                { imageSrc: require('../image/18.png'), description: 'Confident', color: '#fbf0d6' },
+                { imageSrc: require('../image/19.png'), description: 'Bored', color: '#4fa75a' },
+                { imageSrc: require('../image/20.png'), description: 'Excited', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'I feel safe during my daily activities.', // this section is not done
             answers: [
-                { imageSrc: require('../image/supported3.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/twice.png'), description: 'Maybe', color: '#fbf0d6' },
-                { imageSrc: require('../image/fear2.png'), description: 'No', color: '#4fa75a' },
-                { imageSrc: require('../image/confused3.png'), description: 'I don\'t know', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/22.png'), description: 'Maybe', color: '#fbf0d6' },
+                { imageSrc: require('../image/23.png'), description: 'No', color: '#4fa75a' },
+                { imageSrc: require('../image/24.png'), description: 'I don\'t know', color: '#6d7b84' },
             ],
         },
 
@@ -281,20 +277,20 @@ const Question = () => {
         {
             question: 'Taking home medicines make me feel',
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Eager', color: '#8074b5' },
-                { imageSrc: require('../image/sad2.png'), description: 'Sad', color: '#fbf0d6' },
-                { imageSrc: require('../image/bored2.png'), description: 'Reluctant', color: '#4fa75a' },
-                { imageSrc: require('../image/anger2.png'), description: 'Anger', color: '#6d7b84' },
+                { imageSrc: require('../image/27.png'), description: 'Eager', color: '#8074b5' },
+                { imageSrc: require('../image/26.png'), description: 'Sad', color: '#fbf0d6' },
+                { imageSrc: require('../image/28.png'), description: 'Reluctant', color: '#4fa75a' },
+                { imageSrc: require('../image/4.png'), description: 'Anger', color: '#6d7b84' },
             ],
         },
 
         {
             question: 'During the week, I am active ____', // this section is not done yet
             answers: [
-                { imageSrc: require('../image/eager2.png'), description: 'Yes', color: '#8074b5' },
-                { imageSrc: require('../image/confident2.png'), description: 'Most of the week', color: '#fbf0d6' },
-                { imageSrc: require('../image/three.png'), description: 'Less than half of the week', color: '#4fa75a' },
-                { imageSrc: require('../image/allNight.png'), description: 'Never', color: '#6d7b84' },
+                { imageSrc: require('../image/21.png'), description: 'Yes', color: '#8074b5' },
+                { imageSrc: require('../image/29.png'), description: 'Most of the week', color: '#fbf0d6' },
+                { imageSrc: require('../image/30.png'), description: 'Less than half of the week', color: '#4fa75a' },
+                { imageSrc: require('../image/31.png'), description: 'Never', color: '#6d7b84' },
             ],
         },
 
@@ -382,7 +378,7 @@ const Question = () => {
 
         }
 
-        
+
 
         return result;
     };
@@ -397,7 +393,7 @@ const Question = () => {
         if (questionIndex > 0) {
             setQuestionIndex(questionIndex - 1)
         }
-        if (questionIndex == 0) { 
+        if (questionIndex == 0) {
             setShowModal(true)
         }
     }
@@ -489,34 +485,24 @@ const Question = () => {
         }
     };
 
+
     return (
 
-        <Container className='' style={{ margin: 'auto' }}>
-            <Container className="d-flex justify-content-center" style={{}}>
-                <ProgressBar now={now} label={`${now}%`} style={{ width: '90%', height: '3vh', margin: 'auto' }} />
+        <Container className='mt-4' style={{ margin: 'auto' }}>
+            <Container className="d-flex justify-content-center" style={{ }}>
+                <ProgressBar now={now} label={`${now}%`} style={{ width: '78%', height: '3vh', marginRight:'30px' }} />
                 <h2 className="ml-2">{questionIndex + 1} / 13</h2>
             </Container>
 
             <Container className="d-flex justify-content-center" style={{ marginTop: '20px' }}>
                 <Container className="d-flex justify-content-center">
 
-                    <h1 className="mb-1 question" style={{ textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
-                    <MdPlayCircle
-                        onClick={togglePlay}
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "3em",
-                            color: "grey",
-                        }}
-                    />
-                </Container>
-
                 {!mute ? (
                     <RiVolumeUpFill
                         onClick={onPressMute}
                         style={{
                             cursor: "pointer",
-                            fontSize: "3em",
+                            fontSize: "2.8em",
                             color: "grey",
                         }}
                     />
@@ -525,11 +511,23 @@ const Question = () => {
                         onClick={onPressMute}
                         style={{
                             cursor: "pointer",
-                            fontSize: "3em",
+                            fontSize: "2.8em",
                             color: "grey",
                         }}
                     />
-                )}
+                )} 
+                    <h1 className="mb-1 question" style={{ marginLeft: '15px',marginRight: '15px', textAlign: 'center' }}>{cardsData[questionIndex].question}</h1>
+                    <MdPlayCircle
+                        onClick={togglePlay}
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "2.8em",
+                            color: "grey",
+                        }}
+                    />
+                </Container>
+
+                
             </Container>
 
             {![3, 4, 6, 7, 10, 11, 12].includes(questionIndex) && (
@@ -537,21 +535,38 @@ const Question = () => {
                     <p>(You can select multiple answer choices if you'd like!)</p>
                 </Container>
             )}
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+
+            <Container className=" d-flex align-items-center justify-content-center" style={{ height: '10vh', marginTop:'50px',marginBottom: '10px' }}>
+            <Container className="arrow-container">
+                    <MdArrowCircleLeft
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "4em",
+                            color: "#79D4AC",
+                        }}
+                        onClick={backButton}
+                    />
+                    <MdArrowCircleRight
+                        style={{
+                            cursor: "pointer",
+                            fontSize: "4em",
+                            color: "#79D4AC",
+                        }}
+                        onClick={forwardButton}
+                    />
+                </Container>
+                
+            </Container>
 
             {questionIndex < 11 && (
                 <Container className=" d-flex justify-content-center" >
                     <Row>
                         {cardsData[questionIndex].answers.map((card, idx) => (
                             <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
-                                    <div className="d-flex justify-content-center">
-                                        <img style={{ width: "100%" }} src={card.imageSrc} alt="Responsive image" />
-                                    </div>
+                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: 'white', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
+                                    <Card style={{ backgroundColor: 'white', border: 'none', height: '100%' }}>
+                                        <Card.Img variant="top" src={card.imageSrc} />
+                                    </Card>
                                 </Button>
                             </Col>
                         ))}
@@ -564,10 +579,10 @@ const Question = () => {
                     <Button
                         onClick={() => onPressAnswer(questionIndex, "I do not wish to answer.")}
                         className={`btn-idonot d-flex justify-content-center align-items-center ${getSelectedAnswers(questionIndex).includes("I do not wish to answer.") ? 'active' : ''}`}
-                        style={{ backgroundColor: 'rgba(218, 223, 225,1)' }}
+                        style={{ borderColor:'#5fccab',  borderRadius:'10px', backgroundColor: 'white' }}
                     >
-                        <Card style={{ backgroundColor: 'rgba(218, 223, 225,1)', border: 'none' }}>
-                            <Card.Title style={{ margin: 'auto' }}>I do not wish to answer.</Card.Title>
+                        <Card style={{ border: 'none' }}>
+                            <Card.Title style={{ color:'#5fccab', margin: 'auto' }}>I do not wish to answer.</Card.Title>
                         </Card>
                     </Button>
                 </Container>
@@ -583,28 +598,7 @@ const Question = () => {
                 <SpeechToText q13={q13} onQ13Change={setQ13} />
             )}
 
-            <Container className="d-flex justify-content-center align-items-end">
-                <div className="mt-auto"></div>
-                <Container className="arrow-container">
-                    <MdArrowCircleLeft
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "4em",
-                            color: "#79D4AC",
-                        }}
-                        onClick={backButton}
-                    />
-
-                    <MdArrowCircleRight
-                        style={{
-                            cursor: "pointer",
-                            fontSize: "4em",
-                            color: "#79D4AC",
-                        }}
-                        onClick={forwardButton}
-                    />
-                </Container>
-            </Container>
+            
 
             <Modal show={showModal} onHide={closeModal} centered>
                 <Modal.Header closeButton>
@@ -655,6 +649,7 @@ const Question = () => {
                     <Button variant="primary" onClick={closeDogModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
+
 
         </Container>
     );

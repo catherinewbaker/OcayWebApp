@@ -159,7 +159,7 @@ const Signup = () => {
     )
 
     return (
-        <div>
+        <div style={{ backgroundColor: '#7ab8a5', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
 
             <Modal show={showModal} onHide={closeModal} centered>
                 <Modal.Header closeButton>
@@ -179,15 +179,14 @@ const Signup = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button style={{ color: "white", fontWeight: "bold" }} variant="primary" onClick={onClickVerify2}>Verify</Button>
-                    <p><em>If you still haven't received your email after 2 minutes please close this box and re-try</em></p>
+                    <Button style={{color: "white" , fontWeight: "bold"}} variant="primary" onClick={onClickVerify2}>Verify</Button>
                 </Modal.Footer>
             </Modal>
 
             <Container>
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
                     <Col md={8} lg={6} xs={12}>
-                        <Card style={{ padding: "40px"}}>
+                        <Card className="shadow" style={{ padding: "40px"}}>
                             <Card.Body>
                                 <div className="mb-3">
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
