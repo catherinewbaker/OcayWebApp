@@ -197,7 +197,7 @@ namespace OcayProject.Controllers
                 string q6 = "";
                 string q7 = "";
                 string q8 = "";
-                //string q9 = "";
+                string q9 = "";
                 string q10 = "";
                 string q11 = "";
 
@@ -347,7 +347,25 @@ namespace OcayProject.Controllers
                     }
                 }
 
-                score += (decimal)(11 - request.Q9);
+                Dictionary<string, decimal> q9map = new Dictionary<string, decimal>()
+                {
+                    { "Joy", 3m },
+                    { "Sad", -3.33m },
+                    { "Fear", -3.34m },
+                    { "Anger", -3.33m },
+                    { "I do not wish to answer.", -7m }
+                };
+
+                score += 7m;
+
+                foreach (string answer in request.Q9)
+                {
+                    if (q9map.ContainsKey(answer))
+                    {
+                        score += q9map[answer];
+                        q9 += answer + ";";
+                    }
+                }
 
                 Dictionary<string, decimal> q10map = new Dictionary<string, decimal>()
                 {
@@ -388,30 +406,23 @@ namespace OcayProject.Controllers
                 }
 
                 score += (decimal)(11 - request.Q12);
-                
+
                 int finalScore = (int)Math.Round(score) - 9;
-                if(finalScore > 100)
-                {
-                    finalScore = 100;
-                } else if(finalScore < 0)
-                {
-                    finalScore = 0;
-                }
 
 
                 await _userContext.Database.ExecuteSqlRawAsync(
                     $"INSERT INTO [User_{request.UserNumber}] (Timestamp, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Score) " +
                     "VALUES (GETDATE(), {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13});",
                     q1, q2, q3, q4, q5, q6,
-                    q7, q8, request.Q9, q10, q11, request.Q12,
+                    q7, q8, q9, q10, q11, request.Q12,
                     request.Q13, finalScore
                 );
+
                 return Ok(finalScore);
             }
             catch (Exception ex)
             {
-
-                return StatusCode(500, $"q9: {request.Q9}; q12: {request.Q12}; An error occured while submitting the survey: {ex.Message}");
+                return StatusCode(500, $"An error occured while submitting the survey: {ex.Message} ");
             }
         }
 
@@ -447,7 +458,7 @@ namespace OcayProject.Controllers
                     q6 = survey.Q6.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q7 = survey.Q7.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q8 = survey.Q8.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
-                    q9 = survey.Q9,
+                    q9 = survey.Q9.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q10 = survey.Q10.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q11 = survey.Q11.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q12 = survey.Q12,
@@ -489,7 +500,7 @@ namespace OcayProject.Controllers
                     q6 = survey.Q6.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q7 = survey.Q7.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q8 = survey.Q8.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
-                    q9 = survey.Q9,
+                    q9 = survey.Q9.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q10 = survey.Q10.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q11 = survey.Q11.TrimEnd(';').Split(';', StringSplitOptions.RemoveEmptyEntries),
                     q12 = survey.Q12,
@@ -497,7 +508,7 @@ namespace OcayProject.Controllers
                     score = survey.Score
                 }).ToList();
 
-                return Ok(new { userSurveys});
+                return Ok(new { userSurveys });
             }
             catch (Exception ex)
             {

@@ -13,7 +13,7 @@ namespace OcayProject.Models
         public string[] Q6 { get; set; } = new string[4];
         public string [] Q7 { get; set; } = new string[4];
         public string [] Q8 { get; set; } = new string[4];
-        public int Q9 { get; set; }
+        public string [] Q9 { get; set; } = new string[4];
         public string[] Q10 { get; set; } = new string[4];
         public string[] Q11 { get; set; } = new string[4];
         public int Q12 { get; set; }

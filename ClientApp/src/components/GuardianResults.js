@@ -20,7 +20,7 @@ const GuardianResults = () => {
     const [sixCon, setSixCon] = useState(["loading..."]); // array with data for q6
     const [sevenCon, setSevenCon] = useState(["loading..."]); // array with data for q7
     const [eightCon, setEightCon] = useState(["loading..."]); // array with data for q8
-    const [nineCon, setNineCon] = useState("loading..."); // array with data for q9
+    const [nineCon, setNineCon] = useState(["loading..."]); // array with data for q9
     const [tenCon, setTenCon] = useState(["loading..."]); // array with data for q10
     const [elevenCon, setElevenCon] = useState(["loading..."]); // array with data for q11
     const [twelveCon, setTwelveCon] = useState("loading..."); // array with data for q12
@@ -456,11 +456,7 @@ const GuardianResults = () => {
             setSixCon(badgeSet(currentSurvey.q6, " "));
             setSevenCon(badgeSet(currentSurvey.q7, "No"));
             setEightCon(badgeSet(currentSurvey.q8, "No"));
-            if (nineCon >= 5) { // [NineCon] is stored as an int (not an array), so it gets special treatment
-                setNineCon(<span className="badge badge-alert badge-pill mx-1">{currentSurvey.q9}</span>);
-            } else {
-                setNineCon(<span className="badge badge-primary badge-pill mx-1">{currentSurvey.q9}</span>);
-            }
+            setNineCon(badgeSet(currentSurvey.q9, " "));
             setTenCon(badgeSet(currentSurvey.q10, " "));
             setElevenCon(badgeSet(currentSurvey.q11, " "));
             if (twelveCon >= 5) { // [twelveCon] is stored as an int (not an array), so it gets special treatment
