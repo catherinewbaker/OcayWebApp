@@ -54,4 +54,4 @@ jobs:
           app-name: 'OCAY'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B85CD18CEABC47C09A11290926B5B1FD }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D5929768C8244D73BA51D73C6D829B4F }}
