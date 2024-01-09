@@ -52,10 +52,8 @@ const Question = () => {
     const whichDog = () => {
         let indexArray = JSON.parse(localStorage.getItem('indexArray')) || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         let reset = indexArray.every((val) => val === 1);
-        console.log(indexArray);
 
         if (reset) {
-            console.log("Resetting indexArray");
             indexArray = indexArray.map(() => 0);
         }
 
@@ -63,16 +61,13 @@ const Question = () => {
         while (indexArray[ind] === 1 || ind === last) {
             ind = (ind + 1) % 10;
         }
-        console.log(last)
 
-        console.log(`Selected index: ${ind}, value before setting: ${indexArray[ind]}`);
         indexArray[ind] = 1;
-        console.log(`Updated indexArray: ${indexArray}`);
         localStorage.setItem('indexArray', JSON.stringify(indexArray));
 
         setLast(ind)
         setDogGif(dogArray[ind]);
-        console.log(`Set dogGif to: ${dogArray[ind]}`);
+        //console.log(`Set dogGif to: ${dogArray[ind]}`);
     };
 
     const onPressAnswer = (questionIndex, description) => {
