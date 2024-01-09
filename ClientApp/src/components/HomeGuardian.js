@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import temp from '../image/temp.png';
+import sleep from '../image/DogSleeping.gif'
 
 const HomeGuardian = () => {
     const [name, setName] = useState("");

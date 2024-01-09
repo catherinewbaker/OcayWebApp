@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 import temp from '../image/temp.png';
+import sleep from '../image/DogSleeping.gif'
 
 const HomePatient = () => {
     const [name, setName] = useState("");
@@ -40,11 +41,12 @@ const HomePatient = () => {
         <div style={{ height: "100vh" }}>
             <h1 className="d-flex justify-content-center mt-5" style={{ color: 'black', fontSize: '35px' , fontWeight: 'bold' }} >Welcome back {name}!</h1>
             <p className="d-flex justify-content-center" style={{ color: 'black' }}>To get started, select the <strong> &nbsp;Survey</strong> &nbsp;or <strong> &nbsp;Results</strong> &nbsp;menus</p>
-            <br />
-
             <div className="d-flex justify-content-center">
-                <img style={{ width: "65%" }} src={temp} alt="Responsive image" />
+                <img style={{ width: "35%" }} src={sleep} alt="Responsive image" />
             </div>
+            <br />
+            <br />
+            <br/>
 
             <Container className=" d-flex justify-content-center" >
                 <Row >

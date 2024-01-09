@@ -7,7 +7,7 @@ import AuthRoutes from './AuthRoutes'
 import { Layout } from './components/Layout';
 import Login from './components/Login';
 import './custom.css';
-import loading from './image/loading.gif';
+import tilt from './image/DogTilting.gif'
 import axios from 'axios';
 import { Col, Button, Row, Container, Card, Form, Modal } from "react-bootstrap";
 
@@ -80,7 +80,7 @@ class App extends Component {
                 <br />
                 <br />
                 <div className="d-flex justify-content-center">
-                    <img src={loading} alt="Responsive image" />
+                    <img src={tilt} alt="Responsive image" />
                 </div>
                 <br />
                 <br />

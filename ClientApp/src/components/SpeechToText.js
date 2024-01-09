@@ -46,37 +46,13 @@ const SpeechToText = ({ q13, onQ13Change }) => {
         return <span>Browser doesn't support speech recognition.</span>;
     }
 
+
+
     return (
-        <Container className='d-flex justify-content-center align-items-center' style={{ paddingBottom: '330px', marginTop: '20px' }}>
-            <BsRecord2
-                style={{
-                    cursor: 'pointer',
-                    fontSize: "2.6em",
-                    color: 'grey',
-                }}
-                onClick={startListening}
-            />
-            <MdOutlineStopCircle
-                style={{
-                    cursor: 'pointer',
-                    fontSize: "2em",
-                    color: 'grey',
-                    marginRight: '3px',
-                }}
-                onClick={stopListening}
-            />
-            <BiReset
-                style={{
-                    cursor: 'pointer',
-                    fontSize: "2em",
-                    color: 'gray',
-                    marginRight: '5px',
-                }}
-                onClick={onResetTranscript}
-            />
+        <Container style={{ textAlign: 'center', paddingBottom: '330px', marginTop: '100px' }}>
             {isListening ? (
                 <Form.Control
-                    className="w-50"
+                    className="w-50 record-btn"
                     type="text"
                     placeholder="Listening...press stop button when finished recording"
                     value={transcript}
@@ -84,14 +60,50 @@ const SpeechToText = ({ q13, onQ13Change }) => {
                 />
             ) : (
                 <Form.Control
-                    className="w-50"
+                    className="w-50 record-btn"
                     type="text"
                     placeholder="Enter text or press the record button"
                     value={q13}
                     onChange={onChangeQ13}
                 />
             )}
+            <Container id='k-record'>
+                <BsRecord2  className= "k-btn"
+                    style={{
+                        cursor: 'pointer',
+                        fontSize: "6.3em",
+                        color: '#7ab8a5',
+                    }}
+                    onClick={startListening}
+                />
+            </Container>
+            <Container id='k-stop'>
+                <MdOutlineStopCircle className= "k-btn"
+                    style={{
+                        cursor: 'pointer',
+                        fontSize: "5em",
+                        color: '#7ab8a5',
+                        marginRight: '15px',
+                    }}
+                    onClick={stopListening}
+                />
+            </Container>
+            <Container id='k-reset'>
+                <BiReset  className= "k-btn"
+                    style={{
+                        cursor: 'pointer',
+                        fontSize: "5em",
+                        color: '#7ab8a5',
+                    }}
+                    onClick={onResetTranscript}
+                />
+            </Container>
+            
         </Container>
+
+        
+
+        
     );
 
 }

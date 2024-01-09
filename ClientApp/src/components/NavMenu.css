@@ -19,6 +19,10 @@ html {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.survey-portal{
+font-weight: normal;
+}
+
 .navbar {
     color: white;
 }
@@ -55,7 +59,6 @@ html {
 }
 
 .logo-image {
-    height: 60px;
-    width: 72px;
-    margin-right: 5px;
+    height: 65px;
+    width: 84px; 
 }

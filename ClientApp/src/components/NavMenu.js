@@ -45,8 +45,8 @@ const NavMenu = () => {
         <header>
             <div className="container-fluid" style={{ padding: '0' }}>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow" light style={{ margin: '0' }}>
-                    <NavbarBrand style={{ marginLeft:"5px", fontWeight: "bold", color: "#40bb85" }}  tag={Link} to="/">
-                        <img src={logo} alt="Responsive image" className="logo-image" /> Ocay Patient Portal
+                    <NavbarBrand style={{ marginLeft:"5px", fontWeight: "bold", color: "#333333" }}  tag={Link} to="/">
+                        <img src={logo} alt="Responsive image" className="logo-image" /> Ocay <span className="survey-portal">Survey Portal </span>
                     </NavbarBrand>
                     <NavbarToggler onClick={toggleNavbar} className="mr-2" />
                     <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!collapsed} navbar>

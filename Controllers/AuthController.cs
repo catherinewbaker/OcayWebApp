@@ -417,6 +417,7 @@ namespace OcayProject.Controllers
                     q7, q8, q9, q10, q11, request.Q12,
                     request.Q13, finalScore
                 );
+
                 return Ok(finalScore);
             }
             catch (Exception ex)
@@ -507,7 +508,7 @@ namespace OcayProject.Controllers
                     score = survey.Score
                 }).ToList();
 
-                return Ok(new { userSurveys});
+                return Ok(new { userSurveys });
             }
             catch (Exception ex)
             {
@@ -559,7 +560,7 @@ namespace OcayProject.Controllers
                 if (physicianUser == null || physicianUser.IsPatient == '1')
                 {
                     
-                    return BadRequest("1111Please check your connection's ID number.");
+                    return BadRequest("Please check your connection's ID number.");
                 }
 
                 string patientNum = request.PatientUserNumber.ToString();

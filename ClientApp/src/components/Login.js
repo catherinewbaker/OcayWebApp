@@ -144,7 +144,7 @@ const Login = () => {
     )
 
     return (
-        <div style={{ backgroundColor: '#fff', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div style={{ backgroundColor: '#7ab8a5', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
 
             <Modal show={showModal} onHide={() => {setShowModal(false)} } centered>
                 <Modal.Header closeButton>
@@ -194,7 +194,7 @@ const Login = () => {
                 <Row className="vh-100 d-flex justify-content-center align-items-center">
 
                     <Col md={8} lg={6} xs={12}>
-                        <Card style={{ padding: "50px"}}>
+                        <Card className="shadow" style={{ padding: "50px"}}>
                             <Card.Body>
                                 <div className="mb-3">
                                     <div id="logindiv" style={{ display: 'flex', alignItems: 'center' }}>

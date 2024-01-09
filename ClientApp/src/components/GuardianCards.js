@@ -53,8 +53,8 @@ const GuardianCards = () => {
     return (
         <Container className="d-flex flex-column align-items-left" style={{ height: "100vh" }}>
             <br />
-            <h1 style={{ fontWeight: 'bold', marginTop: '20px', textAlign: 'center', color: "black", fontSize: '35px' }} >Your Child</h1>
-            <p style={{ textAlign: 'center', color: "black" }}>Please select a child to view their results</p>
+            <h1 style={{ fontWeight: 'bold', marginTop: '20px', textAlign: 'center', color: "black", fontSize: '35px' }} >Your Patients</h1>
+            <p style={{ textAlign: 'center', color: "black" }}>Please select one of your patients to view their results</p>
             <br />
             <Container className="d-flex justify-content-center" >
                 <Row>

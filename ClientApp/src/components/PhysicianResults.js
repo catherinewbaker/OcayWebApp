@@ -606,7 +606,8 @@ const PhysicianResults = () => {
                         backgroundColor: '#FFFFFF',
                         borderColor: '#79D4AC',
                         width: '100%',
-                        color: '#79D4AC'
+                        color: '#79D4AC',
+                        padding: '25px',
                     }}>
                         <Card.Body className="text-center">
                             <Card.Title className="text-left">
@@ -661,10 +662,11 @@ const PhysicianResults = () => {
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col style={{display:'flex', justifyContent: 'right',}}>
+                                    <Col style={{display:'flex', justifyContent: 'right'}}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
+                                            justifyContent: 'center',
                                             width: '200px',
                                             fontSize: '20px',
                                             marginBottom: '0px',

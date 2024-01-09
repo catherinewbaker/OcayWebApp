@@ -45,6 +45,7 @@ const GuardianResults = () => {
             },
         ],
     };
+    const [val, setVal] = useState(12); // holds chart data
 
     // radar chart data
     const [startDate, setStartDate] = useState("2023-03-25");
@@ -80,11 +81,6 @@ const GuardianResults = () => {
     };
 
     //drop down menu data
-    const [optZero, setOptZero] = useState();
-    const [optOne, setOptOne] = useState();
-    const [optTwo, setOptTwo] = useState();
-    const [optThree, setOptThree] = useState();
-    const [optFour, setOptFour] = useState();
     const [dropHolder, setDropHolder] = useState();
 
     // loading variables
@@ -129,7 +125,6 @@ const GuardianResults = () => {
             setLoadingRadar(false);
             setLoadingLine(false);
             setLoadingTable(false);
-            console.log(chart)
             console.log(table)
         } catch (err) {
             console.log(err);
@@ -149,7 +144,6 @@ const GuardianResults = () => {
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getResultsByDate', bodyParameters);
             setRadarSurveys(res.data.userSurveys)
-            console.log(res.data)
             if (res.data.userSurveys.length > 0) {
                 setTicks((res.data.userSurveys.length) * 3);
             } else {
@@ -164,10 +158,10 @@ const GuardianResults = () => {
     };
 
     // pull the monthly averages from [table] into an array of scores
-    const scoreArray = (arr) => arr.map(x => x.averageScore);
+    const scoreArray = (arr) => arr.map(x => x.score);
 
     // pull the months from [table] that have monthly averages
-    const monthArray = (arr) => arr.map(x => x.month);
+    const monthArray = (arr) => arr.map(x => x.timestamp.substring(5, 10));
 
     // determine if words in each [--Con] variable get a red or green badge
     const badgeSet = (arr, n) => arr.map(x => {
@@ -184,31 +178,32 @@ const GuardianResults = () => {
     });
 
     // take [months] and turn it into an array of month names with [monthNames]
-    const names = (arr) => arr.map((month) => {
-        if (month === 1) {
-            return 'January';
-        } else if (month === 2) {
-            return 'February';
-        } else if (month === 3) {
-            return 'March';
-        } else if (month === 4) {
-            return 'April';
-        } else if (month === 5) {
-            return 'May';
-        } else if (month === 6) {
-            return 'June';
-        } else if (month === 7) {
-            return 'July';
-        } else if (month === 8) {
-            return 'August';
-        } else if (month === 9) {
-            return 'September';
-        } else if (month === 10) {
-            return 'October';
-        } else if (month === 11) {
-            return 'November';
-        } else if (month === 12) {
-            return 'December';
+    const names = (arr) => arr.map((x) => {
+        console.log(x)
+        if (x.substring(0, 3) === '01-') {
+            return 'Jan ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '02-') {
+            return 'Feb ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '03-') {
+            return 'Mar ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '04-') {
+            return 'Apr ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '05-') {
+            return 'May ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '06-') {
+            return 'Jun ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '07-') {
+            return 'Jul ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '08-') {
+            return 'Aug ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '09-') {
+            return 'Sep ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '10-') {
+            return 'Oct ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '11-') {
+            return 'Nov ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '12-') {
+            return 'Dec ' + x.substring(3, 5);
         } else {
             return ''; // Handle invalid month values as empty
         }
@@ -243,9 +238,6 @@ const GuardianResults = () => {
                 if ((survey.q8).includes(x)) {
                     arr[x] += 1;
                 }
-                if ((survey.q9).includes(x)) {
-                    arr[x] += 1;
-                }
                 if ((survey.q10).includes(x)) {
                     arr[x] += 1;
                 }
@@ -277,9 +269,6 @@ const GuardianResults = () => {
             if ((survey.q8).includes("Scared")) {
                 arr["Fear"] += 1;
             }
-            if ((survey.q9).includes("Scared")) {
-                arr["Fear"] += 1;
-            }
             if ((survey.q10).includes("Scared")) {
                 arr["Fear"] += 1;
             }
@@ -305,8 +294,7 @@ const GuardianResults = () => {
     // render table
     const renderTable = () => {
         return (
-            <Container className="d-flex flex-column align-items-center">
-                <br />
+            <Container className="d-flex flex-column align-items-center mt-5">
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >
                         <div className="ms-2 me-auto">
@@ -400,8 +388,6 @@ const GuardianResults = () => {
 
     // render radar chart
     const renderRadar = () => {
-        // console.log(Object.values(feelingsRef.current))
-        console.log(ticks)
         return (
             <RadarChart data={radarData} maxTicks={ticks} />
         );
@@ -424,11 +410,7 @@ const GuardianResults = () => {
                             </Dropdown.Item>
                         ) : table.length > 0 ? ( // Check if table has data
                             <>
-                                {optZero}
-                                {optOne}
-                                {optTwo}
-                                {optThree}
-                                {optFour}
+                                {renderDropCon()}
                             </>
                         ) : (
                             <Dropdown.Item href="#">
@@ -440,28 +422,23 @@ const GuardianResults = () => {
                 <h1 > </h1>
             </Container>
         );
-    }, [totalCon, optFour]);
+    }, [totalCon, table.length]);
 
-    // set the options for the dropdown menu
-    useEffect(() => {
-        if (table != null && table != undefined && table.length > 0) {
-            if (table[0] != null && table[0] != undefined) {
-                setOptZero(dropDown(table[0]));
-            }
-            if (table[1] != null && table[1] != undefined) {
-                setOptOne(dropDown(table[1]));
-            }
-            if (table[2] != null && table[2] != undefined) {
-                setOptTwo(dropDown(table[2]));
-            }
-            if (table[3] != null && table[3] != undefined) {
-                setOptThree(dropDown(table[3]));
-            }
-            if (table[4] != null && table[4] != undefined) {
-                setOptFour(dropDown(table[4]));
-            }
+    // render radar chart
+    const renderDropCon = () => {
+        if (table !== null && table !== undefined && table.length > 0) {
+            return table.map((value) => {
+                if (value !== null && value !== undefined && value.timestamp) {
+                    const currentYear = new Date().getFullYear();
+                    const timestampYear = new Date(value.timestamp).getFullYear();
+                    if (timestampYear === currentYear) {
+                        return dropDown(value);
+                    }
+                }
+                return null; // Or handle the null/undefined case appropriately
+            });
         }
-    }, [table.length]);
+    }
 
     // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
@@ -494,17 +471,19 @@ const GuardianResults = () => {
 
     // if [chart] has values in it (i.e. the patient has taken at least one survey) then separate [chart] into [months] and [scores]
     useEffect(() => {
-        if (chart.length !== 0) {
+        if (table.length !== 0) {
             setLoadingLine(true);
-            setMonths((monthArray(chart)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
-            setScores((scoreArray(chart)).reverse()); // set scores = [{average score per month for all months in the state: months}]
+            setMonths((monthArray(table)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+            setScores((scoreArray(table)).reverse()); // set scores = [{average score per month for all months in the state: months}]
             setLoadingLine(false);
         }
-    }, [chart]);
+        console.log(months)
+    }, [table]);
 
     // set [monthNames] to the names of the months in [months]
     useEffect(() => {
         setMonthNames(names(months));
+        console.log(monthNames)
     }, [months]);
 
     useEffect(() => {
@@ -531,10 +510,57 @@ const GuardianResults = () => {
             "Fever": 0
         })
         feelingsArray(radarSurveys)
-        console.log(feelings)
     }, [radarSurveys])
 
-
+    useEffect(() => {
+        var currentMonth = new Date().getMonth() + 1;
+        var currentYear = new Date().getFullYear();
+        console.log(currentMonth)
+        if (val === 6) {
+            const filteredMonths = table.filter(date => {
+                const mon = parseInt(date.timestamp.substring(5, 7), 10);
+                const year = parseInt(date.timestamp.substring(0, 5), 10);
+                if (mon < currentMonth) {
+                    return (mon > currentMonth - val) && (currentYear === year);
+                } else if (mon > currentMonth) {
+                    return mon >= 13 - val + currentMonth;
+                }
+                return true;
+            });
+            setMonths(monthArray(filteredMonths));
+        } else if (val === 12) {
+            const filteredMonths = table.filter(date => {
+                const mon = parseInt(date.timestamp.substring(5, 7), 10);
+                const year = parseInt(date.timestamp.substring(0, 5), 10);
+                if (mon < currentMonth) {
+                    return year === currentYear;
+                } else if (mon > currentMonth) {
+                    return year === currentYear - 1;
+                }
+                return true;
+            });
+            setMonths(monthArray(filteredMonths));
+        } else if (val === 18) {
+            const filteredMonths = table.filter(date => {
+                const mon = parseInt(date.timestamp.substring(5, 7), 10);
+                const year = parseInt(date.timestamp.substring(0, 5), 10);
+                if (mon < currentMonth) {
+                    if (year === currentYear - 1) {
+                        return mon > currentMonth - 6 
+                    }
+                } else if (mon > currentMonth) {
+                    if (year === currentYear - 2) {
+                        return mon >= 13 - 6 + currentMonth
+                    }
+                }
+                return true;
+            });
+            setMonths(monthArray(filteredMonths));
+        }
+        
+        console.log(months)
+       
+    }, [val])
 
     // FINAL LAODING FOR RENDERING
     // if [loadingTable] isn't true, load the table
@@ -601,12 +627,14 @@ const GuardianResults = () => {
             <Row>
                 {contentsEmpty}
             </Row>
-            <Row style={{ width: '100%', alignItems: 'center' }} >
+            <Row style={{ width: '100%', alignItems: 'center', marginTop:'15px' }} >
                     <Card style={{
                         backgroundColor: '#FFFFFF',
                         borderColor: '#79D4AC',
                         width: '100%',
-                        color: '#79D4AC'
+                        color: '#79D4AC',
+                        padding: '25px',
+                        paddingBottom: '30px',
                     }}>
                         <Card.Body className="text-center">
                             <Card.Title className="text-left">
@@ -616,14 +644,24 @@ const GuardianResults = () => {
                         </Card.Body>
                     </Card>
             </Row>
-            <br />
-            <Row >
+
+            <Row style={{ marginTop: '30px' }}>
                 <Card style={{
                     backgroundColor: '#FFFFFF',
                     borderColor: '#79D4AC',
                     color: '#79D4AC',
                 }}>
                     <Card.Body className="text-center">
+                        All Survey Within the Last <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
+                            <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC' }}>
+                                Select a recent survey...
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#" onClick={() => setVal(6)} >6 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(12)} >12 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(18)} >18 months</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                         {contentsLine}
                     </Card.Body>
                 </Card>
@@ -636,17 +674,17 @@ const GuardianResults = () => {
                     color: '#79D4AC'
                 }}>
                     <Card.Body className="text-center">
-                        <Card.Title className="text-left mt-3">
+                        <Card.Title className="text-left mt-3 pt-3">
                             <Form>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col style={{ width: '100%' }}>
+                                <Row style={{ marginBottom: '8px' }}>
+                                    <Col style={{ display:'flex', justifyContent: 'right',  width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'left',
                                             width: '200px',
                                             fontSize: '20px',
-                                            marginBottom: '0px',
+                                            height: '33px',
                                         }}>Start Date: </Form.Label>
                                     </Col>
                                     <Col style={{ width: '100%' }}>
@@ -656,23 +694,19 @@ const GuardianResults = () => {
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
+                                                justifyContent: 'left',
                                                 width: '200px',
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
-                                </Row>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col>
+                                    <Col style={{display:'flex', justifyContent: 'right'}}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            justifyContent: 'left',
+                                            justifyContent: 'center',
                                             width: '200px',
                                             fontSize: '20px',
+                                            height: '33px',
                                             marginBottom: '0px',
                                         }}>End Date: </Form.Label>
                                     </Col>
@@ -685,10 +719,9 @@ const GuardianResults = () => {
                                                 width: '200px',
                                             }} onChange={(o) => setEndDate(o.target.value)} />
                                     </Col>
-                                    <Col>
-                                    </Col>
-                                    <Col>
-                                    </Col>
+                                </Row>
+                                <Row style={{ marginBottom: '5px' }}>
+                                    
                                 </Row>
                                 <Row style={{ marginBottom: '5px' }}>
                                     
