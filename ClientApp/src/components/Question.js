@@ -1,12 +1,12 @@
-
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Button, Container, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
+import { Button, Container, Form, Row, Modal, Col, Card, ProgressBar } from 'react-bootstrap';
+import Slider from '@mui/material/Slider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import AWS from './authorization/aws';
-import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight, /*MdVolumeMute*/ } from "react-icons/md";
-import { /*RiPlayFill,*/ RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
+import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight, MdVolumeMute } from "react-icons/md";
+import { RiPlayFill, RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
 import { SpeechToText } from './SpeechToText'
 import { CustomSlider } from './CustomSlider'
 import axios from 'axios'
@@ -23,14 +23,14 @@ import walk from '../image/DogWalking.gif'
 
 const Question = () => {
     const navigate = useNavigate();
-    //const [answer, setAnswer] = useState('');
+    const [answer, setAnswer] = useState('');
     const [questionIndex, setQuestionIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [showQuestionModal, setShowQuestionModal] = useState(false);
     const [showCompleteModal, setShowCompleteModal] = useState(false);
     const [showDogModal, setShowDogModal] = useState(false);
     const [dogGif, setDogGif] = useState('../image/DogBackflip');
-   // const [buttonActive, setButtonActive] = useState(false);
+    const [buttonActive, setButtonActive] = useState(false);
     const [q1, setQ1] = useState([]);
     const [q2, setQ2] = useState([]);
     const [q3, setQ3] = useState([]);
@@ -177,9 +177,9 @@ const Question = () => {
         setQ12(value);
     };
 
-/*    const handleQ13Change = (value) => {
+    const handleQ13Change = (value) => {
         setQ13(value);
-    }; */
+    };
 
     const now = Math.round((questionIndex + 1) / 13 * 100);
 
@@ -365,14 +365,14 @@ const Question = () => {
             result += "<break time=\"0.5s\"/> I do not wish to answer. </speak>";
         }
 
-        if (index === 11) {
+        if (index == 11) {
             let helper = question.replace("__", "<break time=\"1s\"/>");
             result += helper
             result += " Click on the scale to change your level. </speak>"
 
         }
 
-        if (index === 12) {
+        if (index == 12) {
             result += question
             result += " <break time=\"0.5s\"/> Press the record button to talk about something or type in your thoughts. </speak>"
 
@@ -384,7 +384,7 @@ const Question = () => {
     };
 
     const onPressMute = () => {
-        if (mute === false) {
+        if (mute == false) {
             audioElement.pause();
         }
         setMute((prevMute) => !prevMute);
@@ -393,7 +393,7 @@ const Question = () => {
         if (questionIndex > 0) {
             setQuestionIndex(questionIndex - 1)
         }
-        if (questionIndex === 0) {
+        if (questionIndex == 0) {
             setShowModal(true)
         }
     }
@@ -410,12 +410,12 @@ const Question = () => {
                 whichDog();
                 setShowDogModal(true);
             }
-            if (questionIndex === 11) {
+            if (questionIndex == 11) {
                 setQuestionIndex(questionIndex + 1)
                 whichDog();
                 setShowDogModal(true);
             }
-            if (questionIndex === 12) {
+            if (questionIndex == 12) {
                 // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
                 whichDog();
                 setShowDogModal(true);
@@ -447,19 +447,19 @@ const Question = () => {
 
         const data = {
             UserNumber: object.userNumber,
-            q1,
-            q2,
-            q3,
-            q4,
-            q5,
-            q6,
-            q7,
-            q8,
-            q9,
-            q10,
-            q11,
-            q12,
-            q13
+            Q1: q1,
+            Q2: q2,
+            Q3: q3,
+            Q4: q4,
+            Q5: q5,
+            Q6: q6,
+            Q7: q7,
+            Q8: q8,
+            Q9: q9,
+            Q10: q10,
+            Q11: q11,
+            Q12: q12,
+            Q13: q13
         };
 
         try {
@@ -594,7 +594,7 @@ const Question = () => {
 
             )}
 
-            {questionIndex === 12 && (
+            {questionIndex == 12 && (
                 <SpeechToText q13={q13} onQ13Change={setQ13} />
             )}
 
