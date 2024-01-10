@@ -1,37 +1,0 @@
-[1mdiff --git a/ClientApp/src/components/Question.js b/ClientApp/src/components/Question.js[m
-[1mindex 627774e..b839da0 100644[m
-[1m--- a/ClientApp/src/components/Question.js[m
-[1m+++ b/ClientApp/src/components/Question.js[m
-[36m@@ -447,19 +447,19 @@[m [mconst Question = () => {[m
- [m
-         const data = {[m
-             UserNumber: object.userNumber,[m
-[31m-            q1,[m
-[31m-            q2,[m
-[31m-            q3,[m
-[31m-            q4,[m
-[31m-            q5,[m
-[31m-            q6,[m
-[31m-            q7,[m
-[31m-            q8,[m
-[31m-            q9,[m
-[31m-            q10,[m
-[31m-            q11,[m
-[31m-            q12,[m
-[31m-            q13[m
-[32m+[m[32m            Q1: q1,[m[41m[m
-[32m+[m[32m            Q2: q2,[m[41m[m
-[32m+[m[32m            Q3: q3,[m[41m[m
-[32m+[m[32m            Q4: q4,[m[41m[m
-[32m+[m[32m            Q5: q5,[m[41m[m
-[32m+[m[32m            Q6: q6,[m[41m[m
-[32m+[m[32m            Q7: q7,[m[41m[m
-[32m+[m[32m            Q8: q8,[m[41m[m
-[32m+[m[32m            Q9: q9,[m[41m[m
-[32m+[m[32m            Q10: q10,[m[41m[m
-[32m+[m[32m            Q11: q11,[m[41m[m
-[32m+[m[32m            Q12: q12,[m[41m[m
-[32m+[m[32m            Q13: q13[m[41m[m
-         };[m
- [m
-         try {[m
