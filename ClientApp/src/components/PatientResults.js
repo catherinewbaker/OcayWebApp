@@ -43,7 +43,7 @@ const PatientResults = () => {
         var object = JSON.parse(localStorage.getItem('userInfo'))
 
         const bodyParameters = {
-            UserNumber: object.userNumber, 
+            UserNumber: object.userNumber
         };
         axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters)
             .then((res) => {
