@@ -143,6 +143,7 @@ const GuardianResults = () => {
             };
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getResultsByDate', bodyParameters);
+
             setRadarSurveys(res.data.userSurveys)
             if (res.data.userSurveys.length > 0) {
                 setTicks((res.data.userSurveys.length) * 3);

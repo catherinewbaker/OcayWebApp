@@ -59,7 +59,7 @@ const GuardianProfile = () => {
             const input2 = {
                 IdArray: idArray,
             }
-
+           
             const response2 = await axios.post('https://portal.ocay.org/api/Auth/getScore', input2);
             setScoreArray(response2.data.userScores)
 
