@@ -45,7 +45,6 @@ const PatientResults = () => {
         const bodyParameters = {
             UserNumber: object.userNumber, 
         };
-        console.log(bodyParameters);
 
         axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters)
             .then((res) => {

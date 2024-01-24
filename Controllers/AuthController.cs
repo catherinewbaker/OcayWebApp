@@ -475,7 +475,6 @@ namespace OcayProject.Controllers
             }
         }
 
-
         [HttpPost("getResultsByDate")]
         public async Task<IActionResult> GetResultsByDate(DateRangeDto request)
         {
@@ -514,18 +513,9 @@ namespace OcayProject.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"!An error occurred while retrieving the survey data: {ex.Message}");
+                return StatusCode(500, $"An error occurred while retrieving the survey data: {ex.Message}");
             }
         }
-
-        private int GetLineNumber(Exception ex)
-        {
-            var stackTrace = new System.Diagnostics.StackTrace(ex, true);
-            var frame = stackTrace.GetFrame(0);
-            return frame.GetFileLineNumber();
-        }
-
-
 
         [HttpPost("getScore")]
         public async Task<IActionResult> GetScore(getScoreDto request)
