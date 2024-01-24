@@ -2,9 +2,8 @@
 
 namespace OcayProject.Models
 {
-    public class Survey
-    {
-        public DateTime Timestamp { get; set; }
+    public class SurveyTest{
+//        public DateTime Timestamp { get; set; }
         public string Q1 { get; set; } = string.Empty;
         public string Q2 { get; set; } = string.Empty;
         public string Q3 { get; set; } = string.Empty;
@@ -16,10 +15,10 @@ namespace OcayProject.Models
         public string Q9 { get; set; } = string.Empty;
         public string Q10 { get; set; } = string.Empty;
         public string Q11 { get; set; } = string.Empty;
-        //        public int Q12 { get; set; }
         public string Q12 { get; set; } = string.Empty;
         public string Q13 { get; set; } = string.Empty;
-        public int Score { get; set; }
+//        public int Score { get; set; } // Change data type to int
+
     }
 }
 

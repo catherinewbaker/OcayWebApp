@@ -447,21 +447,21 @@ const Question = () => {
 
         const data = {
             UserNumber: object.userNumber,
-            Q1: q1,
-            Q2: q2,
-            Q3: q3,
-            Q4: q4,
-            Q5: q5,
-            Q6: q6,
-            Q7: q7,
-            Q8: q8,
-            Q9: q9,
-            Q10: q10,
-            Q11: q11,
-            Q12: q12,
-            Q13: q13
+            q1,
+            q2,
+            q3,
+            q4,
+            q5,
+            q6,
+            q7,
+            q8,
+            q9,
+            q10,
+            q11,
+            q12,
+            q13
         };
-
+        
         try {
             const response = await axios.post('https://portal.ocay.org/api/Auth/postSurvey', data);
             console.log(response);

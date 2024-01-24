@@ -142,9 +142,9 @@ const PhysicianResults = () => {
             const number = parseInt(localStorage.getItem("patientID"));
 
             const bodyParameters = {
-                UserNumber: number, // change to pull actual UserNumber
                 StartDate: startDate,
                 EndDate: endDate,
+                UserNumber: number, // change to pull actual UserNumber
             };
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getResultsByDate', bodyParameters);
