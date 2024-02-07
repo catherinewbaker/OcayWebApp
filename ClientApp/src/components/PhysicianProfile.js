@@ -32,13 +32,10 @@ const PhysicianProfile = () => {
         const pInput = {
             UserNumber: input,
         }
-        if (input === null || input === "") {
-            console.log("input is null: " + input)
-            return;
-        } else {
+
+        if (input) {
             try {
                 const response = await axios.post('https://portal.ocay.org/api/Auth/loadConnections', pInput);
-
                 const dictionary = response.data.connectedUsers;
                 const dataArray = Object.entries(dictionary).map(([key, value]) => ({ id: key, name: value }));
 
@@ -48,10 +45,12 @@ const PhysicianProfile = () => {
                 setNameArray(names);
                 setIdArray(ids);
 
-            } catch (error) {
-                console.log(error.message);
+                } catch (error) {
+                    console.log(error.message);
+                }
+            } else {
+                console.log("input is " + input)
             }
-        }
     }
 
     const getScores = async () => {
