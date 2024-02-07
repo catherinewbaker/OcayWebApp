@@ -105,11 +105,14 @@ const GuardianResults = () => {
     const getData = async () => {
         try {
             // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-            var object = JSON.parse(localStorage.getItem('userInfo'));
+            var patientID = JSON.parse(localStorage.getItem('patientID'));
 
             const bodyParameters = {
-                UserNumber: object.userNumber, // change to pull actual UserNumber
+                UserNumber: patientID, // change to pull actual UserNumber
             };
+
+            console.log("TESTING: ")
+            console.log(patientID)
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters);
 
@@ -134,10 +137,10 @@ const GuardianResults = () => {
     const getRadarData = async () => {
         try {
             // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-            var object = JSON.parse(localStorage.getItem('userInfo'));
+            var patientID = JSON.parse(localStorage.getItem('patientID'));
 
             const bodyParameters = {
-                UserNumber: object.userNumber, // change to pull actual UserNumber
+                UserNumber: patientID, // change to pull actual UserNumber
                 StartDate: startDate,
                 EndDate: endDate,
             };
