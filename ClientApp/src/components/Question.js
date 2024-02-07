@@ -46,6 +46,10 @@ const Question = () => {
     const [q13, setQ13] = useState("");
     const [mute, setMute] = useState(false);
     const [last, setLast] = useState(0);
+    const [desktopView, setDesktopView] = useState(
+        window.matchMedia("(min-width: 768px)").matches
+    )
+    const [active, setActive] = useState("");
 
     var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk]
 
@@ -70,7 +74,8 @@ const Question = () => {
     };
 
     const onPressAnswer = (questionIndex, description) => {
-
+        setActive(description);
+            
         // Get the corresponding state setter function based on the question index
         const setAnswer = getSetAnswerFunction(questionIndex);
 
@@ -447,21 +452,21 @@ const Question = () => {
 
         const data = {
             UserNumber: object.userNumber,
-            Q1: q1,
-            Q2: q2,
-            Q3: q3,
-            Q4: q4,
-            Q5: q5,
-            Q6: q6,
-            Q7: q7,
-            Q8: q8,
-            Q9: q9,
-            Q10: q10,
-            Q11: q11,
-            Q12: q12,
-            Q13: q13
+            q1,
+            q2,
+            q3,
+            q4,
+            q5,
+            q6,
+            q7,
+            q8,
+            q9,
+            q10,
+            q11,
+            q12,
+            q13
         };
-
+        
         try {
             const response = await axios.post('https://portal.ocay.org/api/Auth/postSurvey', data);
             console.log(response);
@@ -484,6 +489,12 @@ const Question = () => {
             console.error("Config:", error.config);
         }
     };
+
+    useEffect(() => {
+        window
+            .matchMedia("(min-width: 768px)")
+            .addEventListener('change', e => setDesktopView(e.matches));
+    }, []);
 
 
     return (
@@ -536,8 +547,100 @@ const Question = () => {
                 </Container>
             )}
 
-            <Container className=" d-flex align-items-center justify-content-center" style={{ height: '10vh', marginTop:'50px',marginBottom: '10px' }}>
-            <Container className="arrow-container">
+            
+            {/*{questionIndex < 11 && (*/}
+            {/*    <Container className=" d-flex justify-content-center" >*/}
+            {/*        <Row>*/}
+            {/*            {cardsData[questionIndex].answers.map((card, idx) => (*/}
+            {/*                <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>*/}
+            {/*                    <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: 'white', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >*/}
+            {/*                        <Card style={{ backgroundColor: 'white', border: 'none', height: '100%' }}>*/}
+            {/*                            <Card.Img variant="top" src={card.imageSrc} />*/}
+            {/*                        </Card>*/}
+            {/*                    </Button>*/}
+            {/*                </Col>*/}
+            {/*            ))}*/}
+            {/*        </Row>*/}
+            {/*    </Container>*/}
+            {/*)}*/}
+
+            {questionIndex < 11 && (
+                <div>
+                    {desktopView && <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(23%, 1fr))',
+                            gap: '10px',
+                            padding: '10px',
+                        }}>
+                        {cardsData[questionIndex].answers.map((card, idx) => (
+                            <button key={idx}
+                                onClick={() =>
+                                    onPressAnswer(questionIndex, card.description)
+                                }
+                                style={{
+                                    backgroundColor: 'white',
+                                    border: 'none',
+                                    boxShadow: active === card.description ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
+                                    borderRadius: '0.3rem',
+                                    height: 'auto',
+                                    boxSizing: 'border-box',
+                                    width: '100%',
+                                }}>
+                                <div style={{ width: '100%' }}>
+                                    <img src={card.imageSrc} className="img-fluid" alt="Card Image" style={{ width: '100%' }} />
+                                </div>
+                            </button>
+                        ))}
+                    </div>}
+                    {!desktopView && <div
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(2, 1fr)',
+                            gap: '10px',
+                            padding: '10px',
+                        }}>
+                        {cardsData[questionIndex].answers.map((card, idx) => (
+                            <button key={idx}
+                                onClick={() =>
+                                    onPressAnswer(questionIndex, card.description)
+                                }
+                                style={{
+                                    backgroundColor: 'white',
+                                    border: 'none',
+                                    boxShadow: active === card.description ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
+                                    borderRadius: '0.3rem',
+                                    height: 'auto',
+                                    boxSizing: 'border-box',
+                                    width: '100%',
+                                }}>
+                                <div style={{ width: '100%' }}>
+                                    <img src={card.imageSrc} className="img-fluid" alt="Card Image" style={{ width: '100%' }} />
+                                </div>
+                            </button>
+                        ))}
+                    </div>}
+                </div>
+                )}
+            
+
+            {questionIndex < 11 && (
+                <Container className=' d-flex justify-content-center'>
+                    <Button
+
+                        onClick={() => onPressAnswer(questionIndex, "I want to talk to my doctor about this.")}
+                        className={`btn-idonot d-flex justify-content-center align-items-center ${getSelectedAnswers(questionIndex).includes("I want to talk to my doctor about this.") ? 'active' : ''}`}
+                        style={{ borderColor: '#5fccab', borderRadius: '10px', backgroundColor: 'white' }}
+                    >
+                        <Card style={{ border: 'none' }}>
+                            <Card.Title style={{ color: '#5fccab', margin: 'auto' }}>I want to talk to my doctor about this.</Card.Title>
+                        </Card>
+                    </Button>
+                </Container>
+            )}
+
+            <Container className=" d-flex align-items-center justify-content-center" style={{ height: '10vh', marginTop: '50px', marginBottom: '10px' }}>
+                <Container className="arrow-container">
                     <MdArrowCircleLeft
                         style={{
                             cursor: "pointer",
@@ -555,38 +658,7 @@ const Question = () => {
                         onClick={forwardButton}
                     />
                 </Container>
-                
             </Container>
-
-            {questionIndex < 11 && (
-                <Container className=" d-flex justify-content-center" >
-                    <Row>
-                        {cardsData[questionIndex].answers.map((card, idx) => (
-                            <Col key={idx} xs={3} md={3} lg={3} style={{ marginBottom: '20px' }}>
-                                <Button onClick={() => onPressAnswer(questionIndex, card.description)} className={`btn-answer ${getSelectedAnswers(questionIndex).includes(card.description) ? 'active' : ''}`} style={{ backgroundColor: 'white', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }} >
-                                    <Card style={{ backgroundColor: 'white', border: 'none', height: '100%' }}>
-                                        <Card.Img variant="top" src={card.imageSrc} />
-                                    </Card>
-                                </Button>
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-            )}
-
-            {questionIndex < 11 && (
-                <Container className=' d-flex justify-content-center'>
-                    <Button
-                        onClick={() => onPressAnswer(questionIndex, "I do not wish to answer.")}
-                        className={`btn-idonot d-flex justify-content-center align-items-center ${getSelectedAnswers(questionIndex).includes("I do not wish to answer.") ? 'active' : ''}`}
-                        style={{ borderColor:'#5fccab',  borderRadius:'10px', backgroundColor: 'white' }}
-                    >
-                        <Card style={{ border: 'none' }}>
-                            <Card.Title style={{ color:'#5fccab', margin: 'auto' }}>I do not wish to answer.</Card.Title>
-                        </Card>
-                    </Button>
-                </Container>
-            )}
 
             {questionIndex === 11 && (
                 // put scale 1-10 here

@@ -12,6 +12,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
 using Azure.Core;
+using Microsoft.Data.SqlClient;
+using System.Diagnostics.Tracing;
 
 namespace OcayProject.Controllers
 {
@@ -424,6 +426,7 @@ namespace OcayProject.Controllers
             }
         }
 
+        
         [HttpPost("getAllResults")]
         public async Task<IActionResult> GetAllResults(ResultDto request)
         {
