@@ -425,9 +425,10 @@ const GuardianResults = () => {
         );
     }, [totalCon, table.length]);
 
-    // render radar chart
+    // render table's drop down menu
     const renderDropCon = () => {
         if (table !== null && table !== undefined && table.length > 0) {
+            console.log(table)
             return table.map((value) => {
                 if (value !== null && value !== undefined && value.timestamp) {
                     const currentYear = new Date().getFullYear();
