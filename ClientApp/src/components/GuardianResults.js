@@ -27,6 +27,9 @@ const GuardianResults = () => {
     const [thirteenCon, setThirteenCon] = useState("loading..."); // array with data for q13
     const [totalCon, setTotalCon] = useState("Survey score loading..."); // array with data for total score
 
+    const [tableDropTitle, setTableDropTitle] = useState("Select a recent survey...")
+    const [lineDropTitle, setLineDropTitle] = useState("Select a time range...")
+
     // line chart data
     const [chart, setChart] = useState([]); // holds chart data
     const [months, setMonths] = useState([]); // holds x axis month numbers
@@ -111,9 +114,6 @@ const GuardianResults = () => {
                 UserNumber: patientID, // change to pull actual UserNumber
             };
 
-            console.log("TESTING: ")
-            console.log(patientID)
-
             const res = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters);
 
             setChart(res.data.averageMonthlyScores); // set chart = 2D array of [{months}, {average score per month}]
@@ -183,7 +183,6 @@ const GuardianResults = () => {
 
     // take [months] and turn it into an array of month names with [monthNames]
     const names = (arr) => arr.map((x) => {
-        console.log(x)
         if (x.substring(0, 3) === '01-') {
             return 'Jan ' + x.substring(3, 5);
         } else if (x.substring(0, 3) === '02-') {
@@ -291,6 +290,7 @@ const GuardianResults = () => {
     };
 
     const onSelect = (obj) => {
+        setTableDropTitle(obj.timestamp)
         setCurrentSurvey(obj);
     }
 
@@ -404,8 +404,8 @@ const GuardianResults = () => {
         setDropHolder(
             <Container>
                 <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
-                    <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
-                        Select a recent survey...
+                    <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC' }}>
+                        {tableDropTitle}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {loadingDrop ? (
@@ -434,11 +434,15 @@ const GuardianResults = () => {
             console.log(table)
             return table.map((value) => {
                 if (value !== null && value !== undefined && value.timestamp) {
-                    const currentYear = new Date().getFullYear();
-                    const timestampYear = new Date(value.timestamp).getFullYear();
-                    if (timestampYear === currentYear) {
+                    var currentYear = new Date().getFullYear();
+                    var currentMonth = new Date().getMonth() + 1;
+                    var mon = parseInt(value.timestamp.substring(5, 7), 10);
+                    var year = parseInt(value.timestamp.substring(0, 5), 10);
+
+                    if (((mon <= currentMonth) && (year === currentYear)) || ((mon > currentMonth) && (year === currentYear - 1))) {
                         return dropDown(value);
                     }
+                    return false;
                 }
                 return null; // Or handle the null/undefined case appropriately
             });
@@ -482,7 +486,6 @@ const GuardianResults = () => {
             setScores((scoreArray(table)).reverse()); // set scores = [{average score per month for all months in the state: months}]
             setLoadingLine(false);
         }
-        console.log(months)
     }, [table]);
 
     // set [monthNames] to the names of the months in [months]
@@ -518,52 +521,45 @@ const GuardianResults = () => {
     }, [radarSurveys])
 
     useEffect(() => {
+        setLineDropTitle(val + " months")
         var currentMonth = new Date().getMonth() + 1;
         var currentYear = new Date().getFullYear();
-        console.log(currentMonth)
-        if (val === 6) {
-            const filteredMonths = table.filter(date => {
-                const mon = parseInt(date.timestamp.substring(5, 7), 10);
-                const year = parseInt(date.timestamp.substring(0, 5), 10);
+        
+        const filteredMonths = table.filter(date => {
+            const mon = parseInt(date.timestamp.substring(5, 7), 10);
+            const year = parseInt(date.timestamp.substring(0, 5), 10);
+            if (val === 6) {
                 if (mon < currentMonth) {
                     return (mon > currentMonth - val) && (currentYear === year);
                 } else if (mon > currentMonth) {
-                    return mon >= 13 - val + currentMonth;
+                    return (mon >= 13 - val + currentMonth) && (currentYear === year + 1);
+                } else if (mon === currentMonth) {
+                    return (currentYear === year)
                 }
-                return true;
-            });
-            setMonths(monthArray(filteredMonths));
-        } else if (val === 12) {
-            const filteredMonths = table.filter(date => {
-                const mon = parseInt(date.timestamp.substring(5, 7), 10);
-                const year = parseInt(date.timestamp.substring(0, 5), 10);
+                return false;
+            } else if (val === 12) {
                 if (mon < currentMonth) {
                     return year === currentYear;
                 } else if (mon > currentMonth) {
                     return year === currentYear - 1;
+                } else if (mon === currentMonth) {
+                    return (year === currentYear)
                 }
-                return true;
-            });
-            setMonths(monthArray(filteredMonths));
-        } else if (val === 18) {
-            const filteredMonths = table.filter(date => {
-                const mon = parseInt(date.timestamp.substring(5, 7), 10);
-                const year = parseInt(date.timestamp.substring(0, 5), 10);
+                return false;
+            } else if (val === 18) {
                 if (mon < currentMonth) {
-                    if (year === currentYear - 1) {
-                        return mon > currentMonth - 6 
-                    }
+                    return (year === currentYear - 1 || year === currentYear) && (mon > currentMonth - 6)
                 } else if (mon > currentMonth) {
-                    if (year === currentYear - 2) {
-                        return mon >= 13 - 6 + currentMonth
-                    }
+                    return (year === currentYear - 1) || ((year === currentYear - 2) && (mon >= 13 - 6 + currentMonth))
+                } else if (mon === currentMonth) {
+                    return (year === currentYear || year === currentYear - 1)
                 }
+                return false;
+            } else if (val === 0) {
                 return true;
-            });
-            setMonths(monthArray(filteredMonths));
-        }
-        
-        console.log(months)
+            }
+        });
+        setMonths(monthArray(filteredMonths.reverse()));
        
     }, [val])
 
@@ -659,12 +655,13 @@ const GuardianResults = () => {
                     <Card.Body className="text-center">
                         All Survey Within the Last <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
                             <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC' }}>
-                                Select a recent survey...
+                                {lineDropTitle}
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item href="#" onClick={() => setVal(6)} >6 months</Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={() => setVal(12)} >12 months</Dropdown.Item>
                                 <Dropdown.Item href="#" onClick={() => setVal(18)} >18 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(0)} >All time</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                         {contentsLine}

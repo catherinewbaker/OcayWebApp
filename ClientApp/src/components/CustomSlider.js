@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../custom.css';
 import { styled } from '@mui/material/styles';
 import Level1 from "../image/happyPain.png"
+import Level3 from "../image/contentPain.png"
 import Level5 from "../image/middlePain.png"
+import Level7 from "../image/discomfortPain.png"
 import Level10 from "../image/sadPain.png"
 
 const CustomSlider = ({ q12, onQ12Change }) => {
@@ -101,14 +103,20 @@ const CustomSlider = ({ q12, onQ12Change }) => {
             </Row>
 
             <Row className="justify-content-center mt-5" style={{ width: '100%' }}>
-                <Col xs={4} sm={4} md={4} className="text-center">
-                    <Image src={Level1} width="40%" />
+                <Col xs={2} sm={2} md={2} className="text-center">
+                    <Image src={Level1} width="60%" />
                 </Col>
-                <Col xs={4} sm={4} md={4} className="text-center">
-                    <Image src={Level5} width="40%" />
+                <Col xs={2} sm={2} md={2} className="text-center">
+                    <Image src={Level3} width="51%" />
                 </Col>
-                <Col xs={4} sm={4} md={4} className="text-center">
-                    <Image src={Level10} width="40%" />
+                <Col xs={2} sm={2} md={2} className="text-center">
+                    <Image src={Level5} width="60%" />
+                </Col>
+                <Col xs={2} sm={2} md={2} className="text-center">
+                    <Image src={Level7} width="58%" />
+                </Col>
+                <Col xs={2} sm={2} md={2} className="text-center">
+                    <Image src={Level10} width="60%" />
                 </Col>
             </Row>
         </Container>
