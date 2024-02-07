@@ -114,6 +114,7 @@ const PhysicianResults = () => {
             const bodyParameters = {
                 UserNumber: number, // change to pull actual UserNumber
             };
+            console.log(number)
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters);
 
