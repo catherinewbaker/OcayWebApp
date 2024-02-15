@@ -28,7 +28,6 @@ const Signup = () => {
         const randomNum = Math.floor(Math.random() * 10000);
         const code = randomNum.toString().padStart(4, '0');
         await setCode(code); // Update the state with the new code value
-        
 
         const requestData = {
             sender: {
