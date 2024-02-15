@@ -49,7 +49,7 @@ const Question = () => {
     const [desktopView, setDesktopView] = useState(
         window.matchMedia("(min-width: 768px)").matches
     )
-    const [active, setActive] = useState("");
+    const [active, setActive] = useState([]);
 
     var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk]
 
@@ -74,7 +74,7 @@ const Question = () => {
     };
 
     const onPressAnswer = (questionIndex, description) => {
-        setActive(description);
+        setActive(active.includes(description) ? active.filter(item => item !== description) : [...active, description]);
             
         // Get the corresponding state setter function based on the question index
         const setAnswer = getSetAnswerFunction(questionIndex);
@@ -581,7 +581,7 @@ const Question = () => {
                                 style={{
                                     backgroundColor: 'white',
                                     border: 'none',
-                                    boxShadow: active === card.description ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
+                                    boxShadow: active.includes(card.description) ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
                                     borderRadius: '0.3rem',
                                     height: 'auto',
                                     boxSizing: 'border-box',
@@ -608,7 +608,7 @@ const Question = () => {
                                 style={{
                                     backgroundColor: 'white',
                                     border: 'none',
-                                    boxShadow: active === card.description ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
+                                    boxShadow: active.includes(card.description) ? '0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5' : 'none',
                                     borderRadius: '0.3rem',
                                     height: 'auto',
                                     boxSizing: 'border-box',
