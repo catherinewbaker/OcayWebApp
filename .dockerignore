@@ -1,0 +1,12 @@
+**/.vs
+**/.vscode
+**/bin
+**/obj
+**/node_modules
+**/*.user
+**/*.sln
+**/*.csproj.user
+*.dockerignore
+
+.git
+.gitignore
