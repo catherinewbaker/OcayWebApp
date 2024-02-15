@@ -5,7 +5,7 @@ import { Container, Row, Form, Card, Col, Dropdown } from 'react-bootstrap';
 import LineChart from "./LineChart";
 import RadarChart from "./RadarChart";
 import axios from 'axios';
-// import puzzleBackground from '../image/Beige.png';
+import puzzleBackground from '../image/Beige.png';
 
 const PhysicianResults = () => {
     // LIST OF VARIABLES
@@ -27,6 +27,9 @@ const PhysicianResults = () => {
     const [thirteenCon, setThirteenCon] = useState("loading..."); // array with data for q13
     const [totalCon, setTotalCon] = useState("Survey score loading..."); // array with data for total score
 
+    const [tableDropTitle, setTableDropTitle] = useState("Select a recent survey...")
+    const [lineDropTitle, setLineDropTitle] = useState("Select a time range...")
+
     // line chart data
     const [chart, setChart] = useState([]); // holds chart data
     const [months, setMonths] = useState([]); // holds x axis month numbers
@@ -45,6 +48,7 @@ const PhysicianResults = () => {
             },
         ],
     };
+    const [val, setVal] = useState(12); // holds chart data
 
     // radar chart data
     const [startDate, setStartDate] = useState("2023-03-25");
@@ -80,11 +84,6 @@ const PhysicianResults = () => {
     };
 
     //drop down menu data
-    const [optZero, setOptZero] = useState();
-    const [optOne, setOptOne] = useState();
-    const [optTwo, setOptTwo] = useState();
-    const [optThree, setOptThree] = useState();
-    const [optFour, setOptFour] = useState();
     const [dropHolder, setDropHolder] = useState();
 
     // loading variables
@@ -109,10 +108,10 @@ const PhysicianResults = () => {
     const getData = async () => {
         try {
             // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-            const number = parseInt(localStorage.getItem("patientID"));
+            var patientID = JSON.parse(localStorage.getItem('patientID'));
 
             const bodyParameters = {
-                UserNumber: number, // change to pull actual UserNumber
+                UserNumber: patientID, // change to pull actual UserNumber
             };
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getAllResults', bodyParameters);
@@ -129,7 +128,6 @@ const PhysicianResults = () => {
             setLoadingRadar(false);
             setLoadingLine(false);
             setLoadingTable(false);
-            console.log(chart)
             console.log(table)
         } catch (err) {
             console.log(err);
@@ -139,23 +137,23 @@ const PhysicianResults = () => {
     const getRadarData = async () => {
         try {
             // pull data from axios of most recent survey, survey monthly averages, and set individual question responses
-            const number = parseInt(localStorage.getItem("patientID"));
+            var patientID = JSON.parse(localStorage.getItem('patientID'));
 
             const bodyParameters = {
+                UserNumber: patientID, // change to pull actual UserNumber
                 StartDate: startDate,
                 EndDate: endDate,
-                UserNumber: number, // change to pull actual UserNumber
             };
 
             const res = await axios.post('https://portal.ocay.org/api/Auth/getResultsByDate', bodyParameters);
+
             setRadarSurveys(res.data.userSurveys)
-            console.log(res.data)
             if (res.data.userSurveys.length > 0) {
                 setTicks((res.data.userSurveys.length) * 3);
             } else {
                 setTicks(10)
             }
-            
+
 
             setLoadingRadar(false);
         } catch (err) {
@@ -164,10 +162,10 @@ const PhysicianResults = () => {
     };
 
     // pull the monthly averages from [table] into an array of scores
-    const scoreArray = (arr) => arr.map(x => x.averageScore);
+    const scoreArray = (arr) => arr.map(x => x.score);
 
     // pull the months from [table] that have monthly averages
-    const monthArray = (arr) => arr.map(x => x.month);
+    const monthArray = (arr) => arr.map(x => x.timestamp.substring(5, 10));
 
     // determine if words in each [--Con] variable get a red or green badge
     const badgeSet = (arr, n) => arr.map(x => {
@@ -184,31 +182,31 @@ const PhysicianResults = () => {
     });
 
     // take [months] and turn it into an array of month names with [monthNames]
-    const names = (arr) => arr.map((month) => {
-        if (month === 1) {
-            return 'January';
-        } else if (month === 2) {
-            return 'February';
-        } else if (month === 3) {
-            return 'March';
-        } else if (month === 4) {
-            return 'April';
-        } else if (month === 5) {
-            return 'May';
-        } else if (month === 6) {
-            return 'June';
-        } else if (month === 7) {
-            return 'July';
-        } else if (month === 8) {
-            return 'August';
-        } else if (month === 9) {
-            return 'September';
-        } else if (month === 10) {
-            return 'October';
-        } else if (month === 11) {
-            return 'November';
-        } else if (month === 12) {
-            return 'December';
+    const names = (arr) => arr.map((x) => {
+        if (x.substring(0, 3) === '01-') {
+            return 'Jan ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '02-') {
+            return 'Feb ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '03-') {
+            return 'Mar ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '04-') {
+            return 'Apr ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '05-') {
+            return 'May ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '06-') {
+            return 'Jun ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '07-') {
+            return 'Jul ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '08-') {
+            return 'Aug ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '09-') {
+            return 'Sep ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '10-') {
+            return 'Oct ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '11-') {
+            return 'Nov ' + x.substring(3, 5);
+        } else if (x.substring(0, 3) === '12-') {
+            return 'Dec ' + x.substring(3, 5);
         } else {
             return ''; // Handle invalid month values as empty
         }
@@ -243,9 +241,6 @@ const PhysicianResults = () => {
                 if ((survey.q8).includes(x)) {
                     arr[x] += 1;
                 }
-                if ((survey.q9).includes(x)) {
-                    arr[x] += 1;
-                }
                 if ((survey.q10).includes(x)) {
                     arr[x] += 1;
                 }
@@ -277,9 +272,6 @@ const PhysicianResults = () => {
             if ((survey.q8).includes("Scared")) {
                 arr["Fear"] += 1;
             }
-            if ((survey.q9).includes("Scared")) {
-                arr["Fear"] += 1;
-            }
             if ((survey.q10).includes("Scared")) {
                 arr["Fear"] += 1;
             }
@@ -298,6 +290,7 @@ const PhysicianResults = () => {
     };
 
     const onSelect = (obj) => {
+        setTableDropTitle(obj.timestamp)
         setCurrentSurvey(obj);
     }
 
@@ -305,8 +298,7 @@ const PhysicianResults = () => {
     // render table
     const renderTable = () => {
         return (
-            <Container className="d-flex flex-column align-items-center mb-3">
-                <br />
+            <Container className="d-flex flex-column align-items-center mt-5">
                 <ol className="list-group list-group-numbered " style={{ height: '90%', width: '100%' }} >
                     <li className="list-group-item d-flex justify-content-between align-items-start" >
                         <div className="ms-2 me-auto">
@@ -400,8 +392,6 @@ const PhysicianResults = () => {
 
     // render radar chart
     const renderRadar = () => {
-        // console.log(Object.values(feelingsRef.current))
-        console.log(ticks)
         return (
             <RadarChart data={radarData} maxTicks={ticks} />
         );
@@ -412,10 +402,10 @@ const PhysicianResults = () => {
     // update the dropDown menu with the last 5 surveys available
     useEffect(() => {
         setDropHolder(
-            <Container className="pt-3 pb-1">
+            <Container>
                 <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
-                    <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC'} }>
-                        Select a recent survey...
+                    <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC' }}>
+                        {tableDropTitle}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {loadingDrop ? (
@@ -424,11 +414,7 @@ const PhysicianResults = () => {
                             </Dropdown.Item>
                         ) : table.length > 0 ? ( // Check if table has data
                             <>
-                                {optZero}
-                                {optOne}
-                                {optTwo}
-                                {optThree}
-                                {optFour}
+                                {renderDropCon()}
                             </>
                         ) : (
                             <Dropdown.Item href="#">
@@ -440,28 +426,28 @@ const PhysicianResults = () => {
                 <h1 > </h1>
             </Container>
         );
-    }, [totalCon, optFour]);
+    }, [totalCon, table.length]);
 
-    // set the options for the dropdown menu
-    useEffect(() => {
-        if (table != null && table != undefined && table.length > 0) {
-            if (table[0] != null && table[0] != undefined) {
-                setOptZero(dropDown(table[0]));
-            }
-            if (table[1] != null && table[1] != undefined) {
-                setOptOne(dropDown(table[1]));
-            }
-            if (table[2] != null && table[2] != undefined) {
-                setOptTwo(dropDown(table[2]));
-            }
-            if (table[3] != null && table[3] != undefined) {
-                setOptThree(dropDown(table[3]));
-            }
-            if (table[4] != null && table[4] != undefined) {
-                setOptFour(dropDown(table[4]));
-            }
+    // render table's drop down menu
+    const renderDropCon = () => {
+        if (table !== null && table !== undefined && table.length > 0) {
+            console.log(table)
+            return table.map((value) => {
+                if (value !== null && value !== undefined && value.timestamp) {
+                    var currentYear = new Date().getFullYear();
+                    var currentMonth = new Date().getMonth() + 1;
+                    var mon = parseInt(value.timestamp.substring(5, 7), 10);
+                    var year = parseInt(value.timestamp.substring(0, 5), 10);
+
+                    if (((mon <= currentMonth) && (year === currentYear)) || ((mon > currentMonth) && (year === currentYear - 1))) {
+                        return dropDown(value);
+                    }
+                    return false;
+                }
+                return null; // Or handle the null/undefined case appropriately
+            });
         }
-    }, [table.length]);
+    }
 
     // pull initial data from sql into [table], [chart], and [--Con]'s
     useEffect(() => {
@@ -494,17 +480,18 @@ const PhysicianResults = () => {
 
     // if [chart] has values in it (i.e. the patient has taken at least one survey) then separate [chart] into [months] and [scores]
     useEffect(() => {
-        if (chart.length !== 0) {
+        if (table.length !== 0) {
             setLoadingLine(true);
-            setMonths((monthArray(chart)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
-            setScores((scoreArray(chart)).reverse()); // set scores = [{average score per month for all months in the state: months}]
+            setMonths((monthArray(table)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
+            setScores((scoreArray(table)).reverse()); // set scores = [{average score per month for all months in the state: months}]
             setLoadingLine(false);
         }
-    }, [chart]);
+    }, [table]);
 
     // set [monthNames] to the names of the months in [months]
     useEffect(() => {
         setMonthNames(names(months));
+        console.log(monthNames)
     }, [months]);
 
     useEffect(() => {
@@ -513,7 +500,7 @@ const PhysicianResults = () => {
 
     useEffect(() => {
         getRadarData()
-        
+
     }, [startDate, endDate])
 
     useEffect(() => {
@@ -531,17 +518,57 @@ const PhysicianResults = () => {
             "Fever": 0
         })
         feelingsArray(radarSurveys)
-        console.log(feelings)
     }, [radarSurveys])
 
+    useEffect(() => {
+        setLineDropTitle(val + " months")
+        var currentMonth = new Date().getMonth() + 1;
+        var currentYear = new Date().getFullYear();
 
+        const filteredMonths = table.filter(date => {
+            const mon = parseInt(date.timestamp.substring(5, 7), 10);
+            const year = parseInt(date.timestamp.substring(0, 5), 10);
+            if (val === 6) {
+                if (mon < currentMonth) {
+                    return (mon > currentMonth - val) && (currentYear === year);
+                } else if (mon > currentMonth) {
+                    return (mon >= 13 - val + currentMonth) && (currentYear === year + 1);
+                } else if (mon === currentMonth) {
+                    return (currentYear === year)
+                }
+                return false;
+            } else if (val === 12) {
+                if (mon < currentMonth) {
+                    return year === currentYear;
+                } else if (mon > currentMonth) {
+                    return year === currentYear - 1;
+                } else if (mon === currentMonth) {
+                    return (year === currentYear)
+                }
+                return false;
+            } else if (val === 18) {
+                if (mon < currentMonth) {
+                    return (year === currentYear - 1 || year === currentYear) && (mon > currentMonth - 6)
+                } else if (mon > currentMonth) {
+                    return (year === currentYear - 1) || ((year === currentYear - 2) && (mon >= 13 - 6 + currentMonth))
+                } else if (mon === currentMonth) {
+                    return (year === currentYear || year === currentYear - 1)
+                }
+                return false;
+            } else if (val === 0) {
+                return true;
+            }
+        });
+        setMonths(monthArray(filteredMonths.reverse()));
+
+    }, [val])
 
     // FINAL LAODING FOR RENDERING
     // if [loadingTable] isn't true, load the table
     if (isEmpty) {
         contentsEmpty = (
             <p>
-                <em>Your patient has no surveys in our records! They can log in and take their survey at any time.</em>
+                <em>Your child has no surveys in our records! They can log in and take their survey at any time.</em>
             </p>
         )
         contentsTable = <p> </p>
@@ -578,8 +605,8 @@ const PhysicianResults = () => {
         ) : radarSurveys.length > 0 ? (
             renderRadar()
         ) : (
-            <p style={{ marginTop: '25px', color: 'black' }}>
-                <em>There are no surveys for this patient taken within that time frame.</em>
+            <p style={{ color: 'black' }}>
+                <em>There are no surveys for this child taken within that time frame.</em>
             </p>
         );
 
@@ -593,7 +620,7 @@ const PhysicianResults = () => {
             dropHolder
         );
     }
-    
+
 
     // FINAL RETURN
     return (// add "d-flex" to the container for alternate chart format
@@ -601,30 +628,42 @@ const PhysicianResults = () => {
             <Row>
                 {contentsEmpty}
             </Row>
-            <Row style={{ width: '100%', alignItems: 'center' }} >
-                    <Card style={{
-                        backgroundColor: '#FFFFFF',
-                        borderColor: '#79D4AC',
-                        width: '100%',
-                        color: '#79D4AC',
-                        padding: '25px',
-                    }}>
-                        <Card.Body className="text-center">
-                            <Card.Title className="text-left">
-                                {contentsDrop} 
-                            </Card.Title>
-                            {contentsTable}
-                        </Card.Body>
-                    </Card>
+            <Row style={{ width: '100%', alignItems: 'center', marginTop: '15px' }} >
+                <Card style={{
+                    backgroundColor: '#FFFFFF',
+                    borderColor: '#79D4AC',
+                    width: '100%',
+                    color: '#79D4AC',
+                    padding: '25px',
+                    paddingBottom: '30px',
+                }}>
+                    <Card.Body className="text-center">
+                        <Card.Title className="text-left">
+                            {contentsDrop}
+                        </Card.Title>
+                        {contentsTable}
+                    </Card.Body>
+                </Card>
             </Row>
-            <br />
-            <Row >
+
+            <Row style={{ marginTop: '30px' }}>
                 <Card style={{
                     backgroundColor: '#FFFFFF',
                     borderColor: '#79D4AC',
                     color: '#79D4AC',
                 }}>
                     <Card.Body className="text-center">
+                        All Survey Within the Last <Dropdown style={{ color: '#a6a6a6', fontSize: '35px' }}>
+                            <Dropdown.Toggle id="dropdown-basic" style={{ backgroundColor: '#FFFFFF', color: '#79D4AC' }}>
+                                {lineDropTitle}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#" onClick={() => setVal(6)} >6 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(12)} >12 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(18)} >18 months</Dropdown.Item>
+                                <Dropdown.Item href="#" onClick={() => setVal(0)} >All time</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                         {contentsLine}
                     </Card.Body>
                 </Card>
@@ -637,17 +676,17 @@ const PhysicianResults = () => {
                     color: '#79D4AC'
                 }}>
                     <Card.Body className="text-center">
-                        <Card.Title className="text-left mt-3">
+                        <Card.Title className="text-left mt-3 pt-3">
                             <Form>
-                                <Row style={{ marginBottom: '5px' }}>
-                                    <Col style={{ display:'flex', justifyContent: 'right',  width: '100%' }}>
+                                <Row style={{ marginBottom: '8px' }}>
+                                    <Col style={{ display: 'flex', justifyContent: 'right', width: '100%' }}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'left',
                                             width: '200px',
                                             fontSize: '20px',
-                                            marginBottom: '0px',
+                                            height: '33px',
                                         }}>Start Date: </Form.Label>
                                     </Col>
                                     <Col style={{ width: '100%' }}>
@@ -662,13 +701,14 @@ const PhysicianResults = () => {
                                             }}
                                             onChange={(e) => setStartDate(e.target.value)} />
                                     </Col>
-                                    <Col style={{display:'flex', justifyContent: 'right'}}>
+                                    <Col style={{ display: 'flex', justifyContent: 'right' }}>
                                         <Form.Label style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             width: '200px',
                                             fontSize: '20px',
+                                            height: '33px',
                                             marginBottom: '0px',
                                         }}>End Date: </Form.Label>
                                     </Col>
@@ -682,8 +722,11 @@ const PhysicianResults = () => {
                                             }} onChange={(o) => setEndDate(o.target.value)} />
                                     </Col>
                                 </Row>
-                                <Row style={{  marginBottom: '5px' }}>
-                                    
+                                <Row style={{ marginBottom: '5px' }}>
+
+                                </Row>
+                                <Row style={{ marginBottom: '5px' }}>
+
                                 </Row>
                             </Form>
                         </Card.Title>
@@ -691,6 +734,8 @@ const PhysicianResults = () => {
                     </Card.Body>
                 </Card>
             </Row>
+            <br />
+            <br />
             <br />
             <br />
         </Container>
