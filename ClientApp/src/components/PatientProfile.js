@@ -183,8 +183,8 @@ const PatientProfile = () => {
                                                     onChange={(event) => setPhysicianUserNumber(event.target.value)}
 
                                                 />
-                                                <MDBBtn style={{ backgroundColor: "#79D4AC", color: "white", fontSize: "0.9em", border: "none", outline: "none", height: "100%", width: "13%" }} onClick={onPressAdd}>Add</MDBBtn>
-                                                <MDBBtn style={{ color: "white", fontSize: "0.9em", backgroundColor: "#ff4d4d", border: "none", outline: "none", height: "100%", width: "16%" }} onClick={onPressDelete}>Delete</MDBBtn>
+                                                <MDBBtn style={{ backgroundColor: "#79D4AC", color: "white", fontSize: "0.9em", border: "none", outline: "none", height: "100%" }} onClick={onPressAdd}>Add</MDBBtn>
+                                                <MDBBtn style={{ color: "white", fontSize: "0.9em", backgroundColor: "#ff4d4d", border: "none", outline: "none", height: "100%" }} onClick={onPressDelete}>Delete</MDBBtn>
                                             </MDBInputGroup>
                                         </MDBCol>
                                     </MDBRow>
