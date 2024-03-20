@@ -529,6 +529,11 @@ const Question = () => {
     }
   }, [questionIndex, mute]);
 
+  // useEffect(() => {
+  //   console.log(answer);
+  //   console.log("hi");
+  // }, [answer]);
+
   const [audioElement, setAudioElement] = useState(new Audio()); // audio element for playing the synthesized speech
 
   const polly = new AWS.Polly(); // creating polly from AWS
@@ -819,7 +824,9 @@ const Question = () => {
                   style={{
                     backgroundColor: "white",
                     border: "none",
-                    boxShadow: active.includes(card.description)
+                    boxShadow: getSelectedAnswers(questionIndex).includes(
+                      card.description
+                    )
                       ? "0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5"
                       : "none",
                     borderRadius: "0.3rem",
@@ -832,7 +839,7 @@ const Question = () => {
                     <img
                       src={card.imageSrc}
                       className="img-fluid"
-                      alt="Card Image"
+                      alt="Card"
                       style={{ width: "100%" }}
                     />
                   </div>
@@ -856,7 +863,9 @@ const Question = () => {
                   style={{
                     backgroundColor: "white",
                     border: "none",
-                    boxShadow: active.includes(card.description)
+                    boxShadow: getSelectedAnswers(questionIndex).includes(
+                      card.description
+                    )
                       ? "0 0 0 0.2rem rgba(255, 255, 255, 0.5), 0 0 0 0.5rem #7ab8a5"
                       : "none",
                     borderRadius: "0.3rem",
@@ -869,7 +878,7 @@ const Question = () => {
                     <img
                       src={card.imageSrc}
                       className="img-fluid"
-                      alt="Card Image"
+                      alt="Card"
                       style={{ width: "100%" }}
                     />
                   </div>
