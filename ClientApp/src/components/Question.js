@@ -64,7 +64,6 @@ const Question = () => {
   const [desktopView, setDesktopView] = useState(
     window.matchMedia("(min-width: 768px)").matches
   );
-  const [active, setActive] = useState([]);
 
   var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk];
 
@@ -91,12 +90,6 @@ const Question = () => {
   };
 
   const onPressAnswer = (questionIndex, description) => {
-    setActive(
-      active.includes(description)
-        ? active.filter((item) => item !== description)
-        : [...active, description]
-    );
-
     // Get the corresponding state setter function based on the question index
     const setAnswer = getSetAnswerFunction(questionIndex);
 
@@ -621,7 +614,6 @@ const Question = () => {
     if (questionIndex == 0) {
       setShowModal(true);
     }
-    setActive([]);
   };
 
   const forwardButton = () => {
@@ -650,7 +642,6 @@ const Question = () => {
         setShowCompleteModal(true);
       }
     }
-    setActive([]);
   };
 
   const closeModal = () => {
