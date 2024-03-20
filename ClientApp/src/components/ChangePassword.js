@@ -5,7 +5,6 @@ import '../custom.css';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
 import logo from '../image/OCAY_logo.png';
-import puzzleBackground from '../image/puzzleBackground.png';
 
 const ChangePassword = () => {
     const navigate = useNavigate();
@@ -131,11 +130,11 @@ const ChangePassword = () => {
     );
 
     return !location ? (
-        <div style={{ backgroundImage: `url(${puzzleBackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        <div style={{ backgroundColor: '#7ab8a5', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
             {content}
         </div>
     ) : (
-        <div>
+        <div style={{ backgroundColor: '#7ab8a5', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
             {content}
         </div>
     );

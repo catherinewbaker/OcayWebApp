@@ -1,25 +1,11 @@
 ﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Container,
-  Form,
-  Row,
-  Modal,
-  Col,
-  Card,
-  ProgressBar,
-} from "react-bootstrap";
+import { Button, Container, Modal, Card, ProgressBar, } from "react-bootstrap";
 import Slider from "@mui/material/Slider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../custom.css";
 import AWS from "./authorization/aws";
-import {
-  MdPlayCircle,
-  MdArrowCircleLeft,
-  MdArrowCircleRight,
-  MdVolumeMute,
-} from "react-icons/md";
+import { MdPlayCircle, MdArrowCircleLeft, MdArrowCircleRight, MdVolumeMute, } from "react-icons/md";
 import { RiPlayFill, RiVolumeUpFill, RiVolumeMuteFill } from "react-icons/ri";
 import { SpeechToText } from "./SpeechToText";
 import { CustomSlider } from "./CustomSlider";
@@ -638,7 +624,6 @@ const Question = () => {
       if (questionIndex == 12) {
         // check if any of the answer arrays are empty except q13, render popup warning if empty, render loading animation if answers are all filled
         whichDog();
-        setShowDogModal(true);
         setShowCompleteModal(true);
       }
     }
@@ -879,7 +864,7 @@ const Question = () => {
           )}
         </div>
       )}
-
+      <br />
       {questionIndex < 11 && (
         <Container className=" d-flex justify-content-center">
           <Button
@@ -985,9 +970,6 @@ const Question = () => {
       </Modal>
 
       <Modal show={showDogModal} onHide={closeDogModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>You're doing great!</Modal.Title>
-        </Modal.Header>
         <Modal.Body>
           <div className="d-flex justify-content-center">
             <img style={{ width: "80%" }} src={dogGif} alt="Responsive" />
@@ -995,10 +977,25 @@ const Question = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={closeDogModal}>
-            Close
+            You're doing great! Keep going!'
           </Button>
         </Modal.Footer>
-      </Modal>
+          </Modal>
+          <Modal show={showDogModal} onHide={closeDogModal} centered>
+              <Modal.Body>
+                  <div className="d-flex justify-content-center">
+                      <img style={{ width: "80%" }} src={dogGif} alt="Responsive" />
+                  </div>
+              </Modal.Body>
+              <Modal.Footer className="d-flex justify-content-center">
+                  <div className="d-flex justify-content-center">
+                      <Button variant="primary" onClick={closeDogModal} className="btn-lg">
+                          You're doing great! Keep going!
+                      </Button>
+                  </div>
+              </Modal.Footer>
+          </Modal>
+
     </Container>
   );
 };
