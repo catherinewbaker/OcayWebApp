@@ -1,0 +1,10 @@
+http:
+  routers:
+    myservice:
+      rule: "Host(`https://ocay-container-app.lemonstone-a50330db.eastus.azurecontainerapps.io`)"
+      service: myservice
+  services:
+    myservice:
+      loadBalancer:
+        servers:
+          - url: "http://portal.ocay.org"
