@@ -31,6 +31,7 @@ const Signup = () => {
   const [inputCode, setInputCode] = useState("");
   const [code, setCode] = useState("");
   const [loadingRegister, setLoadingRegister] = useState(false);
+  const key = process.env.REACT_APP_BREVO_API_KEY
 
   const onClickVerify = async () => {
     const randomNum = Math.floor(Math.random() * 10000);
@@ -65,7 +66,7 @@ const Signup = () => {
         {
           headers: {
             accept: "application/json",
-            "api-key": process.env.REACT_APP_BREVO_API_KEY,
+            "api-key": key,
             "content-type": "application/json",
           },
         }

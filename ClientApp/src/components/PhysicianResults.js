@@ -34,12 +34,13 @@ const PhysicianResults = () => {
     const [chart, setChart] = useState([]); // holds chart data
     const [months, setMonths] = useState([]); // holds x axis month numbers
     const [scores, setScores] = useState([]); // holds y axis score month averages
+    const [years, setYears] = useState([]); // holds y axis years
     const [monthNames, setMonthNames] = useState([""]); // holds x axis month names
     const lineData = { // data to pass to line chart
         labels: monthNames,
         datasets: [
             {
-                label: "Score Average Per Month",
+                label: "Past Survey Scores",
                 data: scores,
                 backgroundColor: "#79D4AC",
                 borderColor: "#79D4AC",
@@ -167,6 +168,9 @@ const PhysicianResults = () => {
     // pull the months from [table] that have monthly averages
     const monthArray = (arr) => arr.map(x => x.timestamp.substring(5, 10));
 
+    // pull the years from [table] that have monthly averages (to be added back to the month dates)
+    const yearArray = (arr) => arr.map(x => x.timestamp.substring(0, 4));
+
     // determine if words in each [--Con] variable get a red or green badge
     const badgeSet = (arr, n) => arr.map(x => {
         debugIndex += 1;
@@ -181,35 +185,21 @@ const PhysicianResults = () => {
         }
     });
 
-    // take [months] and turn it into an array of month names with [monthNames]
-    const names = (arr) => arr.map((x) => {
-        if (x.substring(0, 3) === '01-') {
-            return 'Jan ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '02-') {
-            return 'Feb ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '03-') {
-            return 'Mar ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '04-') {
-            return 'Apr ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '05-') {
-            return 'May ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '06-') {
-            return 'Jun ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '07-') {
-            return 'Jul ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '08-') {
-            return 'Aug ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '09-') {
-            return 'Sep ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '10-') {
-            return 'Oct ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '11-') {
-            return 'Nov ' + x.substring(3, 5);
-        } else if (x.substring(0, 3) === '12-') {
-            return 'Dec ' + x.substring(3, 5);
+    var yearChecker = 0;
+    // take [months] and [years] and turn it into a single array of ['mm/dd/yyyy']
+    const names = (arr, yr) => arr.map((x, i) => {
+        // Extract month and day
+        let month = x.substring(0, 2);
+        let day = x.substring(3, 5);
+
+        // Construct the new date format with the year
+        if (month == '01' && yearChecker !== yr[i]) {
+            yearChecker = yr[i]
+            return `${month}/${day}/${yr[i]}`;
         } else {
-            return ''; // Handle invalid month values as empty
+            return `${month}/${day}`;
         }
+        
     });
 
     const feelingsArray = (arr) => arr.map(x => updateFeelings(feelingsRef.current, x));
@@ -484,13 +474,14 @@ const PhysicianResults = () => {
             setLoadingLine(true);
             setMonths((monthArray(table)).reverse()); // set months = [{all months for which the user submitted at least 1 survey in chrono order}]
             setScores((scoreArray(table)).reverse()); // set scores = [{average score per month for all months in the state: months}]
+            setYears((yearArray(table)).reverse())
             setLoadingLine(false);
         }
     }, [table]);
 
     // set [monthNames] to the names of the months in [months]
     useEffect(() => {
-        setMonthNames(names(months));
+        setMonthNames(names(months, years));
         console.log(monthNames)
     }, [months]);
 
@@ -521,14 +512,19 @@ const PhysicianResults = () => {
     }, [radarSurveys])
 
     useEffect(() => {
-        setLineDropTitle(val + " months")
+        if (val !== 0) {
+            setLineDropTitle(val + " months")
+        } else {
+            setLineDropTitle('All time')
+        }
+        
         var currentMonth = new Date().getMonth() + 1;
         var currentYear = new Date().getFullYear();
 
         const filteredMonths = table.filter(date => {
             const mon = parseInt(date.timestamp.substring(5, 7), 10);
             const year = parseInt(date.timestamp.substring(0, 5), 10);
-            if (val === 6) {
+            if (val === 6) { // line graph of last 6 months
                 if (mon < currentMonth) {
                     return (mon > currentMonth - val) && (currentYear === year);
                 } else if (mon > currentMonth) {
@@ -537,7 +533,7 @@ const PhysicianResults = () => {
                     return (currentYear === year)
                 }
                 return false;
-            } else if (val === 12) {
+            } else if (val === 12) { // line graph of last 12 months
                 if (mon < currentMonth) {
                     return year === currentYear;
                 } else if (mon > currentMonth) {
@@ -546,7 +542,7 @@ const PhysicianResults = () => {
                     return (year === currentYear)
                 }
                 return false;
-            } else if (val === 18) {
+            } else if (val === 18) { // line graph of last 18 months
                 if (mon < currentMonth) {
                     return (year === currentYear - 1 || year === currentYear) && (mon > currentMonth - 6)
                 } else if (mon > currentMonth) {
@@ -559,6 +555,7 @@ const PhysicianResults = () => {
                 return true;
             }
         });
+        console.log(table.date)
         setMonths(monthArray(filteredMonths.reverse()));
 
     }, [val])
