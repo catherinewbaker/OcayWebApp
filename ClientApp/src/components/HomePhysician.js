@@ -9,6 +9,7 @@ const HomePhysician = () => {
         getData();
     }, []);
 
+    // Function to retrieve and parse user data from localStorage
     const getData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 
@@ -25,7 +26,6 @@ const HomePhysician = () => {
         }
     }
 
-
     return (
         <div style={{ height: "100vh" }}>
             <h1 className="d-flex justify-content-center mt-5" style={{ color: 'black', fontSize: '35px' , fontWeight: 'bold' }} >Welcome back Dr. {name}!</h1>
@@ -36,6 +36,5 @@ const HomePhysician = () => {
             </div>
         </div>
     )
-
 }
 export { HomePhysician };

@@ -13,6 +13,7 @@ const HomePatient = () => {
         getData();
     }, []);
 
+    // Function to retrieve and parse user data from localStorage
     const getData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 
@@ -29,10 +30,12 @@ const HomePatient = () => {
         }
     }
 
+    // Quick link user to survey
     const onPressSurvey = () => {
         navigate('/survey')
     }
 
+    // Quick link user to results
     const onPressResults = () => {
         navigate('/PatientResults')
     }

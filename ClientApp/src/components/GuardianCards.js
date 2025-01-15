@@ -3,15 +3,18 @@ import axios from 'axios';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 
+// Displays a list of patients for a guardian and allows navigation to patient details
 const GuardianCards = () => {
     const navigate = useNavigate();
     const [patients, setPatients] = useState({});
     const [number, setNumber] = useState("");
 
+    // `useEffect` to fetch patients when the `number` changes
     useEffect(() => {
         getPatients();
     }, [number]);
 
+    // Function to fetch patient data associated with the physician
     const getPatients = async () => {
         const storedDataString = localStorage.getItem('userInfo');
         const storedDataObject = JSON.parse(storedDataString);
@@ -31,6 +34,7 @@ const GuardianCards = () => {
 
     };
 
+    // Function to handle patient selection. Stores the patient ID and navigates to the results page
     const onPressPatient = async (patientID) => {
         await localStorage.setItem("patientID", patientID)
         navigate("/GuardianResults")
@@ -40,6 +44,7 @@ const GuardianCards = () => {
         console.log(patients)
     }, [patients])
 
+    // Conditional rendering: If no patients are found, display an error message
     if(Object.keys(patients).length === 0 || patients == null){
         return (
              <Container className="d-flex flex-column align-items-left">

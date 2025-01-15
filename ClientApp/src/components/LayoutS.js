@@ -4,6 +4,7 @@ import { NavMenu } from './NavMenu';
 import './Layout.css';
 // import puzzleBackground from '../image/Alternative.png';
 
+// Provides the layout for the navbar component with the web pages
 export class LayoutS extends Component {
     static displayName = LayoutS.name;
 

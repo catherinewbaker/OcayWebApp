@@ -11,18 +11,19 @@ import loginLoad from '../image/loginLoad.gif';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [showModal, setShowModal] = useState('')
-    const [modalEmail, setModalEmail] = useState('')
-    const [showInput, setShowInput] = useState(false)
-    const [code, setCode] = useState('')
-    const [inputCode, setInputCode] = useState('')
-    const [verifyError, setVerifyError] = useState('')
-    const [emailError, setEmailError] = useState('')
-    const [loadingLogin, setLoadingLogin] = useState(false)
+    const [email, setEmail] = useState(''); // Email input field state
+    const [password, setPassword] = useState(''); // Password input field state
+    const [error, setError] = useState(''); // General error message for login validation
+    const [showModal, setShowModal] = useState(''); // Modal visibility state for verification
+    const [modalEmail, setModalEmail] = useState(''); // Email entered in the modal for verification
+    const [showInput, setShowInput] = useState(false); // Whether to show input for verification code
+    const [code, setCode] = useState(''); // Generated verification code
+    const [inputCode, setInputCode] = useState(''); // User input for the verification code
+    const [verifyError, setVerifyError] = useState(''); // Error message for verification failure
+    const [emailError, setEmailError] = useState(''); // Error message related to email checks
+    const [loadingLogin, setLoadingLogin] = useState(false); // Loading state for login submission
 
+    // Function to verify the provided email address via the backend API
     const onClickVerify = async () => {
         const input = {
             Email: modalEmail
@@ -37,11 +38,13 @@ const Login = () => {
         }
     }
 
+    // Function to send a verification email with a 4-digit code
     const onClickVerify2 = async () => {
         const randomNum = Math.floor(Math.random() * 10000);
         const code = randomNum.toString().padStart(4, '0');
         await setCode(code); // Update the state with the new code value
 
+        // Email request payload for Brevo's API
         const requestData = {
             sender: {
                 name: 'OCAY Team',
@@ -84,6 +87,7 @@ const Login = () => {
 
     };
    
+    // Function to handle the submission of the verification code
     const onClickSubmit = () => {
         if (code === inputCode) {
             setVerifyError("")
@@ -96,14 +100,15 @@ const Login = () => {
         }
     }
 
+    // Input change handlers for email and password fields
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
-
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
 
+    // Function to handle login form submission
     const handleLoginFormSubmit = async (event) => {
         setLoadingLogin(true)
         event.preventDefault();
@@ -135,6 +140,7 @@ const Login = () => {
         
     };
 
+    // Conditional rendering based on loading status
     var loginLoadContents = loadingLogin ? (
         <>
             <em>  </em>

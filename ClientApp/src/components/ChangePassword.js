@@ -18,6 +18,7 @@ const ChangePassword = () => {
         getData();
     }, []);
 
+    // Function to retrieve user data from localStorage and update state variables
     const getData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 
@@ -30,14 +31,15 @@ const ChangePassword = () => {
         }
     }
 
+    // set new password
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
-
+    // confirm new password
     const handlerePasswordChange = (event) => {
         setRePassword(event.target.value);
     };
-
+    // upon submission, change password in the database and handle errors
     const handleRegisterFormSubmit = async (event) => {
         event.preventDefault();
 

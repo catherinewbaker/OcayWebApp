@@ -24,17 +24,17 @@ import ConfettiGenerator from "confetti-js";
 
 const Question = () => {
   const navigate = useNavigate();
-  const [answer, setAnswer] = useState("");
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [showQuestionModal, setShowQuestionModal] = useState(false);
-  const [showCompleteModal, setShowCompleteModal] = useState(false);
-  const [showDogModal, setShowDogModal] = useState(false);
-  const [dogGif, setDogGif] = useState("../image/DogBackflip");
-  const [buttonActive, setButtonActive] = useState(false);
-  const [q1, setQ1] = useState([]);
-  const [q2, setQ2] = useState([]);
-  const [q3, setQ3] = useState([]);
+  const [answer, setAnswer] = useState(""); // Stores the current answer
+  const [questionIndex, setQuestionIndex] = useState(0); // Tracks the current question index
+  const [showModal, setShowModal] = useState(false); // Controls the visibility of the main modal
+  const [showQuestionModal, setShowQuestionModal] = useState(false); // Controls the visibility of the question modal
+  const [showCompleteModal, setShowCompleteModal] = useState(false); // Controls the visibility of the completion modal
+  const [showDogModal, setShowDogModal] = useState(false); // Controls the visibility of the dog modal
+  const [dogGif, setDogGif] = useState("../image/DogBackflip"); // Stores the path to the current dog GIF
+  const [buttonActive, setButtonActive] = useState(false); // Tracks the active state of a button
+  const [q1, setQ1] = useState([]); // Stores answers for question 1
+  const [q2, setQ2] = useState([]); // Stores answers for question 2
+  const [q3, setQ3] = useState([]); // Stores answers for question 3, and on...
   const [q4, setQ4] = useState([]);
   const [q5, setQ5] = useState([]);
   const [q6, setQ6] = useState([]);
@@ -45,36 +45,42 @@ const Question = () => {
   const [q11, setQ11] = useState([]);
   const [q12, setQ12] = useState(5);
   const [q13, setQ13] = useState("");
-  const [mute, setMute] = useState(false);
-  const [last, setLast] = useState(0);
+  const [mute, setMute] = useState(false); // Tracks the mute state
+  const [last, setLast] = useState(0); // Tracks the index of the last shown dog GIF
   const [desktopView, setDesktopView] = useState(
-    window.matchMedia("(min-width: 768px)").matches
+    window.matchMedia("(min-width: 768px)").matches // Determines if the view is desktop size
   );
-
+  // Array of dog GIF names
   var dogArray = [back, chase, eat, play, roll, run, sit, sleep, tilt, walk];
 
+  // Function to select and display a random dog GIF
   const whichDog = () => {
+    // Retrieve or initialize an index array to track displayed GIFs
     let indexArray = JSON.parse(localStorage.getItem("indexArray")) || [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ];
-    let reset = indexArray.every((val) => val === 1);
 
+    // Check if all GIFs have been displayed, then reset
+    let reset = indexArray.every((val) => val === 1);
     if (reset) {
       indexArray = indexArray.map(() => 0);
     }
 
+    // Randomly select an index for the next GIF, avoiding repeats
     let ind = Math.floor(Math.random() * 10);
     while (indexArray[ind] === 1 || ind === last) {
       ind = (ind + 1) % 10;
     }
 
+    // Mark the selected index as used
     indexArray[ind] = 1;
     localStorage.setItem("indexArray", JSON.stringify(indexArray));
 
-    setLast(ind);
-    setDogGif(dogArray[ind]);
+    setLast(ind); // Update the last index
+    setDogGif(dogArray[ind]); // Update the displayed GIF
   };
 
+  // Function to handle answer selection for a question
   const onPressAnswer = (questionIndex, description) => {
     // Get the corresponding state setter function based on the question index
     const setAnswer = getSetAnswerFunction(questionIndex);
@@ -202,6 +208,7 @@ const Question = () => {
 
   const now = Math.round(((questionIndex + 1) / 13) * 100);
 
+  // Descriptions of data pertinent to each question in the survey including question, answer options, and answer option displays
   const cardsData = [
     {
       question: "I feel ____ about the appointment today.",
@@ -499,6 +506,7 @@ const Question = () => {
     },
   ];
 
+// useEffect for handling question changes and text-to-speech synthesis
   useEffect(() => {
     if (!mute) {
       let question = cardsData[questionIndex].question;
@@ -517,6 +525,7 @@ const Question = () => {
 
   const polly = new AWS.Polly(); // creating polly from AWS
 
+  // Function to synthesize speech using AWS Polly
   const synthesize = (input) => {
     const params = {
       Text: input,
@@ -526,6 +535,7 @@ const Question = () => {
       Engine: "neural",
     };
 
+    // Making a request to Polly's synthesizeSpeech API
     polly.synthesizeSpeech(params, (err, data) => {
       if (err) {
         console.error(err);
@@ -533,6 +543,7 @@ const Question = () => {
         const audioBlob = new Blob([data.AudioStream], { type: "audio/mpeg" });
         const audioUrl = URL.createObjectURL(audioBlob);
 
+        // Assign the audio source and play the audio
         audioElement.src = audioUrl;
         audioElement.play();
       }
@@ -552,6 +563,7 @@ const Question = () => {
     }
   };
 
+  // Function to create SSML input for AWS Polly based on the question index, question text, and answers
   const createAWSinput = (index, question, answers) => {
     let result = "<speak> ";
 
@@ -587,12 +599,14 @@ const Question = () => {
     return result;
   };
 
+  // Function to toggle mute and pause audio if mute is enabled
   const onPressMute = () => {
     if (mute == false) {
       audioElement.pause();
     }
     setMute((prevMute) => !prevMute);
   };
+  // Navigation logic for the previous question button
   const backButton = () => {
     if (questionIndex > 0) {
       setQuestionIndex(questionIndex - 1);
@@ -602,6 +616,7 @@ const Question = () => {
     }
   };
 
+  // Navigation logic for the next question button
   const forwardButton = () => {
     // put logic to call synthesize function
     if (
@@ -642,10 +657,12 @@ const Question = () => {
     setShowDogModal(false);
   };
 
+  // Function to navigate back to the survey page
   const onPressExit = () => {
     navigate("/survey");
   };
 
+  // Function to handle survey submission
   const onPressComplete = async () => {
     var object = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -692,12 +709,14 @@ const Question = () => {
     }
   };
 
+  // Effect to handle viewport changes for responsiveness
   useEffect(() => {
     window
       .matchMedia("(min-width: 768px)")
       .addEventListener("change", (e) => setDesktopView(e.matches));
   }, []);
 
+  // Effect to render confetti when the completion modal is shown
   useEffect(() => {
     if (showCompleteModal) {
       const confettiSettings = { target: "my-canvas" };

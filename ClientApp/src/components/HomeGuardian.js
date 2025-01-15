@@ -10,6 +10,7 @@ const HomeGuardian = () => {
         getData();
     }, []);
 
+    // Function to retrieve and parse user data from localStorage
     const getData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 

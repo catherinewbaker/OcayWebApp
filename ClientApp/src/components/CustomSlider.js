@@ -11,6 +11,7 @@ import Level5 from "../image/middlePain.png"
 import Level7 from "../image/discomfortPain.png"
 import Level10 from "../image/sadPain.png"
 
+// Outlines a slider on a number scale for question 12 of the survey
 const CustomSlider = ({ q12, onQ12Change }) => {
 
     const marks = [

@@ -6,14 +6,17 @@ import { useNavigate } from 'react-router-dom'
 
 const GuardianProfile = () => {
     const navigate = useNavigate();
+    // Guardian information pulled from user data
     const [name, setName] = useState("");
     const [id, setId] = useState("");
     const [email, setEmail] = useState("");
+    // Patient information 
     const [nameArray, setNameArray] = useState([]);
     const [idArray, setIdArray] = useState([]);
     const [scoreArray, setScoreArray] = useState([]);
     const [input, setInput] = useState();
 
+    // Function to retrieve user data from localStorage and update state variables
     const getUserData = () => {
         const storedDataString = localStorage.getItem('userInfo');
 
@@ -28,6 +31,7 @@ const GuardianProfile = () => {
         }
     }
 
+    // Function to fetch connected user data from the API and update related state variables
     const getCons = async () => {
         const pInput = {
             UserNumber: input,
@@ -54,6 +58,7 @@ const GuardianProfile = () => {
         }
     }
 
+    // Function to fetch scores for connected users from the API
     const getScores = async () => {
         try {
             const input2 = {
@@ -68,6 +73,7 @@ const GuardianProfile = () => {
         }
     }
 
+    // Function to delete the user's account
     const onPressDeleteAccount = async () => {
         try {
             const storedDataString = localStorage.getItem('userInfo')

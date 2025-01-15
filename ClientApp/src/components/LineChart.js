@@ -2,7 +2,7 @@ import React from "react";
 import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 
-
+// Component to render a line chart from chart.js
 const LineChart = ({ data }) => {
     return (
         <div>

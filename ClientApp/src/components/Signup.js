@@ -18,21 +18,22 @@ import loginLoad from "../image/loginLoad.gif";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [FName, setFName] = useState("");
-  const [LName, setLName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [error, setError] = useState("");
-  const [verifyError, setVerifyError] = useState("");
-  const [isPatient, setIsPatient] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [inputCode, setInputCode] = useState("");
-  const [code, setCode] = useState("");
-  const [loadingRegister, setLoadingRegister] = useState(false);
-  const key = process.env.REACT_APP_BREVO_API_KEY
+  const [FName, setFName] = useState(""); // First Name input field state
+  const [LName, setLName] = useState(""); // Last Name input field state
+  const [email, setEmail] = useState(""); // Email input field state
+  const [password, setPassword] = useState(""); // Password input field state
+  const [rePassword, setRePassword] = useState(""); // Confirm password input field state
+  const [error, setError] = useState(""); // Error message for form validation
+  const [verifyError, setVerifyError] = useState(""); // Error message for email verification
+  const [isPatient, setIsPatient] = useState(""); // Checkbox value for patient status
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [isVerified, setIsVerified] = useState(false); // Email verification status
+  const [inputCode, setInputCode] = useState(""); // User input for verification code
+  const [code, setCode] = useState(""); // Generated verification code
+  const [loadingRegister, setLoadingRegister] = useState(false); // Loading state for form submission
+  const key = process.env.REACT_APP_BREVO_API_KEY; // API key for email service (secured via environment variable)
 
+  // Function to send a verification email with a 4-digit code
   const onClickVerify = async () => {
     const randomNum = Math.floor(Math.random() * 10000);
     const code = randomNum.toString().padStart(4, "0");
@@ -95,31 +96,28 @@ const Signup = () => {
     setShowModal(false);
   };
 
+  // Input change handlers for each field
   const handleFNameChange = (event) => {
     setFName(event.target.value);
   };
-
   const handleLNameChange = (event) => {
     setLName(event.target.value);
   };
-
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   const handlerePasswordChange = (event) => {
     setRePassword(event.target.value);
   };
-
   const handleCheckChange = (event) => {
     const value = event.target.value;
     setIsPatient(value);
   };
 
+  // Form submission handler for registration
   const handleRegisterFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -149,6 +147,7 @@ const Signup = () => {
       };
 
       try {
+        // Send registration data to the API
         const response = await axios.post(
           "https://portal.ocay.org/api/Auth/register",
           data
@@ -171,6 +170,7 @@ const Signup = () => {
     }
   };
 
+  // Conditional rendering for loading spinner during registration
   var registerLoadingContents = loadingRegister ? (
     <>
       <em> </em>

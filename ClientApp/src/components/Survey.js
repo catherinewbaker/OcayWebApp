@@ -8,6 +8,7 @@ const Survey = () => {
     const navigate = useNavigate();
 
     var warning = " ";
+    // Function to handle the start button press. It navigates to the survey questions page if the user has read the terms and conditions.
     const onPressStart = () => {
         if (hasRead) {
             navigate('/survey/questions')
@@ -15,6 +16,7 @@ const Survey = () => {
     }
 
     const [hasRead, setHasRead] = useState(false); // whether user has read the terms and conditions yet
+    // Function to toggle the `hasRead` state when the checkbox is pressed.
     const toggleRead = () => { // switches bool values when checkbox pressed
         if (hasRead) {
             setHasRead(!hasRead);

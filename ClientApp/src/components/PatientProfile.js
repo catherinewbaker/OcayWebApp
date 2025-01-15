@@ -7,6 +7,7 @@ import '../custom.css';
 
 const PatientProfile = () => {
     const navigate = useNavigate();
+    // Patient information pulled from user data
     const [name, setName] = useState("");
     const [id, setId] = useState("");
     const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ const PatientProfile = () => {
         getData();
     }, []);
 
+    // Function to retrieve user data from localStorage and update state variables
     const getData = async () => {
         const storedDataString = localStorage.getItem('userInfo');
 
@@ -41,6 +43,7 @@ const PatientProfile = () => {
         }
     }
 
+    // Function to connect a guardian or physician to a patient's account
     const onPressAdd = async () => {
         try {
             const inputPhys = parseInt(physicianUserNumber)
@@ -63,14 +66,13 @@ const PatientProfile = () => {
                 console.log(res)
                 window.location.reload()
             }
-
-
         } catch (error) {
             console.log(error)
             setError(error.response.data)
         }
-    } // 86328226
+    }
 
+    // Function to delete a guardian or physician from a patient's account
     const onPressDelete = async () => {
         try {
             const inputPhys = parseInt(physicianUserNumber)
@@ -99,6 +101,7 @@ const PatientProfile = () => {
         }
     }
 
+    // Function to delete a patient's account and saved data
     const onPressDeleteAccount = async () => {
         try {
             const storedDataString = localStorage.getItem('userInfo')
@@ -117,8 +120,6 @@ const PatientProfile = () => {
             console.log(error.response.data)
         }
     }
-
-
 
     return (
         <MDBContainer className="py-5" style={{ height: "100vh" }}>

@@ -2,7 +2,7 @@
 import Chart from "chart.js/auto";
 import { Radar } from "react-chartjs-2";
 
-
+// Renders a Radar chart with different configurations based on conditions
 const RadarChart = ({ data , maxTicks }) => {
     if (maxTicks != null) {
         return (

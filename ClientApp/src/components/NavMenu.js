@@ -5,25 +5,29 @@ import './NavMenu.css';
 import { useNavigate } from 'react-router-dom'
 import logo from '../image/whiteLogo.png';
 
+// NavMenu component manages navigation, user roles, and logout functionality
 const NavMenu = () => {
     const navigate = useNavigate();
-    const [collapsed, setCollapsed] = useState(true);
-    const [selectedRoute, setSelectedRoute] = useState('/PatientResults');
-    const [selectedRoute2, setSelectedRoute2] = useState('/PatientProfile');
-    const [isPatient, setIsPatient] = useState('')
+    const [collapsed, setCollapsed] = useState(true); // Tracks whether the navigation menu is collapsed
+    const [selectedRoute, setSelectedRoute] = useState('/PatientResults'); // Default route for the primary navigation link
+    const [selectedRoute2, setSelectedRoute2] = useState('/PatientProfile'); // Default route for the secondary navigation link
+    const [isPatient, setIsPatient] = useState('') // Tracks the user type (patient, guardian, or physician)
 
+    // Toggles the navigation menu's collapsed state
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
     };
 
+    // Logs out the user by clearing local storage and reloading the page
     const handleLogout = () => {
-        localStorage.removeItem('login');
-        localStorage.removeItem('userInfo');
-        localStorage.removeItem('patientID');
-        navigate("/")
-        window.location.reload();
+        localStorage.removeItem('login'); // Removes the login status
+        localStorage.removeItem('userInfo'); // Removes the user information
+        localStorage.removeItem('patientID'); // Removes the patient ID if stored
+        navigate("/") // Redirects the user to the home page
+        window.location.reload(); // Refreshes the page
     };
 
+    // useEffect hook runs once when the component mounts to set routes based on user role
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userInfo'));
         if (userData.isPatient == '1') {
